@@ -1,3 +1,0 @@
- ::ng-deep .no_checkbox>i.jstree-checkbox{
-    display:none
-}

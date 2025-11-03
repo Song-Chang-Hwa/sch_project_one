@@ -1,3 +1,0 @@
-<div class="lectureWrap" #slide *ngFor="let item of items">
-	<app-slideitem-manualitem [item]="item" [selectItem]="selectedItem" (selected)="evtItemSelected($event)"></app-slideitem-manualitem>
-</div>
