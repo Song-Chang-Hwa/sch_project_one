@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PrefImpDAO">
+
+	<select id="selectListForPrefImpGrid" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* PrefImpDAO.selectListForImpGrid */
+		SELECT
+			SEG_ID
+			,PREF_ID
+			,DATASET_ID
+			,VAL_ID
+			,IMP_ORDINAL
+			,PREF_VALUE
+			,IMP_VALUE
+			,PREF_TYPE
+			,USE_YN
+			,VAL_NM
+			,USE_YN as OLD_USE_YN
+			, dbo.F_CODE_NM('PREF_TYPE', PREF_TYPE) AS PREF_TYPE_NM
+  		FROM WP2_PREF_IMP A
+  		WHERE 1=1
+			AND A.PREF_ID = #PREF_ID#
+		ORDER BY A.IMP_ORDINAL
+	</select>
+	
+	<insert id="insert" parameterClass="java.util.Map">
+		/* PrefImpDAO.insert */
+		INSERT INTO WP2_PREF_IMP (
+			SEG_ID
+			,PREF_ID
+			,DATASET_ID
+			,VAL_ID
+			,IMP_ORDINAL
+			,PREF_VALUE
+			,IMP_VALUE
+			,PREF_TYPE
+			,USE_YN
+			,VAL_NM
+		) VALUES (
+			#SEG_ID#
+			,#PREF_ID#
+			,#DATASET_ID#
+			,#VAL_ID#
+			,#IMP_ORDINAL#
+			,#PREF_VALUE#
+			,#IMP_VALUE#
+			,#PREF_TYPE#
+			,#USE_YN#
+			,#VAL_NM#
+		)
+	</insert>
+	
+	<delete id="deleteByPrefId" parameterClass="java.util.Map">
+		/* PrefImpDAO.deleteByPrefId */
+		DELETE FROM WP2_PREF_IMP
+  		WHERE 1=1
+			AND PREF_ID = #PREF_ID#
+	</delete>
+
+</sqlMap>

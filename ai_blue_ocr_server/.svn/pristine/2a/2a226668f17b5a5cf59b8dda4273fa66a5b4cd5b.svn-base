@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AlgParamDAO">
+
+	<!-- 조회 -->
+	<select id="selectList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		/* AlgParamDAO.selectList */
+		SELECT ALG_ID
+      ,PARAM_NM
+      ,PARAM_DEFAULT
+      ,PARAM_VALUE
+      ,PARAM_DESC
+      ,DEL_YN
+  FROM WP2_ALG_PARAM 
+	 WHERE ALG_ID = #ALG_ID#
+	 AND DEL_YN = 'N' 
+	 ORDER BY PARAM_NM
+  </select>
+  
+  <update id="update" parameterClass="java.util.HashMap">
+		/* AlgParamDAO.update */
+  UPDATE WP2_ALG_PARAM
+     SET PARAM_VALUE = #PARAM_VALUE#
+   WHERE ALG_ID = #ALG_ID#
+   AND PARAM_NM = #PARAM_NM#
+  </update>
+	
+</sqlMap>

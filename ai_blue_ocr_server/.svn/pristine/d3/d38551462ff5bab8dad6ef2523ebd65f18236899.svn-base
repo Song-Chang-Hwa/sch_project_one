@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="RecognitionDAO">
+ 	<sql id="pagestart">
+ 		<![CDATA[
+		]]>
+ 	</sql>
+ 	
+ 	<sql id="pageend">
+ 		<![CDATA[
+		  LIMIT  #pageNo#, #PAGESIZE#
+		]]>
+ 	</sql>
+ 	
+ 	<select id="selectOcrDocMstList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* RecognitionDAO.selectOcrDocMstList */
+		SELECT
+			T1.PRJ_ID,
+			T1.DOC_SN,
+			T1.PAGE_CNT,
+			T1.STAT_CD,
+			T2.FILE_ORI_NM,
+			T1.BUSINESS_NM,
+			(SELECT FORMAT(ROUND(AVG(SCORE), 2), 2)
+				FROM
+					TB_OCR_DOC_TEXT	      
+				WHERE
+					PRJ_ID = T1.PRJ_ID
+					AND DOC_SN = T1.DOC_SN) AVERAGE_SCORE
+		FROM
+			TB_OCR_DOC_MST T1,
+			TB_OCR_FILE T2
+		WHERE
+			T1.DEL_YN = 'N'
+			AND T1.PRJ_ID = T2.PRJ_ID
+			AND T1.FILE_ID = T2.FILE_ID
+        <isNotEmpty property="STAT_CD">
+			AND T1.STAT_CD = #STAT_CD#
+	    </isNotEmpty> 			
+        <isNotEmpty property="FILE_NM">
+			AND T2.FILE_ORI_NM LIKE CONCAT('%',#FILE_NM#,'%')
+	    </isNotEmpty>
+	    <isNotEmpty property="BUSINESS_NM">
+			AND T1.BUSINESS_NM LIKE CONCAT('%',#BUSINESS_NM#,'%')
+	    </isNotEmpty> 
+		ORDER BY T1.PRJ_ID DESC, T1.DOC_SN DESC
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocMstListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* RecognitionDAO.selectOcrDocMstListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_MST T1,
+			TB_OCR_FILE T2	      
+		WHERE
+			T1.DEL_YN = 'N'
+			AND T1.PRJ_ID = T2.PRJ_ID
+			AND T1.FILE_ID = T2.FILE_ID
+        <isNotEmpty property="STAT_CD">
+			AND T1.STAT_CD = #STAT_CD#
+	    </isNotEmpty> 
+	    <isNotEmpty property="FILE_NM">
+			AND T2.FILE_ORI_NM LIKE CONCAT('%',#FILE_NM#,'%')
+	    </isNotEmpty>
+	    <isNotEmpty property="BUSINESS_NM">
+			AND T1.BUSINESS_NM LIKE CONCAT('%',#BUSINESS_NM#,'%')
+	    </isNotEmpty>
+	</select>
+ 
+ 	<insert id="insertOcrDocMst" parameterClass="java.util.Map">
+		/* RecognitionDAO.insertOcrDocMst */
+		INSERT INTO TB_OCR_DOC_MST ( 
+			PRJ_ID
+			, DOC_SN
+			, STAT_CD
+			, FILE_ID
+			, BUSINESS_NM
+			, REGI_ID
+			, REGI_DTTM
+			, UPDT_ID
+			, UPDT_DTTM
+			, DEL_YN
+		) VALUES (
+			#PRJ_ID#
+			, #DOC_SN#
+			, #STAT_CD#
+			, #FILE_ID#
+			, #BUSINESS_NM#
+			, #userId#
+			, NOW()
+			, #userId#
+			, NOW()
+			, 'N'
+		)
+	</insert>
+	
+	<insert id="insertOcrFile" parameterClass="java.util.Map">
+		/* RecognitionDAO.insertOcrFile */
+		INSERT INTO TB_OCR_FILE ( 
+			PRJ_ID
+			, FILE_ID
+			, FILE_ORI_NM
+			, FILE_PATH
+			, FILE_URL
+			, FILE_NM
+			, FILE_SIZE
+			, DEL_YN
+			, REGI_ID
+			, REGI_DTTM
+		) VALUES (
+			#PRJ_ID#
+			, #FILE_ID#
+			, #FILE_ORI_NM#
+			, #FILE_PATH#
+			, #FILE_URL#
+			, #FILE_NM#
+			, #FILE_SIZE#
+			, 'N'
+			, #userId#
+			, NOW()
+		)	
+	</insert>
+	
+	<update id="deleteOcrDocMst" parameterClass="java.util.Map">
+		/* RecognitionDAO.deleteOcrDocMst */
+		UPDATE 	TB_OCR_DOC_MST
+		SET		DEL_YN = 'Y'
+		WHERE	PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+	</update>
+	
+	<select id="selectOcrDocDetailList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* RecognitionDAO.selectOcrDocDetailList */
+		SELECT
+			PRJ_ID,
+			DOC_SN,
+			PAGE_SN,
+			DOC_NM,
+			DOC_TYPE,
+			FILE_NM,
+			FILE_PATH
+		FROM
+			TB_OCR_DOC_DETAIL
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+		ORDER BY PAGE_SN
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocDetailListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* RecognitionDAO.selectOcrDocDetailListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_DETAIL	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+	</select>
+	
+	<select id="selectOcrDocTextAverageScore" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* RecognitionDAO.selectOcrDocTextAverageScore */
+		SELECT FORMAT(ROUND(AVG(SCORE), 2), 2) AVERAGE_SCORE
+		FROM
+			TB_OCR_DOC_TEXT	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+	</select>
+	
+	<select id="selectOcrDocTextList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* RecognitionDAO.selectOcrDocTextList */
+		SELECT
+			PRJ_ID,
+			DOC_SN,
+			PAGE_SN,
+			TEXT_SN,
+			TEXT_X,
+			TEXT_Y,
+			TEXT_W,
+			TEXT_H,
+			TEXT_IMAGE_PATH,
+			TEXT_NM,
+			FORMAT(ROUND(SCORE, 2), 2) SCORE,
+			TEXT_UPDT_NM,
+			TEXT_TRAINING_NM,
+			TEXT_TRAINING_SCORE,
+			TEXT_TRAINING_CNT,
+			TEXT_TRAINING_DTTM,
+			REGI_ID,
+			REGI_DTTM,
+			UPDT_ID,
+			UPDT_DTTM
+		FROM
+			TB_OCR_DOC_TEXT
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+			<isEqual property="COND_CD" compareValue="100">
+	 		<![CDATA[
+				AND SCORE < 0.8
+			]]>				
+			</isEqual>			
+			<isEqual property="COND_CD" compareValue="110">
+	 		<![CDATA[
+				AND SCORE < 0.6
+			]]>				
+			</isEqual>	
+			<isEqual property="COND_CD" compareValue="120">
+	 		<![CDATA[
+				AND SCORE < 0.4
+			]]>				
+			</isEqual>	
+			<isEqual property="COND_CD" compareValue="130">
+				AND TEXT_UPDT_NM IS NOT NULL
+			</isEqual>
+		ORDER BY TEXT_SN
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocTextListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* RecognitionDAO.selectOcrDocTextListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_TEXT	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+			<isEqual property="COND_CD" compareValue="100">
+	 		<![CDATA[
+				AND SCORE < 0.8
+			]]>				
+			</isEqual>			
+			<isEqual property="COND_CD" compareValue="110">
+	 		<![CDATA[
+				AND SCORE < 0.6
+			]]>				
+			</isEqual>	
+			<isEqual property="COND_CD" compareValue="120">
+	 		<![CDATA[
+				AND SCORE < 0.4
+			]]>				
+			</isEqual>	
+			<isEqual property="COND_CD" compareValue="130">
+				AND TEXT_UPDT_NM IS NOT NULL
+			</isEqual>
+	</select>
+	
+	<update id="updateOcrDocTextByTextUpdtNm" parameterClass="java.util.Map">
+		/* RecognitionDAO.updateOcrDocTextByTextUpdtNm */
+		UPDATE 	TB_OCR_DOC_TEXT
+		SET		TEXT_UPDT_NM = #TEXT_UPDT_NM#,
+				UPDT_ID = #userId#,
+				UPDT_DTTM = NOW()
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+			AND TEXT_SN = #TEXT_SN#
+	</update>
+</sqlMap>

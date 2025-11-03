@@ -1,0 +1,153 @@
+			<div class="main-section">
+				<section class="content">
+					<div class="mainTotal">
+						<ul>
+							<li class="mainTotal01">
+								<dl>
+									<dt><span>전체문서</span></dt>
+									<dd>
+										<span class="count">{{totalDocCount}}</span>
+									</dd>
+								</dl>
+							</li>
+							<li class="mainTotal02">
+								<dl>
+									<dt><span>인식완료</span></dt>
+									<dd>
+										<span class="count">{{totalRecognitionCount}}</span>
+									</dd>
+								</dl>
+							</li>
+							<li class="mainTotal04">
+								<dl>
+									<dt><span>학습완료</span></dt>
+									<dd>
+										<span class="count">{{totalLearningCount}}</span>
+										<!-- <span class="unit">MB</span> -->
+									</dd>
+								</dl>
+							</li>
+							<li class="mainTotal03">
+								<dl>
+									<dt><span>기타</span></dt>
+									<dd>
+										<span class="count">{{totalEtcCount}}</span>
+									</dd>
+								</dl>
+							</li>
+						</ul>
+					</div>					
+				</section>
+			</div>
+			<!-- .main-section e -->
+			
+			<div class="subConView">
+				<h2 class="main-tit-level1">성과분석 보고서</h2>
+				<div class="mainCon01">
+					<div class="colRow">
+							<div class="roundBorder mainConH01">
+								<h2 class="tit-level2">추천 유형별 전환율(최근 10일)</h2>
+								<div class="modelChart">
+									<div class="data-chart">
+										<chart [type]="totalChartCallType"
+										[data]="totalChartCallData"
+										[options]="totalChartCallOptions" id="totalChartJs" #totalChartJs style="height:360px;"></chart>
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+
+				<!--<div class="mainCon01">
+					<div class="colRow">
+						<div class="col20">
+							<div class="roundBorder mainConH02">
+								<h2 class="tit-level2">추천구분</h2>
+								<div class="recomIndex-wrap">
+									<ul>
+										<li><a href="javascript:void(0);">LAYOUT</a></li>
+									</ul>
+									<ul id="rootTypeLayout">
+										<li *ngFor="let item of typeLayoutList" [ngClass]="LAYOUT === item.NAME ? 'active' : ''"><a href="javascript:void(0);" (click)="onChangeType(item.NAME)" >{{item.NAME}}</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col40">
+							<div class="gridArea mainConH02">
+								<div class="table-responsive">								
+								<ag-grid-angular
+									id="myGrid"
+									style="width: 99%; height: 425px;"
+									class="ag-theme-alpine"
+									[rowData]="myGridData"
+									[defaultColDef]="myDefaultColDef"
+									[columnDefs]="myGridColumnDefs"
+									[pagination]="myGridPagination"
+									[rowSelection]="myGridtRowSelection"
+									[debug]="true"
+									[rowHeight]="35"
+									paginationAutoPageSize=true
+									(gridReady)="onGridReady($event)"
+									(rowClicked)="onRowClick($event)"
+									(gridSizeChanged)="onGridColumnsSizeChange($event)"
+									(rowDataChanged)="onRowDataChanged($event)"
+									(selectionChanged)="gridOnSelectionChanged($event)"
+								>
+								</ag-grid-angular>
+								</div>
+							</div>
+						</div>
+						<div class="col40">
+							<div class="roundBorder mainConH02">
+								<h2 class="tit-level2">영역별 전환율 <span class="sotxt01">Top5</span></h2>
+								<ul class="performance-wrap performance-wrap-main">
+									<li *ngFor="let item of recoRateTop5ByAreaList">
+										<div class="performance">
+											<div class="tit-wrap">
+												<span class="tit">{{item.AREA}}</span>
+												<span class="percent">{{item.RECO_RATE}}%</span>
+											</div>
+											<div class="progress-wrap">
+												<div class="progress-bar" role="progressbar" style="width: {{ item.RECO_RATE }}%; height: 10px;"></div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mainCon01">
+					<div class="colRow">
+						<div class="col60">
+							<div class="roundBorder mainConH01">
+								<h2 class="tit-level2">수강신청수 <span class="sotxt02">(추천일자로 부터 3일 이내)</span></h2>
+								<div class="modelChart">
+									<div class="data-chart">
+										<chart [type]="enrollChartCallType"
+										[data]="enrollChartCallData"
+										[options]="enrollChartCallOptions" id="enrollChartJs" #enrollChartJs style="height:355px;"></chart>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col40">
+							<div class="roundBorder mainConH01">
+								<h2 class="tit-level2">선생님별 전환율 <span class="sotxt01">Top5</span></h2>
+								<div class="modelChart">
+									<div class="data-chart">
+										<chart [type]="teacherChartCallType"
+										[data]="teacherChartCallData"
+										[options]="teacherChartCallOptions" id="teacherChartJs" #teacherChartJs style="height:355px;"></chart>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+
+			</div>
+			

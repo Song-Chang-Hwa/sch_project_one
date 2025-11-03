@@ -1,0 +1,15 @@
+
+    <div class="middle-box text-center animated bounceInRight">
+        <!-- <h1>18</h1> -->
+        <h3 class="font-bold">예약 변경 접수 {{rsvCheReqCnt}} 건<br /> 접수 되었습니다.</h3>
+
+        <div class="error-desc">
+            <div class="errorContent">
+                <p>변경 완료 처리 페이지에서.<br />
+                	예약변경 미완료건을 처리해 주세요.</p>
+            </div>
+            
+			<a href="javascript:void(0)" (click)="routeLink('root')" class="btn btn-primary m-t">변경 완료 처리 페이지 이동</a>
+
+        </div>
+    </div>

@@ -1,0 +1,41 @@
+<div class="chartBtnArea mT15">
+	<div class="chartBtn">
+		<a href="javascript:void(0);" (click)="search()"  class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+	</div>
+</div>
+<div class="segmentType">
+	<div class="gridArea">
+		<div class="table-responsive">								
+			<ag-grid-angular
+				id="myGrid"
+				style="width: 100%; height: 610px;"
+				class="ag-theme-alpine"
+				[rowData]="myGridData"
+				[columnDefs]="myGridColumnDefs"
+				[pagination]="myGridPagination"
+				[rowSelection]="myGridtRowSelection"
+				[debug]="true"
+				[rowHeight]="35"
+				[defaultColDef]="myDefaultColDef"
+				paginationAutoPageSize=true
+				(gridReady)="onGridReady($event)"
+				(rowClicked)="onRowClick($event)"
+				(gridSizeChanged)="onGridColumnsSizeChange($event)"
+				(rowDataChanged)="onRowDataChanged($event)"
+				(selectionChanged)="gridOnSelectionChanged($event)"
+			>
+			</ag-grid-angular>
+		</div>
+	</div>
+</div>
+									
+								<!-- [rowMultiSelectWithClick]="true" <div class="grid-wrap">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerB3" class="dataGrid"></div>
+										</div>
+									</div>
+									<div class="btnArea text-right">
+										<a href="#" class="btn btn-primary">확인</a>
+									</div>
+								</div> -->

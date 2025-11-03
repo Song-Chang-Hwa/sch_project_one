@@ -1,0 +1,155 @@
+<div class="row mT15">
+	<div class="col-sm-6">
+		<div class="chartBtnArea">
+			<div class="chartBtn">	
+				<a href="javascript:void(0)" (click)="evtBtnNewClick()" class="btn btn-default" title="폴더추가"><i class="ti-plus"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnSaveClick()" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnSaveAsClick()" class="btn btn-default" title="다른이름으로 저장"><i class="ti-files"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnDeleteClick()" class="btn btn-default" title="삭제"><i class="ti-trash"></i></a>
+				<!-- <a href="javascript:void(0)" (click)="evtBtnPrefExecClick()" class="btn btn-info" title="Pref 재처리">Pref 재처리</a> -->
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="buttonGroup">
+			<div class="BtnGroupR">
+				<a *ngIf="viewMode === 1" href="javascript:void(0)" (click)="evtBtnPrefSelectClick()"  class="btn btn-primary" title="선택">선택</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="segmentType colRow">
+	<div class="packList02 col20">
+		<div class="treeCon mCustomScrollbar">
+			<app-tree-pref #prefTree [_PREF_ID]="_AI_MSTR.PREF_ID" (selected)="onPrefTreeSelected($event)"></app-tree-pref>
+		</div>
+	</div>
+
+	<div class="packInfo col80">
+		<div class="writeTypeCon">
+			<div class="writeType01 viewTable01">
+				<div class="requiredInfor">					
+					<div class="form-Area">
+						<div class="form-group">
+							<label class="control-label"><span class="star01">선호명</span></label>
+							<div class="formInput">
+								<input type="text" class="form-control" [(ngModel)]="detailinfo.PREF_NM">
+							</div>																			
+						</div>
+						<div class="form-group">
+							<label class="control-label"><span class="star01">선호유형</span></label>
+							<div class="formInput">
+								<div class="input-group">
+									<input type="text" class="form-control" [(ngModel)]="detailinfo.FLD_NM" readonly>
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" (click)="openTypePrefModal()"><i class="ti-search"></i></button>
+									</span>
+								</div>
+							</div>																			
+						</div>
+						<!--div class="form-group">
+							<label class="control-label"><span class="star01">선호값</span></label>
+							<div class="formInput">
+								<input class="touchspin01" type="number" [(ngModel)]="detailinfo.PREF_VALUE" #inputPrefValue>
+							</div>																			
+						</div-->
+						<!--div class="form-group">
+							<label class="control-label"><span class="star01">선호타입</span></label>
+							<div class="formInput">
+								<a href="#" class="btn btn-info btn-outline">Manual</a>
+								<a href="#" class="btn btn-primary btn-outline" data-toggle="modal" data-target="#weightSetupPop">가중치 자동설정</a>
+							</div>																			
+						</div-->
+						<div class="form-group">
+							<label class="control-label"><span class="star01">SQL Type</span></label>
+							<div class="formInput">
+								<div class="input-group">
+									<div class="selects">
+										<select class="form-control" name="" [(ngModel)]="detailinfo.PREF_SQL_TYPE">
+											<option *ngFor="let data of prefSqlTypeList" value="{{data.CODE_ID}}">{{data.CODE_NM}}</option>
+										</select>
+									</div>
+									<span class="input-group-btn">
+										<button type="button" [class]="detailinfo.PREF_SQL ? 'btn btn-primary' : 'btn btn-default'" (click)="evtBtnSqlClick()">SQL</button>
+									</span>
+								</div>
+							</div>																				
+						</div>
+						<div class="form-group">
+							<label class="control-label"><span class="star01">선호설명</span></label>
+							<div class="formInput">
+								<input type="text" class="form-control" [(ngModel)]="detailinfo.PREF_DESC">
+							</div>																			
+						</div>
+						<div class="form-group">
+							<label class="control-label"><span class="star01">순서</span></label>
+							<div class="formInput">
+								
+									<input class="touchspin" type="text" [(ngModel)]="detailinfo.ORDINAL" #inputOrdinal>
+							</div>																			
+						</div>
+						<div class="form-group">
+							<label class="control-label"><span class="star01">상태</span></label>
+							<div class="formInput">
+								<div class="selects">
+									<select class="form-control" name="" [(ngModel)]="detailinfo.PREF_STATUS" disabled *ngIf="viewMode==1">
+										<option *ngFor="let data of prefStatusList" value="{{data.CODE_ID}}">{{data.CODE_NM}}</option>
+									</select>
+									<select class="form-control" name="" disabled *ngIf="viewMode==0">
+										<option value="40">작성중</option>
+									</select>
+								</div>
+							</div>																				
+						</div>
+						<!--div class="form-group">
+							<label class="control-label"><span class="star01">SQL Type</span></label>
+							<div class="formInput">
+								<div class="selects">
+									<select class="form-control" name="" [(ngModel)]="detailinfo.PREF_SQL_TYPE">
+										<option value="Advanced">Advanced</option>
+										<option value="Preference">Preference</option>
+									</select>
+								</div>
+							</div>																				
+						</div-->
+					</div>
+				</div>
+			</div>
+			<div class="mainCon01">
+				<div class="colRow mB5">
+					<div class="col50">
+						<div class="buttonGroup">
+							<div class="BtnGroupR">	
+								<a href="javascript:void(0)" (click)="evtBtnPrefImpExecClick()" class="btn btn-info" title="실행">실행</a>
+							</div>
+						</div>
+					</div>
+					<div class="col50"></div>
+				</div>
+				<div class="colRow">
+					<div class="col50">
+			<!-- <div style="margin-top: 30px;display: flex;"> -->
+						<app-grid-prefimp #prefImpGrid style="flex-grow: 1;" (onPrefGrid)="viewChart()"></app-grid-prefimp>
+					</div>
+						<div class="col50">
+							<div class="roundBorder mainConH01" style="height: 385px;">
+								<h2 class="tit-level2"><span class="sotxt01"></span></h2><!--선호값 추천-->
+								<div class="modelChart">
+									<div class="data-chart">
+										<chart [type]="chartCallType"
+										[data]="chartCallData"
+										[options]="chartCallOptions" id="chartJs" #chartJs style="height:350px;"
+										></chart>
+									</div>
+								</div>
+							</div>
+						</div>
+			<!-- </div> -->
+				</div>
+			</div>
+			<!--app-grid-pref #prefGrid (selected)="onPrefSelected($event)"></app-grid-pref-->
+		</div>
+	</div>
+</div>
+<app-modal-typepref #typePrefModal></app-modal-typepref>
+<app-modal-pref-sql #sqlModal></app-modal-pref-sql>
