@@ -1,0 +1,120 @@
+package com.sht.eduai.segment.segdef.controller;
+
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.eduai.comm.service.CommService;
+import com.sht.eduai.segment.segdef.service.SegDefService;
+import com.sht.eduai.vo.ComResultVO;
+import com.sht.util.CommUtils;
+
+/**
+ * 추천정의 > 추천유형 정의  
+ * @author miyoungKim
+ *
+ */
+@RestController
+//@RequestMapping("api")
+public class SegDefController {
+
+	private static final Logger logger = LoggerFactory.getLogger(SegDefController.class);
+	
+	@Autowired
+	private SegDefService service;
+	
+	@Autowired
+	private CommService commService;
+	
+	/**
+	 * 추천팩 유형 세그먼트 리스트 조회.
+	 * @param httpRequest
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	                                   
+    @RequestMapping(value="/segment/segdef/selectList", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO selectList(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("selectList");
+//    	paramMap.put("userId", CommUtils.getUser());
+//    	paramMap.put("hsptId",commService.selectHsptId(CommUtils.getUser()));
+    	
+    	return service.selectList(paramMap);
+    }
+    
+//    @RequestMapping(value="/segment/segdef/insert", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+//	public ComResultVO insert(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+//    	paramMap.put("userId", CommUtils.getUser());
+////    	paramMap.put("hsptId",commService.selectHsptId(CommUtils.getUser()));
+////    	paramMap.put("webAccKey",commService.selectWebAccKey());
+//		return service.insert(paramMap);
+//    }
+    
+    @RequestMapping(value="/segment/segdef/save", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO save(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.update(paramMap);
+    }
+    
+    @RequestMapping(value="/segment/segdef/save-as", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO saveAs(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+    
+    @RequestMapping(value="/segment/segdef/delete", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO delete(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.delete(paramMap);
+    }
+    
+    @RequestMapping(value="/segment/segdef/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO add(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+    
+    /**
+     * 세그먼트 선택여부 수정
+     * @param request
+     * @param paramMap
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/segment/segdef/updateUseYn", method=RequestMethod.POST )
+    public ComResultVO updateUseYn(HttpServletRequest request, @RequestBody List<Map<String, Object>> listParamMap) throws Exception{
+    	logger.debug("updateUseYn: {}", listParamMap);
+    	
+    	return service.updateUseYn(listParamMap);
+    	
+    }
+    
+    
+}

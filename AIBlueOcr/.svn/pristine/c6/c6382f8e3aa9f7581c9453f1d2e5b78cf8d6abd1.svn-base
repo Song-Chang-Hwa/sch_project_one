@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="StatsMstrDAO">
+
+	<select id="selectListForStatsGrid" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* StatsMstrDAO.selectListForStatsGrid */
+		SELECT
+			A.SEG_ID
+			,A.STATS_ID
+			,A.STATS_NM
+			,A.FLD_ID
+			,A.RTN_CNT
+			,A.STATS_TYPE
+			,A.IU_TYPE
+			,A.DESIGN_KEY_VALUE
+			,A.STATS_DESC
+			,A.DEL_YN
+			,A.ORDINAL
+			,A.STATS_STATUS
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,C.SEG_NM
+			,D.CODE_NM AS STATS_TYPE_NM
+			,E.CODE_NM AS STATS_STATUS_NM
+			,dbo.F_CODE_NM('SEG_STATUS', A.STATS_STATUS) AS STATS_STATUS_NM
+			,dbo.F_CODE_NM('IU_TYPE', A.IU_TYPE) AS IU_TYPE_NM
+			,dbo.F_DECRYPT(A.STATS_XML) AS STATS_XML
+			,dbo.F_DECRYPT(A.STATS_SQL) AS STATS_SQL
+  		FROM WP2_STATS_MSTR A
+  			JOIN WP2_TYPE_STATS_MSTR B ON A.FLD_ID = B.FLD_ID
+  			JOIN WP2_SEG_MSTR C ON A.SEG_ID = C.SEG_ID
+  			JOIN WP2_CODE_MSTR D ON D.PARENT_ID = 'STATS_TYPE' AND D.CODE_ID = A.STATS_TYPE
+  			JOIN WP2_CODE_MSTR E ON E.PARENT_ID = 'SEG_STATUS' AND E.CODE_ID = A.STATS_STATUS
+  		WHERE 1=1
+			AND A.FLD_ID = #FLD_ID#
+			AND A.DEL_YN = 'N' 
+		ORDER BY A.ORDINAL 
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_STATS_MSTR
+		SET
+			SEG_ID = #SEG_ID#
+			,STATS_NM = #STATS_NM#
+			,FLD_ID = #FLD_ID#
+			,RTN_CNT = #RTN_CNT#
+			,STATS_TYPE = #STATS_TYPE#
+			,IU_TYPE = #IU_TYPE#
+			,DESIGN_KEY_VALUE = #DESIGN_KEY_VALUE#
+			,STATS_XML = dbo.F_ENCRYPT(#STATS_XML#)
+			,STATS_SQL = dbo.F_ENCRYPT(#STATS_SQL#)
+			,STATS_DESC = #STATS_DESC#
+			,ORDINAL = #ORDINAL#
+			,STATS_STATUS = #STATS_STATUS#
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = GETDATE()
+		WHERE
+			STATS_ID = #STATS_ID#
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_STATS_MSTR
+		SET
+			DEL_YN = 'Y'
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = GETDATE()
+		WHERE
+			STATS_ID = #STATS_ID#
+	</update>
+	
+	<insert id="insert" parameterClass="java.util.Map">
+		INSERT INTO WP2_STATS_MSTR (
+			SEG_ID
+			,STATS_NM
+			,FLD_ID
+			,RTN_CNT
+			,STATS_TYPE
+			,IU_TYPE
+			,DESIGN_KEY_VALUE
+			,STATS_XML
+			,STATS_SQL
+			,STATS_DESC
+			,DEL_YN
+			,ORDINAL
+			,STATS_STATUS
+			,REG_USER_NO
+			,REG_DT
+		) VALUES (
+			#SEG_ID#
+			,#STATS_NM#
+			,#FLD_ID#
+			,#RTN_CNT#
+			,#STATS_TYPE#
+			,#IU_TYPE#
+			,#DESIGN_KEY_VALUE#
+			,dbo.F_ENCRYPT(#STATS_XML#)
+			,dbo.F_ENCRYPT(#STATS_SQL#)
+			,#STATS_DESC#
+			,#DEL_YN#
+			,#ORDINAL#
+			,#STATS_STATUS#
+			,#USER_NO#
+			,GETDATE()
+		)
+		<selectKey keyProperty="STATS_ID" resultClass="Integer">
+			SELECT ident_current('WP2_STATS_MSTR')
+		</selectKey>
+	</insert>
+
+ 	<select id="selectListByStatsNm" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* StatsMstrDAO.selectListByStatsNm */
+		SELECT
+			A.SEG_ID
+			,A.STATS_ID
+			,A.STATS_NM
+			,A.FLD_ID
+			,A.RTN_CNT
+			,A.STATS_TYPE
+			,A.IU_TYPE
+			,A.DESIGN_KEY_VALUE
+			,A.STATS_DESC
+			,A.DEL_YN
+			,A.ORDINAL
+			,A.STATS_STATUS
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,C.SEG_NM
+			,D.CODE_NM AS STATS_TYPE_NM
+			,E.CODE_NM AS STATS_STATUS_NM
+  		FROM WP2_STATS_MSTR A
+  			JOIN WP2_TYPE_STATS_MSTR B ON A.FLD_ID = B.FLD_ID
+  			JOIN WP2_SEG_MSTR C ON A.SEG_ID = C.SEG_ID
+  			JOIN WP2_CODE_MSTR D ON D.PARENT_ID = 'STATS_TYPE' AND D.CODE_ID = A.STATS_TYPE
+  			JOIN WP2_CODE_MSTR E ON E.PARENT_ID = 'SEG_STATUS' AND E.CODE_ID = A.STATS_STATUS
+  		WHERE 1=1
+		  AND A.STATS_NM = #STATS_NM#
+		  <isEqual property="case" compareValue="update">
+			  AND A.STATS_ID <![CDATA[<>]]> #STATS_ID#
+		  </isEqual>
+		  <isEqual property="case" compareValue="insert">
+		  </isEqual>
+		  AND A.DEL_YN = 'N'
+	</select>
+
+	<select id="selectListForStatsCheckableTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TypeStatsMstrDAO.selectListForStatsCheckableTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+			, SEG_ID
+			, STATS_ID
+			, STATS_NM
+			, FLD_ID
+			, RTN_CNT
+			, STATS_TYPE
+			, IU_TYPE
+			, DESIGN_KEY_VALUE
+			, STATS_DESC
+			, DEL_YN
+			, ORDINAL
+			, STATS_STATUS
+			, REG_USER_NO
+			, REG_DT
+			, UPD_USER_NO
+			, UPD_DT
+			, '10' AS RECO_TYPE
+			, '통계기반' AS RECO_TYPE_NM
+			, STATS_ID AS RECO_ID
+			, STATS_NM AS RECO_NM
+			, '' AS ITEM_ID
+			, 1 AS ITEM_ORDINAL
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS VARCHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_STATS_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_STATS_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typeStats' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				,NULL AS SEG_ID
+				,NULL AS STATS_ID
+				,NULL AS STATS_NM
+				,NULL AS FLD_ID
+				,NULL AS RTN_CNT
+				,NULL AS STATS_TYPE
+				,NULL AS IU_TYPE
+				,NULL AS DESIGN_KEY_VALUE
+				,NULL AS STATS_DESC
+				,NULL AS DEL_YN
+				,NULL AS ORDINAL
+				,NULL AS STATS_STATUS
+				,NULL AS REG_USER_NO
+				,NULL AS REG_DT
+				,NULL AS UPD_USER_NO
+				,NULL AS UPD_DT
+			FROM WP2_TYPE_STATS_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.STATS_ID AS VARCHAR(50)) AS id
+				, B.STATS_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'stats' AS type
+				, 2 AS ord1
+				, B.ORDINAL as ord2
+				,B.SEG_ID
+				,B.STATS_ID
+				,B.STATS_NM
+				,B.FLD_ID
+				,B.RTN_CNT
+				,B.STATS_TYPE
+				,B.IU_TYPE
+				,B.DESIGN_KEY_VALUE
+				,B.STATS_DESC
+				,B.DEL_YN
+				,B.ORDINAL
+				,B.STATS_STATUS
+				,B.REG_USER_NO
+				,B.REG_DT
+				,B.UPD_USER_NO
+				,B.UPD_DT
+			FROM WP2_STATS_MSTR B
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				AND B.DEL_YN = 'N'
+				<isNotEmpty prepend="AND" property="exceptItemId">
+					<iterate prepend="B.STATS_ID NOT IN " property="exceptItemId" open="(" close=")" conjunction=",">
+						$exceptItemId[]$
+					</iterate>
+				</isNotEmpty>
+		) AS C
+		ORDER BY ord1, ord2		
+	</select>
+
+</sqlMap>

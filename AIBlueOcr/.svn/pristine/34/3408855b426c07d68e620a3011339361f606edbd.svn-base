@@ -1,0 +1,185 @@
+package com.sht.eduai.main.service;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.dao.CommonBaseDAO;
+import com.sht.eduai.vo.ComResultVO;
+import com.sht.util.CommUtils;
+import com.sht.util.DateUtils;
+
+import kr.co.stc.core.util.StringUtil;
+
+
+/**
+ * 추천정의 > 추천유형 정의  
+ * @author miyoungKim
+ *
+ */
+@Service
+public class MainService {
+
+	private Logger logger = LoggerFactory.getLogger(MainService.class);
+	
+	
+	@Autowired
+	private CommonBaseDAO commonBaseDAO;
+	
+	
+	/**
+	 * 전체 추천 유형별 전환율 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectTotalRecoRate(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		// 최근 10일 
+		String START_DATE = CommUtils.addDate(paramMap.get("END_DATE").replaceAll("-", ""), "-", -10); 
+		paramMap.put("START_DATE", START_DATE);
+		
+		List<Map<String, Object>> list = this.commonBaseDAO.list("RecoReportDAO.selectTotalRecoRate", paramMap);
+			
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		dataMap.put("dataCount", list.size());
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+	
+	/** 일자별 현황 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectRecoRateByDate(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		List<Map<String, Object>> list = this.commonBaseDAO.list("RecoReportDAO.selectRecoRateByDate", paramMap);
+			
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		dataMap.put("dataCount", list.size());
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+
+	/**
+	 * 수강신청수 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectEnrollCount(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		List<Map<String, Object>> list = this.commonBaseDAO.list("RecoReportDAO.selectEnrollCount", paramMap);
+			
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		dataMap.put("dataCount", list.size());
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+	
+
+
+	/**
+	 * 선생님별 전환율 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectRecoRateTop5ByTeacher(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		List<Map<String, Object>> list = this.commonBaseDAO.list("RecoReportDAO.selectRecoRateTop5ByTeacher", paramMap);
+			
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		dataMap.put("dataCount", list.size());
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+
+	/**
+	 * 영역별 전환율 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectRecoRateTop5ByArea(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		List<Map<String, Object>> list = this.commonBaseDAO.list("RecoReportDAO.selectRecoRateTop5ByArea", paramMap);
+			
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		dataMap.put("dataCount", list.size());
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+	
+	/**
+	 * 최근 기준일자 조회 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectMaxDate(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		String END_DATE = DateUtils.getToday("YYYY-MM-DD");
+		Map<String, Object> map = (Map<String, Object>) this.commonBaseDAO.selectByPk("RecoReportDAO.selectMaxDate", paramMap);
+		if (map != null) {
+			END_DATE = (String) map.get("DATE");
+		}
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("END_DATE", END_DATE);
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+
+	/**
+	 * 건수조회 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO selectTotalCount(Map<String, String> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("totalModelCount", this.commonBaseDAO.selectByPk("AiMstrDAO.selectTotalModelCount", null));
+		dataMap.put("totalExcuteModelCount", this.commonBaseDAO.selectByPk("AiMstrDAO.selectTotalExcuteModelCount", null));
+		dataMap.put("totalDataCount", this.commonBaseDAO.selectByPk("DatasetDAO.selectTotalDataCount", null));
+		dataMap.put("totalSegGount", this.commonBaseDAO.selectByPk("SegMstrDAO.selectTotalSegGount", null));
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+
+		return comResultVO;
+	}
+	
+}

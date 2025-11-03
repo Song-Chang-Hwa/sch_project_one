@@ -1,0 +1,129 @@
+import { HttpParams } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+// import { routerTransition } from '../../../../router.animations';
+/*공통 추가*/
+import { Router, RouterLinkActive } from '@angular/router';
+import { first } from 'rxjs/operators';
+
+import { ApigatewayService } from '../apigateway/apigateway.service';
+import { CommFunction } from '../function/CommFunction.service';
+import { LoggerService } from '../logger/logger.service';
+
+@Injectable()
+export class CommService {
+    params: HttpParams;
+    menulist: any;
+    // codelist: any;
+    isLoggedin: any = this.cf.nvl(sessionStorage.getItem('isLoggedin'), 'false');
+    MEM_GUBUN: any = this.cf.nvl(sessionStorage.getItem('memb_gubun'), 'G');
+
+    constructor(
+        private apigatewayService: ApigatewayService,
+        private logger: LoggerService,
+        private cf: CommFunction,
+        private router: Router,
+        private sanitizer: DomSanitizer
+    ) {}
+
+    /**
+     *  메뉴
+     *
+     */
+    getMenuList() {
+        // alert('getMenuList--->' + this.menulist.length);
+        this.menulist = [
+            {
+                title: '추천 세그먼트',
+                url: 'advisorsegment',
+                children: [],
+            },
+            {
+                title: '추천 모델',
+                url: 'advisordefinition',
+                children: [],
+            },
+            {
+                title: '모델평가',
+                url: 'advisordefinition',
+                children: [],
+            },
+            { title: '레이아웃', url: 'layout' },
+            { title: '시뮬레이션', url: 'simulation' },
+            // {title: '모니터링', url: ''},
+        ];
+        return this.menulist;
+    }
+    /**
+     *  메뉴
+     *
+     */
+    // getMenuListDb() {
+    //     const serviceUrl = 'comm/getMenuList';
+
+    //     this.params = new HttpParams().set('MEMB_GUBUN_CD', this.MEM_GUBUN);
+    //     let promise = new Promise((resolve, reject) => {
+    //         this.apigatewayService.doGet(serviceUrl , this.params)
+    //                 .pipe(first())
+    //                 .subscribe(
+    //                 resultData => {  // Success
+    //                                 resolve(resultData.data);
+    //                                 // this.menulist = resultData.data;
+    //                                 }
+    //                 , error => {     // Error
+    //                         // reject(error);
+    //                         this.logger.debug(JSON.stringify(error, null, 4));
+    //                     })});
+    //     return promise;
+
+    // }
+
+    /*공통코드 리스트 */
+    getCodelist(PARENT_ID) {
+        const serviceUrl = 'comm/getCodelist';
+        this.params = new HttpParams().set('PARENT_ID', PARENT_ID);
+        this.params = this.params.set('USE_YN', 'Y');
+
+        const promise = new Promise((resolve, reject) => {
+            this.apigatewayService
+                .doGet(serviceUrl, this.params)
+                .pipe(first())
+                .subscribe(
+                    resultData => {
+                        // Success
+                        resolve(resultData.data.list);
+                    },
+                    error => {
+                        // Error
+                        // reject(error);
+                        this.logger.debug(JSON.stringify(error, null, 4));
+                    }
+                );
+        });
+        return promise;
+    }
+
+    getChartColor(n) {
+        const chartColors: any = [
+            'orange',
+            'green',
+            'blue',
+            'purple',
+            'red',
+            'darkgoldenrod',
+            // 'rgba(255,255,000,0.5)',
+            'rgba(5,213,166, 1)',
+            // 'rgba(37,50,195, 1)',
+            'rgba(211,110,194, 1)',
+            'rgba(205,23,55, 1)',
+            'rgba(79,248,102, 1)',
+        ];
+        while (n > chartColors.length) {
+            const r = Math.round(Math.random() * 255);
+            const g = Math.round(Math.random() * 255);
+            const b = Math.round(Math.random() * 255);
+            chartColors.push('rgba(' + r + ',' + g + ',' + b + ', 1)');
+        }
+        return chartColors;
+    }
+}

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AbtestMstrDAO">
+
+	<select id="selectListForAbtestTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* AbtestMstrDAO.selectListForAbtestTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS CHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_ABTEST_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_ABTEST_MSTR WHERE FLD_ID = A.FLD_ID<!--  AND DEL_YN = 'N' -->)
+					) AS children
+				, 'typeAbtest' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				, NULL AS AI_ID
+				, NULL AS AI_NM
+			FROM WP2_TYPE_ABTEST_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.ABTEST_ID AS CHAR(50)) AS id
+				, B.ABTEST_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'abtest' AS type
+				, 2 AS ord1
+				, ROW_NUMBER() OVER (ORDER BY B.ABTEST_ID) as ord2
+				, NULL AS AI_ID
+				, NULL AS AI_NM
+			FROM WP2_ABTEST_MSTR B
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				<!-- AND B.DEL_YN = 'N' -->
+		) AS C
+		ORDER BY ord1, ord2
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_ABTEST_MSTR
+		SET
+			 ABTEST_NM = #ABTEST_NM# 
+           ,  SEG_ID  = #SEG_ID#
+           ,  FLD_ID  = #FLD_ID#
+           ,  START_DATE = CONVERT(smalldatetime, #START_DATE#) 
+           ,  END_DATE = CONVERT(smalldatetime, #END_DATE#)
+           ,  TRG_TYPE = #TRG_TYPE# 
+           ,  TRG_CNT = #TRG_CNT#
+           ,  TRG_IDX = #TRG_IDX#
+           ,  AB_DESC = #AB_DESC#
+           ,  AB_SQL = dbo.F_ENCRYPT(#AB_SQL#)
+		   ,UPD_USER_NO = #USER_NO#
+		   ,UPD_DT = NOW()
+		WHERE
+			ABTEST_ID = #ABTEST_ID#
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterClass="java.util.HashMap">
+		DELETE 
+		  FROM WP2_ABTEST_MSTR
+		 WHERE ABTEST_ID = #ABTEST_ID#
+	</update>
+
+	<insert id="insert" parameterClass="java.util.Map">
+		INSERT INTO WP2_ABTEST_MSTR (
+			  ABTEST_NM  
+           ,  SEG_ID  
+           ,  FLD_ID  
+           ,  START_DATE  
+           ,  END_DATE  
+           ,  TRG_TYPE  
+           ,  TRG_CNT  
+           ,  TRG_IDX  
+           ,  AB_STATUS  
+           ,  AB_DESC
+           ,  AB_SQL  
+           <!-- ,  STAT_RSLT_JSON   -->
+            ,REG_USER_NO
+			,REG_DT
+		) VALUES (
+			 #ABTEST_NM#
+			,#SEG_ID#
+			,#FLD_ID#
+			,CONVERT(smalldatetime, #START_DATE#)
+			,CONVERT(smalldatetime, #END_DATE#)
+			,#TRG_TYPE#
+			,#TRG_CNT#
+			,#TRG_IDX#
+			,#AB_STATUS#
+			,#AB_DESC#
+			,dbo.F_ENCRYPT(#AB_SQL#)
+			,#USER_NO#
+			,NOW()
+		)
+		<selectKey keyProperty="ABTEST_ID" resultClass="Integer">
+			SELECT ident_current('WP2_ABTEST_MSTR')
+		</selectKey>
+	</insert>
+
+ 	<select id="selectListByAbtestNm" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT A.ABTEST_ID
+		, A.ABTEST_NM  
+           ,  A.SEG_ID  
+           ,  A.FLD_ID  
+           ,  CONVERT(CHAR(10), A.START_DATE, 120) AS START_DATE  
+           ,  CONVERT(CHAR(10), A.END_DATE, 120) AS END_DATE  
+           ,  A.TRG_TYPE  
+           ,  A.TRG_CNT  
+           ,  A.TRG_IDX  
+           ,  A.AB_STATUS  
+           <!-- ,  AB_SQL  
+           ,  STAT_RSLT_JSON   -->
+            ,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+  		FROM WP2_ABTEST_MSTR A
+  			JOIN WP2_TYPE_ABTEST_MSTR B ON A.FLD_ID = B.FLD_ID
+  		WHERE 1=1
+			AND A.ABTEST_NM = #ABTEST_NM#
+			<isEqual property="case" compareValue="update">
+				AND A.ABTEST_ID <![CDATA[<>]]> #ABTEST_ID#
+			</isEqual>
+			<isEqual property="case" compareValue="insert">
+			</isEqual>
+	</select>
+	
+	<select id="select" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT A.ABTEST_ID
+		   , A.ABTEST_NM  
+           ,  A.SEG_ID  
+           ,  A.FLD_ID  
+           ,  CONVERT(CHAR(10), A.START_DATE, 120) AS START_DATE  
+           ,  CONVERT(CHAR(10), A.END_DATE, 120) AS END_DATE  
+           ,  A.TRG_TYPE  
+           ,  A.TRG_CNT  
+           ,  A.TRG_IDX  
+           ,  A.AB_STATUS
+		   ,dbo.F_DECRYPT(A.AB_SQL) AS AB_SQL  
+		   , A.AB_DESC
+           ,  A.STAT_RSLT_JSON
+            ,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,C.SEG_NM
+  		FROM WP2_ABTEST_MSTR A
+  			JOIN WP2_TYPE_ABTEST_MSTR B ON A.FLD_ID = B.FLD_ID
+  			JOIN WP2_SEG_MSTR C ON A.SEG_ID = C.SEG_ID
+  		WHERE 1=1
+		  AND A.ABTEST_ID = #ABTEST_ID#
+	</select>
+
+</sqlMap>

@@ -1,0 +1,61 @@
+package com.sht.eduai.entity.service;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.dao.CommonBaseDAO;
+import com.sht.eduai.vo.ComResultVO;
+
+
+/**
+ * 세그먼트 목록 팝업
+ * @author miyoungKim
+ *
+ */
+@Service
+public class TypeStatsMstrService {
+
+	private Logger logger = LoggerFactory.getLogger(TypeStatsMstrService.class);
+	
+	
+	@Autowired
+	private CommonBaseDAO commonBaseDAO;
+	
+	
+//	@Transactional(readOnly=true)
+//	public List<Map<String, Object>> selectListForSegTree(Map<String, Object> paramMap)throws Exception{
+//		
+//		ComResultVO comResultVO = new ComResultVO();
+//
+//		List<Map<String, Object>> list = this.commonBaseDAO.list("TypeSegMstrDAO.selectListForSegTree", paramMap);
+//	   	Map<String, Object> dataMap = new HashMap<String, Object>();
+//		dataMap.put("list", list);
+//		
+//		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+//		comResultVO.setData(dataMap);
+//		return list;
+//	}
+	
+	@Transactional(readOnly=true)
+	public List<Map<String, Object>> selectListForTypeStatsTree(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+
+		List<Map<String, Object>> list = this.commonBaseDAO.list("TypeStatsMstrDAO.selectListForTypeStatsTree", paramMap);
+	   	Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+		return list;
+	}
+}

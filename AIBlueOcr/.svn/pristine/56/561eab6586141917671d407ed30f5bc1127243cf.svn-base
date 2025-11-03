@@ -1,0 +1,269 @@
+package com.sht.eduai.comm.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sht.common.AuthenticationToken;
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.service.CommService;
+import com.sht.eduai.vo.ComResultVO;
+import com.sht.util.BrowserURLEncoder;
+import com.sht.util.CommUtils;
+import java.net.URLDecoder;
+
+import kr.co.stc.core.util.StringUtil;
+
+@RestController
+//@RequestMapping("api")
+public class CommController {
+
+	private static final Logger logger = LoggerFactory.getLogger(CommController.class);
+	
+	//@Autowired
+	//private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CommService commService;
+	
+
+	/**
+	 * 공통코드 리스트 
+	 * @param request
+	 * @param session
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/comm/getCodelist", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO selectCodelist(HttpServletRequest request, HttpSession session, @RequestParam Map<String, Object> paramMap) throws Exception{
+				
+		return commService.selectCodelist(paramMap);
+		
+	}
+    
+	/**
+     * 서버 접속 테스트
+     * @author
+     * @param request
+     * @param session
+     * @param List<Map<String, Object>>
+     * @return Map
+     * @throws Exception
+     */
+    @RequestMapping(value="/any/connectTest", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO connectTest(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+
+        return commService.connectTest(request);
+        
+        
+    }
+    
+    /**
+     * 서버 접속 테스트
+     * @author
+     * @param request
+     * @param session
+     * @param List<Map<String, Object>>
+     * @return Map
+     * @throws Exception
+     */
+    @RequestMapping(value="/any/connectTestDb1", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO connectTestDb1(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+        return commService.connectTestDb1(paramMap);
+    }
+    
+    /**
+	 * 공통 화면 접근 로그 입력.
+	 * @param httpRequest
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/comm/insertCommonLog", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+    public ComResultVO insertCommonLog(HttpServletRequest request,@RequestBody  Map<String, String> paramMap) throws Exception{
+    	Map<String, Object> result = new HashMap();
+    	logger.debug("logstart");
+    	UserDetails user;
+    	String userId = "";
+    	
+		String logauthToken = "";
+		logauthToken = request.getHeader(EDUAIConstant.HEADER_TOKEN_KEY);
+		ComResultVO comResultVO = new ComResultVO();
+
+		if(logauthToken != null) {
+			userId = AuthenticationToken.getUserName(logauthToken);
+			if("".equals(userId)) {
+				userId = "guest";
+			}
+		}
+
+		String url = URLDecoder.decode(paramMap.get("url"), "UTF-8");     
+    	try
+    	{
+			Map<String, Object> logparam = new HashMap<String, Object>();
+			logparam.put("userId", userId);
+			logparam.put("progNm", url);
+			logparam.put("serverNm", "eduai");
+			logparam.put("userIp", CommUtils.getClientIP(request) ); //대상번호
+			comResultVO = commService.insertCommonLog(logparam);
+
+
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    	return comResultVO;
+    	
+    }
+
+    
+	/**
+	 * 메뉴를 조회를 한다.
+	 * @param request
+	 * @param session
+	 * @param paramMap
+	 * @return Map
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value="/api/getMenuList", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<?, ?> selectGetMenuList(HttpServletRequest request, HttpSession session, @RequestParam Map<String, String> paramMap) throws Exception{
+				
+		String authToken = request.getHeader("Content-Type");
+		Map lvparam = new HashMap();
+		
+//		List<Map<String, Object>> list;
+		List<Map<String, Object>> childlistlv1 = null;
+		List<Map<String, Object>> childlistlv2 = null;
+		List<Map<String, Object>> childlistlv3 = null;
+		
+		List<Map<String, Object>> TEMP = new ArrayList<Map<String, Object>>();
+		
+		Map map = new HashMap();
+		
+
+		
+		Map mapparamlv1 = new HashMap();
+		Map mapparamlv2 = new HashMap();
+		Map mapparamlv3 = new HashMap();
+		
+		mapparamlv1.put("userId", CommUtils.getUser());
+		mapparamlv2.put("userId", CommUtils.getUser());
+		mapparamlv3.put("userId", CommUtils.getUser());
+    	
+		mapparamlv1.put("LV", 1);
+		childlistlv1 = commService.selectGetMenuList(mapparamlv1);
+		
+		mapparamlv2.put("LV", 2);
+		childlistlv2 = commService.selectGetMenuList(mapparamlv2);
+		
+		mapparamlv3.put("LV", 3);
+		childlistlv3 = commService.selectGetMenuList(mapparamlv3);
+		
+		/*2 LV 데이터 생성 3 add 2*/
+		for(int j=0; j<childlistlv2.size(); j++) {
+			TEMP = new ArrayList<Map<String, Object>>();
+			for(int i=0; i<childlistlv3.size(); i++) {
+				if(childlistlv2.get(j).get("MENU_NO").equals(childlistlv3.get(i).get("UPPER_MENU_NO"))) {
+					TEMP.add(childlistlv3.get(i));
+					//childlistlv2.get(j).put("child", childlistlv3.get(i));
+				}
+			}
+			childlistlv2.get(j).put("children", TEMP);
+		}
+		
+		/*1 LV 데이터 생성 2 add 1*/
+		for(int z=0; z<childlistlv1.size(); z++) {
+			TEMP = new ArrayList<Map<String, Object>>();
+			for(int V=0; V<childlistlv2.size(); V++) {
+				if(childlistlv1.get(z).get("MENU_NO").equals(childlistlv2.get(V).get("UPPER_MENU_NO"))) {
+					TEMP.add(childlistlv2.get(V));
+					//childlistlv1.get(z).put("child2", childlistlv2.get(V));
+				}
+			}
+			
+			childlistlv1.get(z).put("children", TEMP);
+		}
+		
+		map.put("data", childlistlv1);
+
+		return map;
+	}
+	
+	/**
+	 * 메뉴를 조회를 한다.
+	 * @param request
+	 * @param session
+	 * @param paramMap
+	 * @return Map
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value="/api/getMenuCurrent", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<?, ?> selectGetMenuCurrent(HttpServletRequest request, HttpSession session, @RequestParam Map<String, String> paramMap) throws Exception{
+				
+		String authToken = request.getHeader("Content-Type");
+		Map lvparam = new HashMap();
+		
+		List<Map<String, Object>> list = commService.selectGetMenuCurrent(paramMap);
+//		List<Map<String, Object>> list1 = commService.selectGetMenuCurrentLv1(paramMap);
+//		List<Map<String, Object>> list2 = commService.selectGetMenuCurrentLv2(paramMap);
+//		List<Map<String, Object>> list3 = commService.selectGetMenuCurrentLv3(paramMap);
+		
+		Map map = new HashMap();
+		map.put("count", list.size());
+		map.put("data", list);
+//		map.put("data1", list1);
+//		map.put("data2", list2);
+//		map.put("data3", list3);
+ 
+
+		return map;
+	}
+	
+	
+	/**
+	 * url 리다리렉트
+	 * @param request
+	 * @param session
+	 * @param paramMap
+	 * @return Map
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value="/comm/redirecturl", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public void selectRedirecturl(HttpServletRequest request,  HttpServletResponse response, @RequestParam Map<String, String> paramMap
+			) throws Exception{
+		     CommUtils.getClientIP(request);
+			 response.sendRedirect(BrowserURLEncoder.encode(paramMap.get("v"), "UTF-8"));
+			 
+ 
+
+ 
+	}
+	
+	
+	
+}

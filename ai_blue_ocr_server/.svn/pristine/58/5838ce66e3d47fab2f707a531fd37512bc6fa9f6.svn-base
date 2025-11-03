@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">계약현황</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default" ng-controller="CtrctCtrl">
+            <div class="panel-heading"><i class="fa fa-bar-chart-o fa-fw"></i> 년도별 재고현황
+	            <div class="pull-right">
+	            	<div class="btn-group">
+	                    <button type="button" class="btn btn-default btn-xs" ng-click="test()">
+	                        조회
+	                </div>
+	                <div class="btn-group">
+	                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                        차트유형
+	                        <span class="caret"></span>
+	                    </button>
+	                    <ul class="dropdown-menu pull-right" role="menu">
+	                        <li ng-click="selectChart('Area')"><a >영역형</a>
+	                        </li>
+	                        <li ng-click="selectChart('Pie')"><a >원형</a>
+	                        </li>
+	                        <li ng-click="selectChart('Stacked')"><a >중첩막대형</a>
+	                        </li>
+	                        <li ng-click="selectChart('Radar')"><a >레이더형</a>
+	                        </li>
+	                        <li ng-click="selectChart('Line')"><a >선형</a>
+	                        </li>
+	                        <li ng-click="selectChart('StepLine')"><a >계단식 꺾은선형</a>
+	                        </li>
+	                        <li ng-click="selectChart('Bar')"><a >막대형</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+            <div class="panel-body">
+            <div >
+                <div ng-show="enableAreaChart" id="chartController" ng-controller="chartController" style="margin: 0 auto" >
+                
+                	<div id="dxChart" dx-chart="chartOptions"></div>
+                
+                	<!-- <div style="margin:5px; text-align:center">
+				        <div style="height: 40px" dx-button="{
+				            text: 'Start',
+				            onClick: start,
+				            bindingOptions: {
+				                disabled: 'isStarted'
+				            }
+				        }"></div>
+				 
+				        <div style="height: 40px" dx-button="{
+				            text: 'Stop',
+				            onClick: stop,
+				            bindingOptions: {
+				                disabled: '!isStarted'
+				            }
+				        }"></div>
+				    </div> -->
+                </div>
+                <div ng-show="enablePieChart" ng-controller="pieChartController" style="margin: 0 auto" dx-pie-chart="pieChartConfiguration"></div>
+                <div ng-show="enableStackedBarChart" ng-controller="stackedBarChartController" style="margin: 0 auto" dx-chart="stackedBarChartConfiguration"></div>
+                <div ng-show="enableRadarChart" ng-controller="radarChartController" style="margin: 0 auto" dx-polar-chart="radarChartConfiguration"></div>
+                <div ng-show="enableLineChart" ng-controller="lineChartController" style="margin: 0 auto" dx-chart="lineChartConfiguration"></div>
+                <div ng-show="enableStepLineChart" ng-controller="stepLineChartController" style="margin: 0 auto" dx-chart="stepLineChartConfiguration"></div>
+                <div ng-show="enableBarChart" ng-controller="barChartController" style="margin: 0 auto" dx-chart="barChartConfiguration"></div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="ng-app/web/business/business.js"></script> -->
+    <!-- <div class="col-lg-6 col-sm-12" id="bar-chart" >
+        <div class="panel panel-default">
+            <div class="panel-heading">Bar Chart</div>
+            <div class="panel-body">
+                <canvas id="bar" class="chart chart-bar" data="bar.data" labels="bar.labels" series="bar.series"
+                options="bar.options"></canvas>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- <div ng-controller="pieChartController" style="height:350px; max-width:700px; margin: 0 auto" dx-pie-chart="pieChartConfiguration"></div> -->
+
+<!-- <div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">년도별 재고현황</div>
+            <div class="panel-body" ng-controller="myCtrl">
+                <div style="height:420px; margin: 0 auto" dx-data-grid="{
+		            dataSource: books
+		        }">
+		        </div>
+            </div>
+        </div>
+    </div>
+</div> -->

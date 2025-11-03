@@ -1,0 +1,103 @@
+package com.sht.eduai.simulation.abtest.controller;
+
+
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.eduai.simulation.abtest.service.AbTestService;
+import com.sht.eduai.vo.ComResultVO;
+import com.sht.util.CommUtils;
+
+/**
+ * 레이아웃
+ * @author miyoungKim
+ *
+ */
+@RestController
+//@RequestMapping("/abtest")
+public class AbTestController {
+
+	private static final Logger logger = LoggerFactory.getLogger(AbTestController.class);
+	
+	@Autowired
+	private AbTestService service;
+	
+	@RequestMapping(value="/simulation/abtest/selectListForAbtestTree", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public List<Map<String, Object>> selectListForAbtestTree(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("===== selectListForAbtestTree =====");
+    	
+    	final String id = (String) paramMap.get("id");
+    	int FLD_PARENT_ID = 0;
+    	if (null != id && !"#".equals(id)) {
+    		final String FLD_ID = id.substring(1);// 앞에 T 제거
+    		FLD_PARENT_ID = Integer.parseInt(FLD_ID);
+    	}
+		paramMap.put("FLD_PARENT_ID", FLD_PARENT_ID);
+    	
+    	return service.selectListForAbtestTree(paramMap);
+    }
+	
+	@RequestMapping(value="/simulation/abtest/detail", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO detail(HttpServletRequest request, HttpSession session, @RequestParam Map<String, Object> paramMap) throws Exception{
+				
+		return service.detail(paramMap);
+	}
+	
+	@RequestMapping(value="/simulation/abtest/save", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO save(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.update(paramMap);
+    }
+    
+    @RequestMapping(value="/simulation/abtest/save-as", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO saveAs(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+    
+    @RequestMapping(value="/simulation/abtest/delete", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO delete(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.delete(paramMap);
+    }
+    
+    @RequestMapping(value="/simulation/abtest/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO add(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+    
+    @RequestMapping(value="/simulation/abtest/result", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO result(HttpServletRequest request, HttpSession session, @RequestParam Map<String, Object> paramMap) throws Exception{
+				
+		return service.result(paramMap);
+	}
+	
+	
+}

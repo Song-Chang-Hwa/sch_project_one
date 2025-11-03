@@ -1,0 +1,72 @@
+package com.sht.abo.layout.controller;
+
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.abo.layout.service.LayoutService;
+import com.sht.abo.vo.ComResultVO;
+import com.sht.util.CommUtils;
+
+/**
+ * 레이아웃
+ * @author miyoungKim
+ *
+ */
+@RestController
+@RequestMapping("/layout")
+public class LayoutController {
+
+	private static final Logger logger = LoggerFactory.getLogger(LayoutController.class);
+	
+	@Autowired
+	private LayoutService service;
+	
+
+	@RequestMapping(value="/save", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO save(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.update(paramMap);
+    }
+    
+    @RequestMapping(value="/save-as", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO saveAs(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+    
+    @RequestMapping(value="/delete", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO delete(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.delete(paramMap);
+    }
+    
+    @RequestMapping(value="/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO add(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception{
+    	final String username = CommUtils.getUser();
+    	logger.debug("username: {}", username);
+    	paramMap.put("USER_NO", username);
+    	
+		return service.insert(paramMap);
+    }
+}

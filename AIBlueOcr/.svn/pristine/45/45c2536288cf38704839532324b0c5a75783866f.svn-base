@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TypeSegMstrDAO">
+
+	<!-- 전체 세그먼트 트리  -->
+	<select id="selectListForSegTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TypeSegMstrDAO.selectListForSegTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+		FROM (
+			SELECT
+				FLD_ID AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_SEG_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_SEG_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typeSegment' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+			FROM WP2_TYPE_SEG_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION
+			SELECT
+				SEG_ID AS id
+				, SEG_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'segment' AS type
+				, 2 AS ord1
+				, ORDINAL as ord2
+			FROM WP2_SEG_MSTR
+			WHERE FLD_ID = #FLD_PARENT_ID#
+				AND DEL_YN = 'N'
+		) AS C
+		ORDER BY ord1, ord2		
+	</select>
+
+	<!-- 사용중인 세그먼트만  -->
+	<select id="selectListForSegTreeUse" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TypeSegMstrDAO.selectListForSegTreeUse */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+		FROM (
+			SELECT
+				FLD_ID AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_SEG_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_SEG_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N' AND USE_YN = 'Y')
+					) AS children
+				, 'typeSegment' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+			FROM WP2_TYPE_SEG_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			  AND (SELECT COUNT(*) FROM WP2_SEG_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N' AND USE_YN = 'Y') > 0
+			UNION
+			SELECT
+				SEG_ID AS id
+				, SEG_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'segment' AS type
+				, 2 AS ord1
+				, ORDINAL as ord2
+			FROM WP2_SEG_MSTR
+			WHERE FLD_ID = #FLD_PARENT_ID#
+				AND DEL_YN = 'N'
+				AND USE_YN = 'Y'
+		) AS C
+		ORDER BY ord1, ord2		
+	</select>
+
+	<select id="selectListForTypeSegTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TypeSegMstrDAO.selectListForTypeSegTree */
+		SELECT
+			FLD_ID AS id
+			, FLD_NM AS text
+			, CONVERT(
+				BIT
+				, (SELECT COUNT(*) FROM WP2_TYPE_SEG_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+				) AS children
+			, 'typeSegment' AS type
+			, 1 AS ord1
+			, FLD_ORDINAL as ord2
+		FROM WP2_TYPE_SEG_MSTR A
+		WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+		ORDER BY ord2		
+	</select>
+	
+	<!-- 세그먼트 분석결과 생성 폴더  -->
+	<select id="selectSegmentAnalysisFldId" parameterClass="java.util.Map"  resultClass="Integer">
+		SELECT TOP 1 FLD_ID 
+		  FROM WP2_TYPE_SEG_MSTR 
+		 WHERE FLD_NM = #FLD_NM#
+		 ORDER BY FLD_LVL, FLD_ID DESC
+	</select>
+</sqlMap>

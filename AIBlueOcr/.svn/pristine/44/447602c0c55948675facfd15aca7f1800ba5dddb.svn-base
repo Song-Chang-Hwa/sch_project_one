@@ -1,0 +1,48 @@
+package com.sht.abo.entity.controller;
+
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.abo.entity.service.LayoutRecoService;
+import com.sht.abo.vo.ComResultVO;
+
+/**
+ * WP2_LAYOUT_RECO
+ * @author miyoungKim
+ *
+ */
+@RestController
+@RequestMapping("/entity/layoutreco")
+public class LayoutRecoController {
+
+	private static final Logger logger = LoggerFactory.getLogger(LayoutRecoController.class);
+	
+	@Autowired
+	private LayoutRecoService service;
+	
+	/**
+	 * 조회.
+	 * @param httpRequest
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/selectListForLayoutTree", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO selectListForLayoutTree(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("===== selectListForLayoutTree =====");
+    	
+    	return service.selectListForLayoutTree(paramMap);
+    }
+}

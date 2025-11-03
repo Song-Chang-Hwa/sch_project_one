@@ -1,0 +1,147 @@
+package com.sht.security;
+
+import java.lang.management.ManagementFactory;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.sht.common.AuthenticationToken;
+import com.sht.eduai.comm.service.CommService;
+import com.sht.eduai.user.service.UserService;
+import com.sht.security.service.UserDetailsServiceImpl;
+
+import com.sht.security.PassWordShv;
+
+public class UserAuthenticationProvider implements AuthenticationProvider {
+	private static final Logger logger = LoggerFactory.getLogger(UserAuthenticationProvider.class);
+
+	private PasswordEncoder passwordEncoder;
+	private UserDetailsServiceImpl userDetailsService;
+	
+	private PassWordShv passWordShv;
+	
+
+	@Autowired
+	private CommService commService;
+	
+	@Autowired
+	private UserService userService;
+
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		String username = authentication.getName();
+		String password = (String) authentication.getCredentials();
+		
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+//		passWordShv = new PassWordShv();
+	
+		
+		
+
+		
+		Map<String, Object> paramMap=  new HashMap<String, Object>();
+		Map<String, Object> rsMap=  new HashMap<String, Object>();
+		Map<String, Object> logMap=  new HashMap<String, Object>();
+
+		paramMap.put("pwd", password);
+		paramMap.put("userId", username);
+		
+		String PASS_YN = "N";
+		
+		int ERR_CNT = 0;
+		
+		
+		try {
+			rsMap = (Map<String, Object>)userService.selectUserLoginPasswd(paramMap);
+			
+			PASS_YN = (String)rsMap.get("PASS_YN");
+			ERR_CNT = (int)rsMap.get("ERR_CNT");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		logger.debug("==============> UserAuthenticationProvider");
+		logger.debug("username: " + username);
+		logger.debug("password: " + password);
+		logger.debug("password: " + userDetails.getPassword());
+		//logger.debug("encoding: " + passwordEncoder.encode(password));
+		logger.debug("PASS_YN: " + PASS_YN);
+
+//		if ( !passwordEncoder.matches(password, userDetails.getPassword()) ) {
+//			logger.debug("==============> 비밀번호가 일치하지 않습니다.");
+//			throw new BadCredentialsException("등록된 비밀번호와 일치하지 않습니다.");
+//		}
+		
+
+		if(ERR_CNT >= 3) {
+			throw new BadCredentialsException("계정이 잠겼습니다. 본사에 문의해주세요. contact@edu-ai.co.kr");
+		}
+		
+		
+		
+
+		if ("N".equals(PASS_YN) ) {
+			logger.debug("==============> 인증에 실패하였습니다.");
+			throw new BadCredentialsException("인증에 실패하였습니다.");
+		}
+
+		String accessToken = AuthenticationToken.create(userDetails);
+
+		logger.debug("===============> Access Token Create: " + accessToken);
+
+		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+		//User user = new User(username, passwordEncoder.encode(password), accessToken, authorities);
+		User user = new User(username, passWordShv.encode(password), accessToken, authorities);
+		
+		
+		//수동 로그인 데이터 입력
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("MEMB_ID", username);
+		param.put("DISP_ID", "LO027036038"); //화면아이디(로그인 성공)
+		param.put("TRG_NO", null); //대상번호
+		try {
+//			userService.insertSuccessLoginLog(username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return new UsernamePasswordAuthenticationToken(user, user.getPassword(), authorities);
+	}
+
+	@Override
+	public boolean supports(Class<?> arg0) {
+		return true;
+	}
+
+	public PasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
+	}
+
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	public UserDetailsServiceImpl getUserDetailsService() {
+		return userDetailsService;
+	}
+
+	public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+	
+	
+}

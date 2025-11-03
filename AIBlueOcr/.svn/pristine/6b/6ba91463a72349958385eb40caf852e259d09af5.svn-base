@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings classInfoCacheEnabled="true" lazyLoadingEnabled="true"
+			cacheModelsEnabled="true" enhancementEnabled="true"
+			errorTracingEnabled="true" useStatementNamespaces="true"
+			maxSessions="256" maxTransactions="128" maxRequests="512"
+			defaultStatementTimeout="200" />	
+			
+			<sqlMap resource="conf/database/Comm-sqlmap.xml"/>
+			<sqlMap resource="conf/database/ViewMstr-sqlmap.xml"/>
+			<sqlMap resource="conf/database/ConfigMstr-sqlmap.xml"/>
+			<sqlMap resource="conf/database/ViewColMstr-sqlmap.xml"/>
+			
+			<sqlMap resource="conf/database/AdvisorTypeDef-sqlmap.xml"/><!-- 추천유형정의 -->
+			<sqlMap resource="conf/database/SegDaMstr-sqlmap.xml"/><!-- 추천세그먼트 분석 -->
+			<sqlMap resource="conf/database/SegMstr-sqlmap.xml"/><!-- 추천세그먼트 정의 -->
+			<sqlMap resource="conf/database/TypeSegMstr-sqlmap.xml"/><!-- SEGMENT 유형 -->
+			<sqlMap resource="conf/database/TypeStatsMstr-sqlmap.xml"/><!-- statistics 유형 -->
+			<sqlMap resource="conf/database/StatsMstr-sqlmap.xml"/><!-- statistics -->
+			<sqlMap resource="conf/database/TypeManualMstr-sqlmap.xml"/><!-- manual 유형 -->
+			<sqlMap resource="conf/database/ManualMstr-sqlmap.xml"/><!-- manual -->
+			<sqlMap resource="conf/database/TypeItemMstr-sqlmap.xml"/><!-- item 유형 -->
+			<sqlMap resource="conf/database/ManualItem-sqlmap.xml"/><!-- manual item -->
+			<sqlMap resource="conf/database/ItemMstr-sqlmap.xml"/><!-- item -->
+			<sqlMap resource="conf/database/AiAlgMstr-sqlmap.xml"/><!-- item -->
+			<sqlMap resource="conf/database/TypeLayoutMstr-sqlmap.xml"/><!-- layout 유형 -->
+			<sqlMap resource="conf/database/LayoutMstr-sqlmap.xml"/><!-- layout -->
+			<sqlMap resource="conf/database/LayoutReco-sqlmap.xml"/><!-- layout reco -->
+			<sqlMap resource="conf/database/TypePrefMstr-sqlmap.xml"/><!-- 선호도 유형 -->
+			<sqlMap resource="conf/database/PrefMstr-sqlmap.xml"/><!-- 선호도 -->
+			<sqlMap resource="conf/database/PrefImp-sqlmap.xml"/><!-- 선호도 imp -->
+			<sqlMap resource="conf/database/AiMstr-sqlmap.xml"/><!-- ai -->
+			<sqlMap resource="conf/database/AiModelMstr-sqlmap.xml"/><!-- ai -->
+			<sqlMap resource="conf/database/TypeAbtestMstr-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/TypeAiMstr-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/AbtestMstr-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/AbtestRslt-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/RecoReport-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/Dataset-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/AiModelDataSplit-sqlmap.xml"/><!-- 데이터분할 -->
+			<sqlMap resource="conf/database/AlgParam-sqlmap.xml"/><!-- 데이터분할 -->
+			<sqlMap resource="conf/database/ModelRank-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/SqlList-sqlmap.xml"/><!--  -->
+			<sqlMap resource="conf/database/IndivisualRecommand-sqlmap.xml"/><!-- 개인와 추천 -->
+			
+			
+			<!-- <sqlMap resource="conf/database/User-sqlmap.xml"/>
+			API
+			<sqlMap resource="conf/database/Api-sqlmap.xml"/>
+			예약
+			<sqlMap resource="conf/database/Rsv-sqlmap.xml"/>
+			이벤트
+			<sqlMap resource="conf/database/Event-sqlmap.xml"/>
+	
+			진료안내
+			<sqlMap resource="conf/database/HsptGuide-sqlmap.xml"/>
+	
+			주차
+			<sqlMap resource="conf/database/Parking-sqlmap.xml"/>
+			
+			찾아오는길 
+			<sqlMap resource="conf/database/Location-sqlmap.xml"/> -->
+	
+	
+
+</sqlMapConfig>

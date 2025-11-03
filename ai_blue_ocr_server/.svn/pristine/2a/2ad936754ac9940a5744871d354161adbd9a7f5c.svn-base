@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserDAO">
+ 	
+	<select id="selectUserLogin" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		/* UserDAO.selectUserLogin */
+		<![CDATA[
+		SELECT USER_NO
+		      ,GRP_ID
+		      ,USER_ID
+		      ,USER_NM
+		      ,PASSWD 
+		      ,E_MAIL1
+		      ,E_MAIL2
+		      ,DEL_YN
+		      ,HP_NO
+		      ,TEL_NO
+		      ,USER_REL_CD
+		      ,USER_DESC
+		      ,RUN_MODE
+		      ,PW_CHANGE_DT
+		      ,COMP_CD
+		      ,LOCK_CNT
+		      ,HASH_YN
+		  FROM WP2_USER_MSTR
+		 WHERE 1 = 1
+		   AND USER_NO = #userId#
+		   AND DEL_YN = 'N' 
+		]]>
+	</select>
+	
+
+	<select id="selectUserLoginInfo" parameterClass="java.lang.String" resultClass="java.util.HashMap">
+		/* UserDAO.selectUserLogin */
+		<![CDATA[
+		SELECT USER_NO
+		      ,GRP_ID
+		      ,USER_ID
+		      ,USER_NM
+		      ,PASSWD
+		      ,E_MAIL1
+		      ,E_MAIL2
+		      ,DEL_YN
+		      ,HP_NO
+		      ,TEL_NO
+		      ,USER_REL_CD
+		      ,USER_DESC
+		      ,RUN_MODE
+		      ,PW_CHANGE_DT
+		      ,COMP_CD
+		      ,LOCK_CNT
+		      ,HASH_YN
+		  FROM WP2_USER_MSTR
+		 WHERE 1 = 1
+		   AND USER_NO = #userId#
+		]]>
+	</select>
+
+</sqlMap>

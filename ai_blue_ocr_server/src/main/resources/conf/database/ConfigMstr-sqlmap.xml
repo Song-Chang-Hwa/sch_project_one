@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ConfigMstrDAO">
+
+	<select id="selectCofigMstr" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* ConfigMstrDAO.selectCofigMstr */
+		SELECT AD_DS_VIEW_ID  
+	      ,  ITEM_TBL_NM  
+	      ,  ITEM_COL_NM  
+	      ,dbo.F_DECRYPT(  ITEM_EXCEPT_COL_NM  ) as ITEM_EXCEPT_COL_NM
+	      ,  USER_TBL_NM  
+	      ,  USER_COL_NM  
+	      ,dbo.F_DECRYPT(  USER_EXCEPT_COL_NM  ) as USER_EXCEPT_COL_NM
+	      ,  ITEM_ALG  
+	      ,  USER_ALG  
+	      ,  TOS_EXEC  
+	      ,  STATS_RNT_LIMIT  
+	      ,  MANUAL_RNT_LIMIT  
+	  FROM   WP2_CONFIG_MSTR  
+	  WHERE AD_DS_VIEW_ID = #AD_DS_VIEW_ID#
+	</select>
+
+</sqlMap>

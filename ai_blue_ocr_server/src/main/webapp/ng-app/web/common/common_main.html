@@ -1,0 +1,66 @@
+<div ng-controller="CommonChartController">
+	<div class="row">
+	    <div class="col-lg-12">
+	        <h1 class="page-header">{{subtitle}}</h1>
+	    </div>
+	</div>
+	<div ng-if="line_column_se_cd == '10'" class="row" data-ng-repeat="row in list">
+		<div data-ng-repeat="child in row.child" ng-class="row.CHART_CO == 1 ? 'col-lg-12' : row.CHART_CO == 2 ? 'col-lg-6' : row.CHART_CO == 3 ? 'col-lg-12' : ''">
+   			<div class="panel panel-default">
+	            <div class="panel-heading"><i class="fa fa-bar-chart-o fa-fw"></i> {{child.CHART_NM}}<div class="pull-right">
+	                <div class="btn-group">
+	                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                        차트유형
+	                        <span class="caret"></span>
+	                    </button>
+	                    <ul class="dropdown-menu pull-right" role="menu">
+	                        <li ng-click="selectChart('01', child.CHART_ID)"><a >영역형</a>
+	                        <li ng-click="selectChart('02', child.CHART_ID)"><a >파이형</a>
+	                        <li ng-click="selectChart('03', child.CHART_ID)"><a >중첩막대형</a></li>
+	                        <li ng-click="selectChart('04', child.CHART_ID)"><a >레이더형</a></li>
+	                        <li ng-click="selectChart('05', child.CHART_ID)"><a >선형</a></li>
+	                        <li ng-click="selectChart('06', child.CHART_ID)"><a >계단식 꺾은선형</a></li>
+	                        <li ng-click="selectChart('07', child.CHART_ID)"><a >다중 막대형</a></li>
+	                        <li ng-click="selectChart('08', child.CHART_ID)"><a >단일 막대형</a>
+	                        <li ng-click="selectChart('09', child.CHART_ID)"><a >그리드형</a>
+	                        <li ng-click="selectChart('10', child.CHART_ID)"><a >원형 게이지</a>
+	                    </ul>
+	                </div>
+	            </div></div>
+	            <div class="panel-body" id="{{child.CHART_ID}}">
+	            </div>
+	        </div>
+		</div>
+	</div>
+	<div ng-if="line_column_se_cd == '20'" class="row" >
+		<div data-ng-repeat="row in list">
+			<div ng-class="list.length == 1 ? 'col-lg-12' : list.length == 2 ? 'col-lg-6' : list.length == 3 ? 'col-lg-4' : ''">
+				<div class="panel panel-default" data-ng-repeat="child in row.child">
+					<div class="panel-heading"><i class="fa fa-bar-chart-o fa-fw"></i> {{child.CHART_NM}}<div class="pull-right">
+		                <div class="btn-group">
+		                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+		                        차트유형
+		                        <span class="caret"></span>
+		                    </button>
+		                    <ul class="dropdown-menu pull-right" role="menu">
+		                        <li ng-click="selectChart('01', child.CHART_ID)"><a >영역형</a>
+		                        <li ng-click="selectChart('02', child.CHART_ID)"><a >파이형</a>
+		                        <li ng-click="selectChart('03', child.CHART_ID)"><a >중첩막대형</a></li>
+		                        <li ng-click="selectChart('04', child.CHART_ID)"><a >레이더형</a></li>
+		                        <li ng-click="selectChart('05', child.CHART_ID)"><a >선형</a></li>
+		                        <li ng-click="selectChart('06', child.CHART_ID)"><a >계단식 꺾은선형</a></li>
+		                        <li ng-click="selectChart('07', child.CHART_ID)"><a >다중 막대형</a></li>
+		                        <li ng-click="selectChart('08', child.CHART_ID)"><a >단일 막대형</a>
+		                        <li ng-click="selectChart('09', child.CHART_ID)"><a >그리드형</a>
+		                        <li ng-click="selectChart('10', child.CHART_ID)"><a >원형 게이지</a>
+		                    </ul>
+		                </div>
+		            	</div>
+		            </div>
+	                <div class="panel-body" id="{{child.CHART_ID}}">
+		            </div>
+	            </div>
+            </div>
+		</div>
+	</div>
+</div>

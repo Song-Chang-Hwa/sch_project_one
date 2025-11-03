@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AiMstrDAO">
+
+	<select id="select" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 /* AiMstrDAO.select */
+		SELECT A.AI_ID
+	      ,A.AI_NM
+	      ,A.SEG_ID
+	      ,A.PREF_ID
+	      ,A.DATASET_ID
+	      ,D.FLD_NM
+		  ,A.FLD_ID
+	      ,A.RTN_CNT
+	      ,A.DESIGN_KEY_VALUE
+	      ,A.AI_DESC
+	      ,A.AI_PART_TYPE
+	      ,A.AI_PART_OPTION
+	      ,A.AI_PART_TIME
+	      ,dbo.F_DECRYPT(A.AI_XML) as AI_XML
+	      ,dbo.F_DECRYPT(A.AI_SQL) as AI_SQL
+	      ,A.DEL_YN
+	      ,A.ORDINAL
+	      ,A.AI_STATUS
+	      ,dbo.F_CODE_NM('AI_STATUS', A.AI_STATUS) as AI_STATUS_NM
+	      ,A.REG_USER_NO
+	      ,A.REG_DT
+	      ,A.UPD_USER_NO
+	      ,A.UPD_DT
+	  FROM WP2_AI_MSTR A JOIN WP2_TYPE_AI_MSTR D ON A.FLD_ID = D.FLD_ID 
+	 WHERE A.AI_ID = #AI_ID#
+	</select>
+	
+	<select id="selectListForAiCheckableTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* AiMstrDAO.selectListForAiCheckableTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+			, '20' AS RECO_TYPE
+			, 'AI기반' AS RECO_TYPE_NM
+			, AI_ID AS RECO_ID
+			, AI_NM AS RECO_NM
+			, '' AS ITEM_ID
+			, 1 AS ITEM_ORDINAL
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS VARCHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_AI_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_AI_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typeAi' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				, NULL AS AI_ID
+				, NULL AS AI_NM
+			FROM WP2_TYPE_AI_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.AI_ID AS VARCHAR(50)) AS id
+				, B.AI_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'ai' AS type
+				, 2 AS ord1
+				, B.ORDINAL as ord2
+				, B.AI_ID
+				, B.AI_NM
+			FROM WP2_AI_MSTR B
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				AND B.DEL_YN = 'N'
+				<isNotEmpty prepend="AND" property="exceptItemId">
+					<iterate prepend="B.AI_ID NOT IN " property="exceptItemId" open="(" close=")" conjunction=",">
+						$exceptItemId[]$
+					</iterate>
+				</isNotEmpty>
+		) AS C
+		ORDER BY ord1, ord2
+	</select> 	
+	
+	<!--  AI 트리 조회  -->
+	<select id="selectListForAiTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* AiMstrDAO.selectListForAiTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+			, SEG_ID
+			, AI_ID
+			, AI_NM
+			, FLD_ID
+			, RTN_CNT
+			, DESIGN_KEY_VALUE
+			, AI_DESC
+			, DEL_YN
+			, ORDINAL
+			, REG_USER_NO
+			, REG_DT
+			, UPD_USER_NO
+			, UPD_DT
+			, FLD_NM
+			, SEG_NM
+			, AI_XML
+			, AI_SQL
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS VARCHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_AI_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_AI_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typeAi' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				,NULL AS SEG_ID
+				,NULL AS AI_ID
+				,NULL AS AI_NM
+				,NULL AS FLD_ID
+				,NULL AS RTN_CNT
+				,NULL AS DESIGN_KEY_VALUE
+				,NULL AS AI_DESC
+				,NULL AS DEL_YN
+				,NULL AS ORDINAL
+				,NULL AS REG_USER_NO
+				,NULL AS REG_DT
+				,NULL AS UPD_USER_NO
+				,NULL AS UPD_DT
+				,NULL AS FLD_NM
+				,NULL AS SEG_NM
+				,NULL AS AI_XML
+				,NULL AS AI_SQL
+			FROM WP2_TYPE_AI_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.AI_ID AS VARCHAR(50)) AS id
+				, B.AI_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'ai' AS type
+				, 2 AS ord1
+				, B.ORDINAL as ord2
+				,B.SEG_ID
+				,B.AI_ID
+				,B.AI_NM
+				,B.FLD_ID
+				,B.RTN_CNT
+				,B.DESIGN_KEY_VALUE
+				,B.AI_DESC
+				,B.DEL_YN
+				,B.ORDINAL
+				,B.REG_USER_NO
+				,B.REG_DT
+				,B.UPD_USER_NO
+				,B.UPD_DT
+				,C.FLD_NM
+				,D.SEG_NM
+				,dbo.F_DECRYPT(B.AI_XML) AS MANUAL_XML
+				,dbo.F_DECRYPT(B.AI_SQL) AS MANUAL_SQL
+			FROM WP2_AI_MSTR B
+	  			JOIN WP2_TYPE_AI_MSTR C ON B.FLD_ID = C.FLD_ID
+	  			JOIN WP2_SEG_MSTR D ON B.SEG_ID = D.SEG_ID
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				AND B.DEL_YN = 'N'
+		) AS C
+		ORDER BY ord1, ord2		
+	</select>
+	
+	<insert id="insert"  parameterClass="java.util.Map">
+	 /* AiMstrDAO.insert */
+		INSERT 
+		  INTO WP2_AI_MSTR (
+		       AI_NM
+		     , SEG_ID
+		     , PREF_ID
+		     , DATASET_ID
+		     , FLD_ID
+		     , DEL_YN
+		     , ORDINAL
+		     , DESIGN_KEY_VALUE
+		     , AI_DESC
+		     , AI_XML
+		     , AI_SQL
+		     , RTN_CNT
+		     , AI_STATUS
+		     , REG_USER_NO
+		     , REG_DT
+		     ) VALUES (
+		       #AI_NM# 
+		     , #SEG_ID#
+		     , #PREF_ID#
+		     , #DATASET_ID#
+			 , #FLD_ID# 
+			 , #DEL_YN#  
+			 , #ORDINAL# 
+			 , #DESIGN_KEY_VALUE#
+			 , #AI_DESC#
+		     , dbo.F_ENCRYPT(#AI_XML#)
+		     , dbo.F_ENCRYPT(#AI_SQL#)
+		     , #RTN_CNT#
+		     , #AI_STATUS#
+			 , #REG_USER_NO#
+			 , GETDATE()
+		     )
+		<selectKey keyProperty="AI_ID" resultClass="Integer">
+			SELECT ident_current('WP2_AI_MSTR')
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterClass="java.util.HashMap">
+	  /* AiMstrDAO.update */
+		UPDATE WP2_AI_MSTR 
+		   SET AI_NM              = #AI_NM#           
+		     , SEG_ID             = #SEG_ID#          
+		     , PREF_ID            = #PREF_ID#         
+		     , DATASET_ID         = #DATASET_ID#      
+		     , FLD_ID             = #FLD_ID#          
+		     <!-- , DEL_YN             = #DEL_YN#          
+		     , ORDINAL            = #ORDINAL#     -->     
+		     , DESIGN_KEY_VALUE   = #DESIGN_KEY_VALUE#
+		     , AI_DESC            = #AI_DESC#         
+		     , AI_XML             = dbo.F_ENCRYPT(#AI_XML#)          
+		     , AI_SQL             = dbo.F_ENCRYPT(#AI_SQL#)          
+		     , RTN_CNT            = #RTN_CNT#         
+		     , AI_STATUS          = #AI_STATUS#       
+		     , UPD_USER_NO        = #UPD_USER_NO#     
+		     , UPD_DT             = GETDATE()
+		WHERE AI_ID = #AI_ID#
+	</update>
+ 	
+ 	<update id="delete" parameterClass="java.util.HashMap">
+	  /* AiMstrDAO.delete */
+		UPDATE WP2_AI_MSTR 
+		   SET DEL_YN             = 'Y'              
+		     , UPD_USER_NO        = #UPD_USER_NO#     
+		     , UPD_DT             = GETDATE()
+		WHERE AI_ID = #AI_ID#
+	</update>
+	
+	<select id="selectListByAiNm" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* AiMstrDAO.selectListByAiNm */
+		SELECT A.AI_ID
+		, B.FLD_NM
+		, A.AI_NM
+  		FROM WP2_AI_MSTR A  JOIN WP2_TYPE_AI_MSTR B ON A.FLD_ID = B.FLD_ID
+  		WHERE 1=1
+		  AND A.AI_NM = #AI_NM#
+		  <isEqual property="case" compareValue="update">
+			  AND A.AI_ID <![CDATA[<>]]> #AI_ID#
+		  </isEqual>
+		  <isEqual property="case" compareValue="insert">
+		  </isEqual>
+		  AND A.DEL_YN = 'N'
+	</select>
+	
+	<select id="selectCountByAiStatus50" parameterClass="java.util.Map" resultClass="int">
+		/* AiMstrDAO.selectCountByAiStatus50 */
+		SELECT COUNT(*)
+  		FROM WP2_AI_MSTR A 
+  		WHERE 1=1
+		  AND A.AI_STATUS = '50'
+		  AND A.AI_ID = #AI_ID#
+	</select>
+	
+ 	<select id="selectMaxOrdinal" parameterClass="java.util.Map" resultClass="int">
+	 /* AiMstrDAO.selectMaxOrdinal */
+ 		SELECT isnull(MAX(ORDINAL), 0) + 1 as ORDINAL
+		  FROM WP2_AI_MSTR 
+		 WHERE DEL_YN = 'N' 
+	</select>
+	
+	<!-- 메인통계- 모델 개수 -->
+	<select id="selectTotalModelCount" parameterClass="java.util.Map" resultClass="int">
+	 /* AiMstrDAO.selectTotalModelCount */
+	SELECT COUNT(DISTINCT AI_ID) AS MODEL_CNT
+	FROM WP2_AI_MSTR
+	WHERE DEL_YN = 'N'
+	</select> 	
+ 	
+	<!-- 메인통계-모델 실행중 -->
+	<select id="selectTotalExcuteModelCount" parameterClass="java.util.Map" resultClass="int">
+	 /* AiMstrDAO.selectTotalExcuteModelCount */
+	SELECT COUNT(DISTINCT AI_ID) AS EXEC_MODEL_CNT
+	FROM WP2_AI_MSTR
+	WHERE AI_STATUS = 60 
+	AND DEL_YN = 'N'
+	</select>
+	
+</sqlMap>

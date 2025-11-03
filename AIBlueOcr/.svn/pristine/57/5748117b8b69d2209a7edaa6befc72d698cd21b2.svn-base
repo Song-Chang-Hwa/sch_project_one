@@ -1,0 +1,12 @@
+<ul class="nav in" >
+	<li ui-sref-active='active'><a href='' ui-sref='eis.prg_mgt'><i
+			class='fa fa-sitemap fa-fw'></i> 프로그램관리<span></span></a></li>
+	<li ui-sref-active='active'><a href='' ui-sref='eis.code'><i
+			class='fa fa-database fa-fw'></i> 코드관리<span></span></a></li>
+	<li ui-sref-active='active'><a href='' ui-sref='eis.auth_group'><i
+			class='fa fa-shield fa-fw'></i> 권한 그룹별 관리<span></span></a></li>
+	<li ui-sref-active='active'><a href='' ui-sref='eis.auth_user'><i
+			class='fa fa-shield fa-fw'></i> 사용자별 권한 그룹 관리<span></span></a></li>
+	<li ui-sref-active='active'><a href='' ui-sref='eis.intro_mgt'><i
+			class='fa fa-code fa-fw'></i> 템플릿 관리<span></span></a></li>
+</ul>

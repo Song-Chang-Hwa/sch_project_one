@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DatasetDAO">
+
+	<!-- 메인통계-데이터개수 -->
+	<select id="selectTotalDataCount" parameterClass="java.util.HashMap" resultClass="int">
+		/* DatasetDAO.selectTotalDataCount */
+	SELECT COUNT(DISTINCT DATASET_ID) AS DATA_CNT
+	FROM WP2_DATASET
+	</select>
+	
+	<!-- 조회 -->
+	<select id="selectList" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		/* DatasetDAO.selectList */
+		SELECT DATASET_VAL_ID  
+	      ,  SEG_ID  
+	      ,  DATASET_ID  
+	      ,  VAL_NM  
+	      ,  VAR_CAPTION  
+	      ,  VAR_TYPE  
+	      <!-- ,  dbo.F_CODE_NM('VAR_TYPE', VAR_TYPE) AS VAR_TYPE_NM -->
+	      ,  VAR_USE_YN  
+	      ,  VAR_TARGET_YN  
+	      ,  VAR_USE_YN AS OLD_VAR_USE_YN  
+	      ,  VAR_TARGET_YN AS OLD_VAR_TARGET_YN  
+	      ,  VAR_UNI_CNT  
+	      ,  VAR_MISS_CNT  
+	      ,  VAR_MIN  
+	      ,  VAR_MAX  
+	      ,  VAR_MEAN  
+	      ,  VAR_STD_DEV  
+	      ,  VAR_1Q  
+	      ,  VAR_2Q  
+	      ,  VAR_3Q  
+	      ,  VAR_4Q  
+	      ,  VAR_DESC  
+	  FROM   WP2_DATASET 
+	 WHERE SEG_ID = #SEG_ID#
+	 <isNotEmpty property="VAR_USE_YN">
+	   AND VAR_USE_YN = #VAR_USE_YN#
+	 </isNotEmpty>
+	 <isNotEmpty property="VAR_TARGET_YN">
+	   AND VAR_TARGET_YN = #VAR_TARGET_YN#
+	 </isNotEmpty>
+	 <isNotEmpty property="VAL_NM">
+	   AND VAL_NM LIKE '%$VAL_NM$%'
+	 </isNotEmpty>
+  </select>
+  
+  <update id="update" parameterClass="java.util.HashMap">
+		/* DatasetDAO.update */
+  UPDATE WP2_DATASET
+     SET VAR_TARGET_YN = #VAR_TARGET_YN#
+       , VAR_USE_YN = #VAR_USE_YN#
+   WHERE DATASET_VAL_ID = #DATASET_VAL_ID#
+  </update>
+  
+  <select id="selectTotalValue" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		/* DatasetDAO.selectTotalValue */
+		SELECT  
+	         isnull(SUM(case when VAR_UNI_CNT > 0 then 1 else 0 end),0)  as VAR_UNI_CNT
+	      ,  isnull(SUM(case when VAR_MISS_CNT > 0 then 1 else 0 end),0)  as VAR_MISS_CNT
+	      ,  isnull(COUNT(1),0) as DATA_CNT   <!-- 데이터 로우수 -->  
+	  FROM   WP2_DATASET 
+	 WHERE SEG_ID = #SEG_ID#
+	 <isNotEmpty property="VAR_USE_YN">
+	   AND VAR_USE_YN = #VAR_USE_YN#
+	 </isNotEmpty>
+	 <isNotEmpty property="VAR_TARGET_YN">
+	   AND VAR_TARGET_YN = #VAR_TARGET_YN#
+	 </isNotEmpty>
+	 <isNotEmpty property="VAL_NM">
+	   AND VAL_NM LIKE '%$VAL_NM$%'
+	 </isNotEmpty>
+  </select>
+  
+  <select id="selectDatasetIdBySegId" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		/* DatasetDAO.selectDatasetIdBySegId */
+	  SELECT TOP 1 DATASET_ID 
+	    FROM WP2_DATASET
+	   WHERE SEG_ID = #SEG_ID#
+  </select>
+	
+</sqlMap>

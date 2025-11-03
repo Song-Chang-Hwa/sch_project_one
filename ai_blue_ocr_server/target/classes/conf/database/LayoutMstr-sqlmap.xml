@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="LayoutMstrDAO">
+
+	<select id="selectListForLayoutTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* LayoutMstrDAO.selectListForLayoutTree */
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+			, LAYOUT_ID
+			, LAYOUT_NM
+			, FLD_ID
+			, RTN_CNT
+			, LAYOUT_DESC
+			, DEL_YN
+			, MASTER_YN
+			, MANUAL_YN
+			, ORDINAL
+			, LAYOUT_STATUS
+			, REG_USER_NO
+			, REG_DT
+			, UPD_USER_NO
+			, UPD_DT
+			, FLD_NM
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS CHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_LAYOUT_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_LAYOUT_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typeLayout' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				,NULL AS LAYOUT_ID
+				,NULL AS LAYOUT_NM
+				,NULL AS FLD_ID
+				,NULL AS RTN_CNT
+				,NULL AS LAYOUT_DESC
+				,NULL AS DEL_YN
+				,NULL AS MASTER_YN
+				,NULL AS MANUAL_YN
+				,NULL AS ORDINAL
+				,NULL AS LAYOUT_STATUS
+				,NULL AS REG_USER_NO
+				,NULL AS REG_DT
+				,NULL AS UPD_USER_NO
+				,NULL AS UPD_DT
+				,NULL AS FLD_NM
+			FROM WP2_TYPE_LAYOUT_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.LAYOUT_ID AS CHAR(50)) AS id
+				, B.LAYOUT_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'layout' AS type
+				, 2 AS ord1
+				, B.ORDINAL as ord2
+				,B.LAYOUT_ID
+				,B.LAYOUT_NM
+				,B.FLD_ID
+				,B.RTN_CNT
+				,B.LAYOUT_DESC
+				,B.DEL_YN
+				,B.MASTER_YN
+				,B.MANUAL_YN
+				,B.ORDINAL
+				,B.LAYOUT_STATUS
+				,B.REG_USER_NO
+				,B.REG_DT
+				,B.UPD_USER_NO
+				,B.UPD_DT
+				,C.FLD_NM
+			FROM WP2_LAYOUT_MSTR B
+	  			JOIN WP2_TYPE_LAYOUT_MSTR C ON B.FLD_ID = C.FLD_ID
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				AND B.DEL_YN = 'N'
+		) AS C
+		ORDER BY ord1, ord2
+	</select>
+
+	<select id="selectListForLayoutCheckableTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* LayoutMstrDAO.selectListForLayoutCheckableTree */
+		SELECT
+			id
+			, text
+			, parent
+			, type
+			, FLD_NM
+			, ord1
+			, ord2
+		FROM (
+			 SELECT
+				'T' + CAST(FLD_ID AS CHAR(50)) AS id
+				, FLD_NM AS text
+			    , CASE WHEN FLD_PARENT_ID =  0 THEN <![CDATA['##']]> ELSE convert(varchar(255), FLD_PARENT_ID) END AS parent
+				, 'typeLayout' AS type
+				, FLD_NM as FLD_NM
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+			FROM WP2_TYPE_LAYOUT_MSTR A
+			UNION
+			SELECT
+				CAST(A.LAYOUT_ID AS CHAR(50)) AS id
+				, A.LAYOUT_NM AS text
+				, 'T' + CONVERT(nvarchar(20), A.FLD_ID) as parent
+				, 'layout' AS type
+				, B.FLD_NM as FLD_NM
+				, 2 AS ord1
+				, A.ORDINAL  as ord2
+			FROM WP2_LAYOUT_MSTR A JOIN WP2_TYPE_LAYOUT_MSTR B ON A.FLD_ID = B.FLD_ID
+			WHERE 1=1
+			AND A.DEL_YN = 'N'
+			<isNotEmpty prepend="AND" property="exceptLayoutId">
+				<iterate prepend="A.LAYOUT_ID NOT IN " property="exceptLayoutId" open="(" close=")" conjunction=",">
+					$exceptLayoutId[]$
+				</iterate>
+			</isNotEmpty>
+		) AS C
+		ORDER BY ord1, ord2
+	</select>
+	<!--select id="selectListForManualGrid" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* ManualMstrDAO.selectListForManualGrid */
+		SELECT
+			A.SEG_ID
+			,A.MANUAL_ID
+			,A.MANUAL_NM
+			,A.FLD_ID
+			,A.RTN_CNT
+			,A.DESIGN_KEY_VALUE
+			,A.MANUAL_DESC
+			,A.DEL_YN
+			,A.ORDINAL
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,C.SEG_NM
+			,dbo.F_DECRYPT(A.MANUAL_XML) AS MANUAL_XML
+			,dbo.F_DECRYPT(A.MANUAL_SQL) AS MANUAL_SQL
+  		FROM WP2_MANUAL_MSTR A
+  			JOIN WP2_TYPE_MANUAL_MSTR B ON A.FLD_ID = B.FLD_ID
+  			JOIN WP2_SEG_MSTR C ON A.SEG_ID = C.SEG_ID
+  		WHERE 1=1
+			AND A.FLD_ID = #FLD_ID#
+			AND A.DEL_YN = 'N' 
+		ORDER BY A.ORDINAL 
+	</select-->
+	
+	<!-- 수정 -->
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_LAYOUT_MSTR
+		SET
+			LAYOUT_NM = #LAYOUT_NM#
+			,FLD_ID = #FLD_ID#
+			,RTN_CNT = #RTN_CNT#
+			,LAYOUT_DESC = #LAYOUT_DESC#
+			,ORDINAL = #ORDINAL#
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = NOW()
+		WHERE
+			LAYOUT_ID = #LAYOUT_ID#
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_LAYOUT_MSTR
+		SET
+			DEL_YN = 'Y'
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = NOW()
+		WHERE
+			LAYOUT_ID = #LAYOUT_ID#
+	</update>
+
+	<insert id="insert" parameterClass="java.util.Map">
+		INSERT INTO WP2_LAYOUT_MSTR (
+			LAYOUT_NM
+			,FLD_ID
+			,RTN_CNT
+			,LAYOUT_DESC
+			,DEL_YN
+			,MASTER_YN
+			,MANUAL_YN
+			,ORDINAL
+			,LAYOUT_STATUS
+			,REG_USER_NO
+			,REG_DT
+		) VALUES (
+			#LAYOUT_NM#
+			,#FLD_ID#
+			,#RTN_CNT#
+			,#LAYOUT_DESC#
+			,#DEL_YN#
+			,#MASTER_YN#
+			,#MANUAL_YN#
+			,#ORDINAL#
+			,#LAYOUT_STATUS#
+			,#USER_NO#
+			,NOW()
+		)
+		<selectKey keyProperty="LAYOUT_ID" resultClass="Integer">
+			SELECT ident_current('WP2_LAYOUT_MSTR')
+		</selectKey>
+	</insert>
+
+ 	<select id="selectListByLayoutNm" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* LayoutMstrDAO.selectListByLayoutNm */
+		SELECT A.LAYOUT_ID
+			,A.LAYOUT_NM
+			,A.FLD_ID
+			,A.RTN_CNT
+			,A.LAYOUT_DESC
+			,A.DEL_YN
+			,A.MASTER_YN
+			,A.MANUAL_YN
+			,A.ORDINAL
+			,A.LAYOUT_STATUS
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+  		FROM WP2_LAYOUT_MSTR A
+  			JOIN WP2_TYPE_LAYOUT_MSTR B ON A.FLD_ID = B.FLD_ID
+  		WHERE 1=1
+			AND A.LAYOUT_NM = #LAYOUT_NM#
+			<isEqual property="case" compareValue="update">
+				AND A.LAYOUT_ID <![CDATA[<>]]> #LAYOUT_ID#
+			</isEqual>
+			<isEqual property="case" compareValue="insert">
+			</isEqual>
+			AND A.DEL_YN = 'N'
+	</select>
+
+</sqlMap>

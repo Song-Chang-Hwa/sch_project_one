@@ -1,0 +1,147 @@
+package com.sht.security.filter;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
+
+import com.sht.common.AuthenticationToken;
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.service.CommService;
+import com.sht.security.User;
+
+@Component
+public class AuthenticationTokenFilter extends GenericFilterBean {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AuthenticationTokenFilter.class);
+
+	@Resource(name = "userDetailsServiceImpl")
+	private UserDetailsService userService;
+	
+	@Autowired
+	private CommService commService;
+	
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest httpRequest = this.getAsHttpRequest(request);
+		/*
+		HttpServletResponse httpRespose = this.getAsHttpResponse(response);
+		
+		httpRespose.setHeader("Content-Type", "application/json; charset=UTF-8");
+		httpRespose.setStatus(HttpServletResponse.SC_OK);
+		
+		httpRespose.setHeader("Accept", "application/json");
+		httpRespose.setHeader("Access-Control-Allow-Origin", "*");
+		httpRespose.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+		httpRespose.setHeader("Access-Control-Max-Age", "3600");
+		httpRespose.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+		*/
+		
+		
+		HttpServletResponse httpRespose = this.getAsHttpResponse(response);
+		//httpRespose.setHeader("Content-Type", "application/json; charset=UTF-8");
+		//httpRespose.setHeader("Access-Control-Allow-Headers", "Content-Type");
+		String Access = EDUAIConstant.HEADER_TOKEN_KEY + "," + "Content-Type";
+		httpRespose.setHeader("Access-Control-Allow-Headers",Access);
+		
+		String uriStr = httpRequest.getRequestURI();
+    	// Login Log Registration
+		Map logMap = new HashMap();
+		String logusername = "guest";
+		String logauthToken = "";
+		logauthToken = this.extractAuthTokenFromRequest(httpRequest);
+		 
+		if(logauthToken != null) {
+			logusername = AuthenticationToken.getUserName(logauthToken);
+		}
+		
+		/*
+		logMap.put("userId", 		logusername);
+		logMap.put("userNm", 		logusername );
+		logMap.put("userIp", 		request.getRemoteAddr());
+		logMap.put("progNm", 		uriStr);
+		logMap.put("serverNm", 		"ackis");
+		
+		commService.regiAccessLog(logMap);
+		*/
+		
+		
+		logger.debug("**Method : ******"+httpRequest.getMethod() );
+		if (uriStr.contains("/api/")||uriStr.contains("/rsv/")||uriStr.contains("/event/")||uriStr.contains("/hsptguide/")||uriStr.contains("/location/")||uriStr.contains("/parking/")) {
+			
+			logger.debug("*************************** FILTER ***************************");
+
+			String authToken = this.extractAuthTokenFromRequest(httpRequest);
+			String username = AuthenticationToken.getUserName(authToken);
+
+			logger.debug(">>>>>>>>>>>>>>>> FILTER 1 : " + authToken);
+			
+			if (username != null) {
+				UserDetails userDetails = userService.loadUserByUsername(username);
+
+				logger.debug(">>>>>>>>>>>>>>>> FILTER 2");
+				if (!AuthenticationToken.validate(authToken, userDetails)) {
+					logger.debug(">>>>>>>>>>>>>>>> FILTER 3");
+					SecurityContextHolder.clearContext();
+				} else {
+					logger.debug(">>>>>>>>>>>>>>>> FILTER 4");
+					String accessToken = AuthenticationToken.create(userDetails);
+
+					Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+					User user = new User(username, userDetails.getPassword(), accessToken, authorities);
+
+					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), authorities);
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
+					SecurityContextHolder.getContext().setAuthentication(authentication);
+				}
+			}
+		}
+		chain.doFilter(request, response);
+		
+		
+		
+	}
+
+
+	private HttpServletRequest getAsHttpRequest(ServletRequest request) {
+		if (!(request instanceof HttpServletRequest)) {
+			throw new RuntimeException("Expecting an HTTP request");
+		}
+
+		return (HttpServletRequest) request;
+	}
+	
+	private HttpServletResponse getAsHttpResponse(ServletResponse response) {
+		if (!(response instanceof HttpServletResponse)) {
+			throw new RuntimeException("Expecting an HTTP response");
+		}
+
+		return (HttpServletResponse) response;
+	}
+
+
+	private String extractAuthTokenFromRequest(HttpServletRequest httpRequest) {
+		String authToken = httpRequest.getHeader(EDUAIConstant.HEADER_TOKEN_KEY);
+		return authToken;
+	}
+}

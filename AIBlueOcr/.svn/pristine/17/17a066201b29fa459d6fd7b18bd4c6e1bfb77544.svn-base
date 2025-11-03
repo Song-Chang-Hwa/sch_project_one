@@ -1,0 +1,195 @@
+<h2 class="tit-level1">레이아웃</h2>
+
+	<div class="subConView">			
+		<div class="conWrap">
+			<div class="chartBtnArea">
+				<div class="chartBtn">
+					<a href="javascript:void(0)" (click)="showTree()" class="btn btn-w-m btn-default" title="트리 {{hidden ? '보이기' : '숨기기'}}"><i class="ti-list"></i></a>
+					<a href="javascript:void(0)" (click)="evtBtnNewClick()" class="btn btn-default" title="새로만들기"><i class="ti-plus"></i></a>
+					<a href="javascript:void(0)" (click)="evtBtnSaveClick()" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+					<a href="javascript:void(0)" (click)="evtBtnSaveAsClick()" class="btn btn-default" title="다른이름으로 저장"><i class="ti-files"></i></a>
+					<a href="javascript:void(0)" (click)="evtBtnDeleteClick()" class="btn btn-default" title="삭제"><i class="ti-trash"></i></a>
+					<!-- <a href="javascript:void(0)" class="btn btn-info" title="Layout 재처리">Layout 재처리</a> -->
+				</div>
+			</div>
+			<div class="segmentType colRow">
+				<div class="packList04 col20" [hidden]="hidden">
+					<div class="treeCon mCustomScrollbar">
+						<app-tree-layout #layoutTree (selected)="onLayoutTreeSelected($event)"></app-tree-layout>
+					</div>
+				</div>
+
+				<div class="packInfo {{hidden ? 'col100' : 'col80'}}">
+					<div class="writeTypeCon">
+						<div class="sectionCon">
+							<h2 class="tit-level2">Layout 정보</h2>
+							<div class="writeType01 viewTable01">										
+								<div class="requiredInfor">					
+									<div class="form-Area">
+										<div class="form-group">
+											<label class="control-label"><span class="star01">Layout명</span></label>
+											<div class="formInput">
+												<input type="text" class="form-control" [(ngModel)]="detailinfo.LAYOUT_NM">
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">Layout유형</span></label>
+											<div class="formInput">
+												<div class="input-group">
+													<input type="text" class="form-control" [(ngModel)]="detailinfo.FLD_NM" readonly>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-default" (click)="openTypeLayoutModal()"><i class="ti-search"></i></button>
+													</span>
+												</div>
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">반환아이템수</span></label>
+											<div class="formInput">
+												<input class="touchspin01" type="number" min="0" [(ngModel)]="detailinfo.RTN_CNT" #inputRtnCnt>
+											</div>																			
+										</div>											
+										<div class="form-group">
+											<label class="control-label"><span class="star01">설명</span></label>
+											<div class="formInput">
+												<input type="text" class="form-control" [(ngModel)]="detailinfo.LAYOUT_DESC">
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">순서</span></label>
+											<div class="formInput">
+												<input class="touchspin01" type="number" min="0" [(ngModel)]="detailinfo.ORDINAL" #inputOrdinal>
+											</div>																			
+										</div>	
+										<div class="form-group">
+											<label class="control-label"><span class="star01">사용</span></label>
+											<div class="formInput">
+												<div class="selects">
+													<select class="form-control" name="" [(ngModel)]="detailinfo.MASTER_YN">
+														<option value="Y" selected>사용함</option>
+														<option value="N">사용안함</option>
+													</select>
+												</div>
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">상태</span></label>
+											<div class="formInput">
+												<div class="selects">
+													<select class="form-control" name="" [(ngModel)]="detailinfo.LAYOUT_STATUS" disabled *ngIf="viewMode==1">
+														<option *ngFor="let data of layoutStatusList" value="{{data.CODE_ID}}">{{data.CODE_NM}}</option>
+													</select>
+													<select class="form-control" name="" disabled *ngIf="viewMode==0">
+														<option value="40">작성중</option>
+													</select>
+												</div>
+											</div>																				
+										</div>
+																								
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="sectionCon">
+							<h2 class="tit-level2">Layout 구성</h2>
+							<div class="remarkLayoutWrap">
+								<div class="chartBtn">
+									<a href="javascript:void(0);" class="btn btn-info btn-outline" title="아이템 선택" (click)="openLayoutRecoItemModal()">아이템 선택</a>
+									<a href="javascript:void(0);" class="btn btn-default" title="삭제" (click)="evtLayoutRecoBtnDeleteClick()"><i class="ti-trash"></i></a>
+								</div>	
+								<div class="remarkLayout">
+									<ul>
+										<li class="remarkLayout01">통계기반</li>
+										<li class="remarkLayout02">AI기반</li>
+										<li class="remarkLayout03">편성기반</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="layoutListWrap">
+								<div class="layoutListCon mCustomScrollbar">
+									<div class="lectureWrap" id="lectureSlide">
+										<app-slide-layoutreco #layoutRecoSlide
+											(selected)="evtLayoutRecoSlideSelected($event)"
+											[items]="this.layoutRecoList"></app-slide-layoutreco>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+
+						<app-slide-layoutreco-editor #layoutRecoSlideEditor
+							(ordinalUp)="evtLayoutRecoSlideEditorOrdinalUp($event)"
+							(ordinalDown)="evtLayoutRecoSlideEditorOrdinalDown($event)"
+							(itemOrdinalUp)="evtLayoutRecoSlideEditorItemOrdinalUp($event)"
+							(itemOrdinalDown)="evtLayoutRecoSlideEditorItemOrdinalDown($event)"
+							></app-slide-layoutreco-editor>
+						<!--div class="sectionCon">
+							(itemOrdinalUp)="evtLayoutRecoSlideEditorItemOrdinalUp($event)"
+							(itemOrdinalDown)="evtLayoutRecoSlideEditorItemOrdinalDown($event)"
+							<h2 class="tit-level2">Item 정보</h2>
+							<div class="writeType02">										
+								<div class="row form-horizontal">
+									<div class="col-sm-12">
+										<div class="viewTable">
+											<div class="form-group">
+												<label class="col-sm-2 control-label labelTitle"><span class="">추천방식</span></label>
+												<div class="col-sm-5">
+													<div class="selects">
+														<select class="form-control" name="">
+															<option value="" selected="">선택해 주세요</option>
+															<option value="">타이틀</option>
+															<option value="">타이틀</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-sm-5">
+													<input class="touchspin01" type="text" value="1" name="demo">
+												</div>
+											</div>
+											<div class="hr-line-dashed"></div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label labelTitle"><span class="">RECO 정보</span></label>
+												<div class="col-sm-5">
+													<input type="text" class="form-control">
+												</div>
+												<div class="col-sm-5">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="hr-line-dashed"></div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label labelTitle"><span class="">아이템 정보</span></label>
+												<div class="col-sm-10">
+													<textarea class="form-control" placeholder="" rows="2"></textarea>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label labelTitle"></label>
+												<div class="col-sm-10">
+													<textarea class="form-control" placeholder="" rows="2"></textarea>
+												</div>														
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label labelTitle"></label>
+												<div class="col-sm-10">
+													<input class="touchspin01" type="text" value="1" name="demo">
+												</div>														
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div-->
+
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+<app-modal-typelayout #typeLayoutModal></app-modal-typelayout>
+<app-modal-layoutreco-item #layoutRecoItemModal [exceptItemList]="layoutRecoList"></app-modal-layoutreco-item>

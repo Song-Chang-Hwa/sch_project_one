@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AiModelDataSplitDAO">
+
+	<select id="selectList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 /* AiModelDataSplitDAO.selectList */
+		SELECT A.AI_ID
+	       , A.TRAIN_SPLIT
+	       , A.SPLIT_GUBUN
+	       ,dbo.F_CODE_NM('SPLIT_GUBUN', A.SPLIT_GUBUN) as SPLIT_GUBUN_NM
+	  FROM WP2_AI_MODEL_DATA_SPLIT A
+	 WHERE A.AI_ID = #AI_ID#
+	</select>
+	
+	<update id="insert" parameterClass="java.util.HashMap">
+	  /* AiModelDataSplitDAO.insert */
+		INSERT 
+	    INTO WP2_AI_MODEL_DATA_SPLIT (
+	         AI_ID
+	       , TRAIN_SPLIT
+	       , SPLIT_GUBUN
+	       ) VALUES (
+	         #AI_ID#
+	       , #TRAIN_SPLIT#
+	       , #SPLIT_GUBUN#
+	       )
+	</update>
+	
+	<update id="deleteByAiId" parameterClass="java.util.HashMap">
+	  /* AiModelDataSplitDAO.deleteByAiId */
+		DELETE
+		  FROM WP2_AI_MODEL_DATA_SPLIT
+	     WHERE AI_ID = #AI_ID#
+	</update>
+	
+	<!-- <update id="upsert" parameterClass="java.util.HashMap">
+	  MERGE WP2_AI_MODEL_DATA_SPLIT A 
+	  USING (SELECT #MODEL_ID#,  #TRAIN_SPLIT#, #SPLIT_GUBUN#)  AS B (MODEL_ID, TRAIN_SPLIT, SPLIT_GUBUN)
+		 ON A.MODEL_ID = B.MODEL_ID AND A.SPLIT_GUBUN = B.SPLIT_GUBUN
+	  WHEN MATCHED THEN 
+		UPDATE SET A.TRAIN_SPLIT = B.TRAIN_SPLIT
+	  WHEN NOT MATCHED THEN
+	   INSERT (MODEL_ID, TRAIN_SPLIT, SPLIT_GUBUN) VALUES(B.MODEL_ID, B.TRAIN_SPLIT, B.SPLIT_GUBUN);
+	</update> -->
+</sqlMap>

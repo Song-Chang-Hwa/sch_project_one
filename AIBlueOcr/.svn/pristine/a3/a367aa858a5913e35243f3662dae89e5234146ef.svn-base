@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ApiDAO">
+ 	
+	<!-- 문자 전송 한다. -->
+	<insert id="saveSendSms" parameterClass="java.util.Map">
+		/* ApiDAO.saveSendSms */
+		<![CDATA[
+		INSERT INTO TB_BELL_TO_KT_PUSH
+		(
+			BELL_TO_KT_PUSH_SEQ
+			, CUSTOMMESSAGEID
+			, GRPID
+			, TIME
+			, COUNT
+			, SUBMITTIME
+			, RESULT
+			, HTTPCODE
+			, ERROR
+			, REG_ID
+			, REG_DTTM
+
+		) VALUES (
+			  #BELL_TO_KT_PUSH_SNO#
+			, #CustomMessageID#
+			, #GrpID#
+			, #Time#
+			, #Count#
+			, #SubmitTime#
+			, #Result#
+			, #httpCode#
+			, #error#
+			, #userId#
+			, NOW()
+		)
+
+		]]>
+	</insert>
+	
+	<!-- 문자 전송 한다. -->
+	<insert id="saveSendSmsDet" parameterClass="java.util.Map">
+		/* ApiDAO.saveSendSmsDet */
+		<![CDATA[
+		INSERT INTO TB_BELL_TO_KT_PUSH_DET
+		(
+
+			BELL_TO_KT_PUSH_SEQ
+			, IDX
+			, JOBID
+			, CALL_TEL_NO
+			, TARGET_TEL_NO
+			, MESSAGE
+			, RSV_SNO
+			, REG_ID
+			, REG_DTTM
+		) VALUES (
+			  #BELL_TO_KT_PUSH_SNO#
+			, #Index#
+			, #JobID#
+			, #CALL_TEL_NO#
+			, F_ENCRYPT(#TARGET_TEL_NO#)
+			, #MESSAGE#
+			, #RSV_SNO#
+			, #userId#
+			, NOW()
+		)
+
+		]]>
+	</insert>
+    
+    
+
+</sqlMap>

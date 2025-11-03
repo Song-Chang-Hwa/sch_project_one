@@ -1,0 +1,170 @@
+package com.sht.eduai.simulation.individual.service;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.dao.CommonBaseDAO;
+import com.sht.eduai.vo.ComResultVO;
+
+
+/**
+ * 추천정의 > 추천유형 정의  
+ * @author miyoungKim
+ *
+ */
+@Service
+public class IndividualService {
+
+	private Logger logger = LoggerFactory.getLogger(IndividualService.class);
+	
+	
+	@Autowired
+	private CommonBaseDAO commonBaseDAO;
+	
+	
+	/**
+	 * 분석실행
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly=true)
+	public ComResultVO selectList(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Map<String, Object> info = (Map<String, Object>) paramMap.get("info");
+		List<Map<String, Object>> list = (List<Map<String, Object>>) paramMap.get("list");
+		List<Map<String, Object>> result =new ArrayList<Map<String, Object>>();
+		
+		logger.debug("info: {}", info);
+		logger.debug("list: {}", list);
+		
+		
+		//--------------------------------------
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type","text/html; charset=utf-8");
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost httpPost = new HttpPost("http://175.209.212.18:8008/reco");
+//		HttpPost httpPost = new HttpPost("http://localhost:8000/reco");
+			
+		//-------------------json객체로 넘겨주는 방식-------------------------------
+		String mid [] = new String[list.size()];
+		int idx = 0;
+		for(Map<String, Object> obj :list) {
+			mid[idx] = (String)obj.get("MODEL_ID");
+			idx++;
+		}
+		String midlist = Arrays.toString(mid);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("version", "1.0");
+		jsonObject.put("rqtype", 5);
+		jsonObject.put("modelid", midlist);
+		jsonObject.put("userid", (String)info.get("USER_ID"));
+		System.out.println(jsonObject.toString());
+		String a = jsonObject.toString();
+		httpPost.setEntity(new StringEntity(a, "UTF-8"));
+		
+		
+		//-------------------json객체로 넘겨주는 방식-------------------------------
+		String RESULT_JSON = null;
+				 
+        HttpResponse response = null;
+        
+		try {
+			response = client.execute(httpPost);
+			 if (response.getStatusLine().getStatusCode() == 200) {
+	                ResponseHandler<String> handler = new BasicResponseHandler();
+	                String body = handler.handleResponse(response);
+	                System.out.println("[RESPONSE] requestHttpForm() " + body);
+	                ObjectMapper objectMapper = new ObjectMapper();
+	                JsonNode node = objectMapper.readTree(body);
+	                //System.out.println("node : " +node.toString());
+	                RESULT_JSON = node.toString();
+//	                RESULT_JSON = "{\"version\": \"1.0\", \"modelid\": 1065, \"user_id\": 2611363, \"data\": [{\"item_id\": \"L65073\", \"itemnm\": \"New 2022 민정샘과 함께 씹어먹는 EBS [수능완성]\", \"rank\": 1}, {\"item_id\": \"L64953\", \"itemnm\": \"[수학Ⅰ+수학Ⅱ+미적분] New 2022 실전력 모의고사 Season1\", \"rank\": 2}, {\"item_id\": \"L64896\", \"itemnm\": \"New 2022 타이밍 전략 특강\", \"rank\": 3}, {\"item_id\": \"L64899\", \"itemnm\": \"New 2022 한끗 THE 김민정\", \"rank\": 4}, {\"item_id\": \"L64871\", \"itemnm\": \"New 2022 [문학] [HIGH LEVEL & KILLER] KICE READING CODE+고전시가 자동번역기\", \"rank\": 5}]}";
+	                System.out.println("[RESSS] : "+ RESULT_JSON );
+	                
+	            } else {
+	                RESULT_JSON = "{\"version\": \"1.0\", \"modelid\": 1065, \"user_id\": 2611363, \"data\": [{\"item_id\": \"L65073\", \"itemnm\": \"New 2022 민정샘과 함께 씹어먹는 EBS [수능완성]\", \"rank\": 1}, {\"item_id\": \"L64953\", \"itemnm\": \"[수학Ⅰ+수학Ⅱ+미적분] New 2022 실전력 모의고사 Season1\", \"rank\": 2}, {\"item_id\": \"L64896\", \"itemnm\": \"New 2022 타이밍 전략 특강\", \"rank\": 3}, {\"item_id\": \"L64899\", \"itemnm\": \"New 2022 한끗 THE 김민정\", \"rank\": 4}, {\"item_id\": \"L64871\", \"itemnm\": \"New 2022 [문학] [HIGH LEVEL & KILLER] KICE READING CODE+고전시가 자동번역기\", \"rank\": 5}]}";			
+	            }
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//---------------------------------------
+		
+		
+//		int cnt = 0;
+		// 3. 결과 조회 		
+		for(int msize = 0; msize<list.size(); msize ++) {
+			Map<String, Object> dbmap = new HashMap<String, Object>();
+			//dbmap.put("MODEL_ID",(String)list.get(msize).get("MODEL_ID"));
+			dbmap.put("MODEL_ID",(String)list.get(msize).get("MODEL_ID"));
+			dbmap.put("USER_ID",(String)info.get("USER_ID"));
+			Map<String, Object> resultMap =  new HashMap<String, Object>();
+			List<Map<String, Object>> resultlist = this.commonBaseDAO.list("IndivisualMstDao.selectList", dbmap);
+			resultMap.put("MODEL_ID", (String)list.get(msize).get("MODEL_ID"));
+			RESULT_JSON ="{\"version\": \"1.0\", \"modelid\": "+(String)list.get(msize).get("MODEL_ID")+", \"user_id\": "+(String)info.get("USER_ID")+",\"data\": [";
+			
+			for(int idxx = 0;idxx < resultlist.size();idxx++) {
+				Map<String,Object> map = resultlist.get(idxx);
+				RESULT_JSON +="{\"item_id\": \""+map.get("ITEM_ID")
+						  +"\", \"itemnm\": \""+map.get("ITEM_NM")
+						  +"\", \"rank\": \""+map.get("RANK")+"\"}";
+				if(idxx+1 != resultlist.size()) {
+					RESULT_JSON += ",";
+				}
+			}
+			RESULT_JSON += "]}";
+			resultMap.put("RESULT_JSON", RESULT_JSON);
+			System.out.println("asd : " + resultMap.get("RESULT_JSON"));
+			result.add(resultMap);
+//			cnt++;
+		}
+	   	if (result != null && result.size() > 0) {
+			dataMap.put("list", result);
+			
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_CREATE_OK);
+			comResultVO.setData(dataMap);
+		} else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("개인화 추천결과가 없습니다.");
+			comResultVO.setData(dataMap);
+		}
+		return comResultVO;
+	}
+	
+	
+}

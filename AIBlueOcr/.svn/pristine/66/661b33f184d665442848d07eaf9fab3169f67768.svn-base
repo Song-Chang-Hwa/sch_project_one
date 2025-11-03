@@ -1,0 +1,567 @@
+package com.sht.eduai.model.ai.aimodel.service;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sht.common.EDUAIConstant;
+import com.sht.eduai.comm.dao.CommonBaseDAO;
+import com.sht.eduai.vo.ComResultVO;
+
+
+/**
+ * 추천정의 > 추천유형 정의  
+ * @author miyoungKim
+ *
+ */
+@Service
+public class AiModelService {
+
+	private Logger logger = LoggerFactory.getLogger(AiModelService.class);
+	
+	
+	@Autowired
+	private CommonBaseDAO commonBaseDAO;
+	
+	
+	/**
+	 * 모델학습
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly=true)
+	public ComResultVO selectList(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+
+		List<Map<String, Object>> list = this.commonBaseDAO.list("AiModelMstrDAO.selectList", paramMap);
+		System.out.println("lsizetost : " + list.toString() );
+		//for(Map<String, Object> mapobj: list) {
+		//	Integer sttus =(Integer) mapobj.get("MODEL_STATUS");
+			//if(sttus == 40) {
+				
+				//ResponseEntity<String> res =learnsanic(mapobj);
+				//System.out.println("res : " + res.toString() );
+			//}
+		//}
+		int [] alglist = new int[list.size()];
+		//int [] typellist = new int [list.size()];
+		/*for(int si = 0;si<list.size();si++) {
+			int type =(int) list.get(si).get("MODEL_TYPE");
+			typellist[si] = type;
+		}*/
+		//System.out.println(typellist.toString());
+		int [] modellist = new int[list.size()];
+		String [] typellist = new String[list.size()];
+		for(int idx = 0; idx< list.size(); idx++) {
+			alglist[idx] = (Integer)list.get(idx).get("ALG_ID");
+			modellist[idx] = (Integer)list.get(idx).get("MODEL_ID");
+			typellist[idx] = (String)list.get(idx).get("MODEL_TYPE");
+		}
+		System.out.println("lsize : " + list.size() );
+		/*for(int si = 0;si<list.size();si++) {
+			System.out.println(list.get(si).get("ALG_ID"));
+			alglist[si] = (Integer)list.get(si).get("ALG_ID");
+			System.out.println(list.get(si).get("MODEL_ID"));
+			modellist[si] =(Integer)list.get(si).get("MODEL_ID");
+			System.out.println(list.get(si).get("MODEL_TYPE"));
+			typellist[si]=(Integer) list.get(si).get("MODEL_TYPE");
+			System.out.println("A : "+ alglist.toString()+"\n"+modellist.toString()+"\n"+typellist.toString());
+		};*/
+		
+		
+//		-------------------------------------------------------------------
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type","application/json; charset=utf-8");
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost httpPost = new HttpPost("http://175.209.212.18:8008/reco");
+//		HttpPost httpPost = new HttpPost("http://localhost:8000/reco");
+		JSONObject jsonparam = new JSONObject();
+		JSONObject jsonObject = new JSONObject();
+		try {
+//			jsonparam.put("alias", "gmf_factor8neg4-implict");
+//			jsonparam.put("num_users", 825535);
+//			jsonparam.put("num_items", 1302);
+//			jsonparam.put("num_epoch", 1);
+//			jsonparam.put("batch_size",1024);
+//			jsonparam.put("optimizer","adam");
+//			jsonparam.put("adam_lr",1e-3);
+//			jsonparam.put("latent_dim",8);
+//			jsonparam.put("num_negative",4);
+//			jsonparam.put("l2_regularization",0);
+//			jsonparam.put("use_cuda","True");
+//			jsonparam.put("device_id",0);
+//			jsonparam.put("model_dir","deepcf/checkpoints/{}_Epoch{}_HR{:.4f}_NDCG{:.4f}.model");
+//			
+		
+			String [] vlist = {"user_id","item_id","time"};
+			jsonObject.put("version", "1.0");
+			jsonObject.put("rqtype", 4);
+			String mlist= Arrays.toString(modellist);
+			jsonObject.put("modelid", mlist);
+			String tlist =Arrays.toString(typellist);
+			jsonObject.put("modeltype",tlist);
+			String alist = Arrays.toString(alglist);
+			jsonObject.put("algid",alist);
+			//jsonObject.put("parameter",jsonparam);
+			String varlist = Arrays.toString(vlist);
+			jsonObject.put("varlist", varlist);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+							
+//		System.out.println(jsonObject.toString());
+		String a = jsonObject.toString();
+		httpPost.setEntity(new StringEntity(a, "UTF-8"));
+		HttpResponse response = null;
+		try {
+			response = client.execute(httpPost);
+			 if (response.getStatusLine().getStatusCode() == 200) {
+				 ResponseHandler<String> handler = new BasicResponseHandler();
+				 String body = handler.handleResponse(response);
+				 System.out.println("[RESPONSE] requestHttpForm() " + body);
+
+				 ObjectMapper objectMapper = new ObjectMapper();
+		         JsonNode node = objectMapper.readTree(body);
+		    } else {
+		    	System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+		    }
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+	
+	/**
+	 * 모델학습 sanic호출
+	 * @param paramMap
+	 * @void
+	 * @throw Exception
+	 */
+	public ResponseEntity<String> learnsanic (List<Map<String, Object>> list) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		int [] alglist = new int[list.size()];
+		int [] modellist = new int[list.size()];
+		int [] typellist = new int[list.size()];
+		for(int si = 0;si<list.size();si++) {
+			alglist[si] = (Integer)list.get(si).get("ALG_ID");
+			modellist[si] =(Integer)list.get(si).get("MODEL_ID");
+			typellist[si]=(Integer) list.get(si).get("MODEL_TYPE");
+			System.out.println(alglist+"\n"+modellist+"\n"+typellist);
+		};
+		
+		
+//		-------------------------------------------------------------------
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type","application/json; charset=utf-8");
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost httpPost = new HttpPost("http://175.209.212.18:8008/reco");
+//		HttpPost httpPost = new HttpPost("http://localhost:8000/reco");
+		JSONObject jsonparam = new JSONObject();
+		JSONObject jsonObject = new JSONObject();
+		try {
+//			jsonparam.put("alias", "gmf_factor8neg4-implict");
+//			jsonparam.put("num_users", 825535);
+//			jsonparam.put("num_items", 1302);
+//			jsonparam.put("num_epoch", 1);
+//			jsonparam.put("batch_size",1024);
+//			jsonparam.put("optimizer","adam");
+//			jsonparam.put("adam_lr",1e-3);
+//			jsonparam.put("latent_dim",8);
+//			jsonparam.put("num_negative",4);
+//			jsonparam.put("l2_regularization",0);
+//			jsonparam.put("use_cuda","True");
+//			jsonparam.put("device_id",0);
+//			jsonparam.put("model_dir","deepcf/checkpoints/{}_Epoch{}_HR{:.4f}_NDCG{:.4f}.model");
+//			
+		
+			String [] vlist = {"user_id","item_id","time"};
+			jsonObject.put("version", "1.0");
+			jsonObject.put("rqtype", 4);
+			jsonObject.put("modelid", Arrays.toString(modellist));
+			jsonObject.put("modeltype",Arrays.toString(typellist));
+			jsonObject.put("algid",Arrays.toString(alglist));
+			//jsonObject.put("parameter",jsonparam);
+			String varlist = Arrays.toString(vlist);
+			jsonObject.put("varlist", varlist);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+							
+//		System.out.println(jsonObject.toString());
+		String a = jsonObject.toString();
+		httpPost.setEntity(new StringEntity(a, "UTF-8"));
+		HttpResponse response = null;
+		try {
+			response = client.execute(httpPost);
+			 if (response.getStatusLine().getStatusCode() == 200) {
+				 ResponseHandler<String> handler = new BasicResponseHandler();
+				 String body = handler.handleResponse(response);
+				 System.out.println("[RESPONSE] requestHttpForm() " + body);
+
+				 ObjectMapper objectMapper = new ObjectMapper();
+		         JsonNode node = objectMapper.readTree(body);
+		         return new ResponseEntity<String>(node.toString(),responseHeaders,HttpStatus.CREATED);
+		    } else {
+		    	System.out.println("response is error : " + response.getStatusLine().getStatusCode());
+		        return new ResponseEntity<String>(response.toString(),responseHeaders,HttpStatus.CREATED);
+		    }
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ResponseEntity<String>("fail",responseHeaders,HttpStatus.CREATED);
+	}
+	
+	
+	/**
+	 * 세그먼트 저장 
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional
+	public ComResultVO insert(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Map<String, Object> info = (Map<String, Object>) paramMap.get("info");
+		List<Map<String, Object>> algidParamList = (List<Map<String, Object>>) info.get("ALG_ID");
+		List<Map<String, Object>> splitParamList = (List<Map<String, Object>>) info.get("DATA_SPLIT");
+		
+		logger.debug("info: {}", info);
+		logger.debug("algidParamList: {} {}", algidParamList, algidParamList.size());
+		logger.debug("splitParamList: {} {}", splitParamList, splitParamList.size());
+		
+		// AI 명 중복불가
+		info.put("case", "insert");
+		List<Map<String, Object>> list = this.commonBaseDAO.list("AiMstrDAO.selectListByAiNm", info);
+		if (0 < list.size()) {
+			final Map<String, Object> entity = (Map<String, Object>) list.get(0);
+			
+			final String FLD_NM = (String) entity.get("FLD_NM");
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg(FLD_NM + "유형에 같은 이름의 AI가 존재합니다.");
+			return comResultVO;
+		}
+		
+		if (splitParamList != null && splitParamList.size() == 2) {}
+		else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("데이터분할비율을 입력하십시오.");
+			return comResultVO;
+		}
+		
+		if (algidParamList != null && algidParamList.size() > 0) {}
+		else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("알고리즘을 입력하십시오.");
+			return comResultVO;
+		}
+		
+		int sucessCnt = 0;
+		
+		int ORDINAL = (int) this.commonBaseDAO.selectByPk("AiMstrDAO.selectMaxOrdinal", info);
+		
+		Map<String, Object> datasetMap = (Map<String, Object>) this.commonBaseDAO.selectByPk("DatasetDAO.selectDatasetIdBySegId", info);
+		if (null == datasetMap) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("데이터셋을 선택하지 않았습니다.");
+			return comResultVO;
+		}
+		int DATASET_ID = (int) datasetMap.get("DATASET_ID");
+		
+		info.put("AI_STATUS", "40");
+		info.put("ORDINAL", ORDINAL);
+		info.put("DATASET_ID", DATASET_ID);
+		info.put("DEL_YN", "N");
+		info.put("REG_USER_NO", paramMap.get("USER_NO"));
+		final Integer AI_ID = (Integer) this.commonBaseDAO.insert("AiMstrDAO.insert", info);
+		
+		// 2. WP2_AI_MODEL_DATA_SPLIT insert
+		for (Map<String, Object> datasplit : splitParamList) {
+			datasplit.put("AI_ID", AI_ID);
+			this.commonBaseDAO.update("AiModelDataSplitDAO.insert", datasplit);
+		}
+			
+		ORDINAL = 1;
+		for (Map<String, Object> aimodelmstr : algidParamList) {
+			// 1. WP2_AI_MODEL_MSTR insert
+			aimodelmstr.put("AI_ID", AI_ID);
+			aimodelmstr.put("ORDINAL", ORDINAL++);
+			aimodelmstr.put("DEL_YN", "N");
+			aimodelmstr.put("MODEL_STATUS", "40");
+			aimodelmstr.put("DATASET_ID", DATASET_ID);
+			aimodelmstr.put("REG_USER_NO", paramMap.get("USER_NO"));
+			
+			int MODEL_ID = (int) this.commonBaseDAO.insert("AiModelMstrDAO.insert", aimodelmstr);
+			sucessCnt++;
+		}
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_CREATE_OK);
+			
+		if (sucessCnt == 0) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("저장한 모델이 없습니다.");
+		} 
+		dataMap.put("AI_ID", AI_ID);
+		dataMap.put("sucessCnt", sucessCnt);
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+
+	@Transactional
+	public ComResultVO update(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Map<String, Object> info = (Map<String, Object>) paramMap.get("info");
+		List<Map<String, Object>> algidParamList = (List<Map<String, Object>>) info.get("ALG_ID");
+		List<Map<String, Object>> splitParamList = (List<Map<String, Object>>) info.get("DATA_SPLIT");
+		logger.debug("info: {}", info);
+		logger.debug("algidParamList: {} {}", algidParamList, algidParamList.size());
+		logger.debug("splitParamList: {} {}", splitParamList, splitParamList.size());
+		
+		final Integer AI_ID = (Integer) info.get("AI_ID");
+		logger.debug("AI_ID: {}", AI_ID);
+		
+		
+		// AI_STATUS = 50이면 수정불가 
+		int cnt = (int) this.commonBaseDAO.selectByPk("AiMstrDAO.selectCountByAiStatus50", info);
+		if (0 < cnt) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("학습중인 AI는 수정할 수 없습니다.");
+			return comResultVO;
+		}
+		// MODEL_STATUS = 50이면 수정불가 
+		cnt = (int) this.commonBaseDAO.selectByPk("AiModelMstrDAO.selectCountByModelStatus50", info);
+		if (0 < cnt) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("학습중인 모델은 수정할 수 없습니다.");
+			return comResultVO;
+		}
+		
+		info.put("case", "update");
+		List<Map<String, Object>> list = this.commonBaseDAO.list("AiMstrDAO.selectListByAiNm", info);
+		if (0 < list.size()) {
+			final Map<String, Object> entity = (Map<String, Object>) list.get(0);
+			
+			final String FLD_NM = (String) entity.get("FLD_NM");
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg(FLD_NM + "유형에 같은 이름의 AI가 존재합니다.");
+			return comResultVO;
+		} 
+		
+		if (splitParamList != null && splitParamList.size() == 2) {}
+		else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("데이터분할비율을 입력하십시오.");
+			return comResultVO;
+		}
+		
+		if (algidParamList != null && algidParamList.size() > 0) {}
+		else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("알고리즘을 입력하십시오.");
+			return comResultVO;
+		}
+		
+		Map<String, Object> datasetMap = (Map<String, Object>) this.commonBaseDAO.selectByPk("DatasetDAO.selectDatasetIdBySegId", info);
+		if (null == datasetMap) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("데이터셋을 선택하지 않았습니다.");
+			return comResultVO;
+		}
+		int DATASET_ID = (int) datasetMap.get("DATASET_ID");
+				
+		info.put("AI_STATUS", "40");// 대기중으로 초기화 
+		info.put("DATASET_ID", DATASET_ID);
+		info.put("UPD_USER_NO", paramMap.get("USER_NO"));
+		int hresult1 = (int) this.commonBaseDAO.update("AiMstrDAO.update", info);
+		
+		int sucessCnt = 0;
+		if (hresult1 > 0) {
+			
+			this.commonBaseDAO.update("AiModelDataSplitDAO.deleteByAiId", info);
+			// 2. WP2_AI_MODEL_DATA_SPLIT insert
+			for (Map<String, Object> datasplit : splitParamList) {
+				datasplit.put("AI_ID", AI_ID);
+				this.commonBaseDAO.update("AiModelDataSplitDAO.insert", datasplit);
+			}
+				
+			this.commonBaseDAO.update("AiModelMstrDAO.deleteByAiId", info);
+			int ORDINAL = 1;
+			for (Map<String, Object> aimodelmstr : algidParamList) {
+				// 1. WP2_AI_MODEL_MSTR insert
+				aimodelmstr.put("AI_ID", AI_ID);
+				aimodelmstr.put("ORDINAL", ORDINAL++);
+				aimodelmstr.put("DEL_YN", "N");
+				aimodelmstr.put("MODEL_STATUS", "40");
+				aimodelmstr.put("DATASET_ID", DATASET_ID);
+				aimodelmstr.put("REG_USER_NO", paramMap.get("USER_NO"));
+				
+				int MODEL_ID = (int) this.commonBaseDAO.insert("AiModelMstrDAO.insert", aimodelmstr);
+				sucessCnt++;
+			}
+			
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		} else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_SERVER_ERROR);
+			comResultVO.setMsg("수정한 AI가 없습니다.");
+		}
+		
+		if (sucessCnt == 0) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("저장한 모델이 없습니다.");
+		} 
+		dataMap.put("sucessCnt", sucessCnt);
+		
+		return comResultVO;
+	}
+	
+	@Transactional
+	public ComResultVO delete(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+//		Map<String, Object> dataMap = new HashMap<String, Object>();
+		
+		Map<String, Object> info = (Map<String, Object>) paramMap.get("info");
+		List<Map<String, Object>> algidParamList = (List<Map<String, Object>>) info.get("ALG_ID");
+		List<Map<String, Object>> splitParamList = (List<Map<String, Object>>) info.get("DATA_SPLIT");
+		logger.debug("info: {}", info);
+		logger.debug("algidParamList: {} {}", algidParamList, algidParamList.size());
+		logger.debug("splitParamList: {} {}", splitParamList, splitParamList.size());
+		
+		final Integer AI_ID = (Integer) info.get("AI_ID");
+		logger.debug("AI_ID: {}", AI_ID);
+		
+		// AI_STATUS = 50이면 수정불가 
+		int cnt = (int) this.commonBaseDAO.selectByPk("AiMstrDAO.selectCountByAiStatus50", info);
+		if (0 < cnt) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("학습중인 AI는 삭제할 수 없습니다.");
+			return comResultVO;
+		}
+		// MODEL_STATUS = 50이면 수정불가 
+		cnt = (int) this.commonBaseDAO.selectByPk("AiModelMstrDAO.selectCountByModelStatus50", info);
+		if (0 < cnt) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("학습중인 모델은 삭제할 수 없습니다.");
+			return comResultVO;
+		}
+		
+		info.put("UPD_USER_NO", paramMap.get("USER_NO"));
+		int hresult1 = (int) this.commonBaseDAO.update("AiMstrDAO.delete", info);
+		
+		if (hresult1 > 0) {
+			hresult1 = (int) this.commonBaseDAO.update("AiModelMstrDAO.updateDelYnByAiId", info);
+			//hresult1 = (int) this.commonBaseDAO.update("AiModelDataSplitDAO.deleteByAiId", info);
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_CREATE_OK);
+		} else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_SERVER_ERROR);
+		}
+		return comResultVO;
+	}
+	
+	/**
+	 * AI 정보 조회 
+	 * @param paramMap
+	 * @return
+	 */
+	public ComResultVO detail(Map<String, Object> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+	   	// 1. AI_MSTR info
+		Map<String, Object> info = (Map<String, Object>) this.commonBaseDAO.selectByPk("AiMstrDAO.select", paramMap);
+		
+		// 2. WP2_AI_MODEL_DATA_SPLIT DATA_SPLIT
+		List<Map<String, Object>> datasplit = this.commonBaseDAO.list("AiModelDataSplitDAO.selectList", paramMap);
+	   	
+	   	// 3. WP2_AI_MODEL_MSTR ALG_ID
+		List<Map<String, Object>> algid = this.commonBaseDAO.list("AiModelMstrDAO.selectAlgList", paramMap);
+	   	
+		dataMap.put("info", info);
+		dataMap.put("DATA_SPLIT", datasplit);
+		dataMap.put("ALG_ID", algid);
+		
+		if (null == info ) {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_FAIL);
+			comResultVO.setMsg("모델이 존재하지 않습니다.");
+		} else {
+			comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		} 
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+	
+	@Transactional(readOnly=true)
+	public ComResultVO selectListForAiModelTree(Map<String, Object> paramMap)throws Exception{
+		
+		ComResultVO comResultVO = new ComResultVO();
+
+		List<Map<String, Object>> list = this.commonBaseDAO.list("AiModelMstrDAO.selectListForAiModelTree", paramMap);
+		// parent node인 경우 체크박스가 나오지 않도록 처리
+		for (Map<String, Object> item : list) {
+			final String type = (String) item.get("type");
+			if ("typeItem".equals(type) || "typeAi".equals(type)) {
+				Map<String, Object> aAttr = new HashMap<>();
+				aAttr.put("class", "no_checkbox");
+				
+				item.put("a_attr", aAttr);
+			}
+		}
+	   	Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		
+		comResultVO.setCode(EDUAIConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+
+
+	
+}

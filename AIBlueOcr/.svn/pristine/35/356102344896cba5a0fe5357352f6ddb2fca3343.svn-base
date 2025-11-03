@@ -1,0 +1,57 @@
+<div class="data-filter text-right mT15">
+	<div class="column">
+		<div class="tab-title-radio">
+			<ul>
+				<li rel="tabRadioB-1" [class]="SPLIT_GUBUN === codelist[1].SPLIT_GUBUN ? '': 'on'">
+					<a href="javascript:void(0);" (click)="tab(codelist[0].SPLIT_GUBUN, 0)">학습-평가데이터 분할</a>
+				</li>
+				<li rel="tabRadioB-2" [class]="SPLIT_GUBUN === codelist[1].SPLIT_GUBUN ? 'on': ''">
+					<a href="javascript:void(0);" (click)="tab(codelist[1].SPLIT_GUBUN, 1)">교차검증</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="cont-box">
+	<div>
+			<ng-container *ngFor="let code of codelist; let i = index;">
+				<ng-container *ngIf="i === 0 && SPLIT_GUBUN === code.SPLIT_GUBUN">
+					<h4 class="tit-level3">평가 데이터 분할 비율</h4>
+					<p>평가 데이터의 비율은 {{code.MIN}}~{{code.MAX}}% 사이여야 합니다.</p>
+				</ng-container>
+				<ng-container *ngIf="i === 1 && SPLIT_GUBUN === code.SPLIT_GUBUN">
+					<h4 class="tit-level3">Number of cross-validation ( CV ) folds</h4>
+					<p>Tje mi,ber pf CV folds defined between {{code.MIN}} - {{code.MAX}}</p>
+				</ng-container>
+				<div [hidden]="SPLIT_GUBUN !== code.SPLIT_GUBUN" class="range-box">
+					<input [ngClass]="i === 0 ? 'range-rate percentage' : 'range-rate number'" 
+						type="range" 
+						id="rangeTRAIN_SPLIT{{code.SPLIT_GUBUN}}" 
+						title="range"
+						(click)="onClickTrainSplit(code.SPLIT_GUBUN, $event)"
+							[(ngModel)]="TRAIN_SPLIT"
+					
+					/>
+					<div class="range-text">
+						<div class="input-group">
+							<input type="text" 
+								id="TRAIN_SPLIT{{code.SPLIT_GUBUN}}" 
+								(keyup)="onInputTrainSplit(code.SPLIT_GUBUN, $event)" 
+								(change)="onInputTrainSplit(code.SPLIT_GUBUN, $event)" 
+								class="form-control"
+								min="{{code.MIN}}" 
+								max="{{code.MAX}}"
+								placeholder="%"
+							/>
+							<span class="input-group-btn"> 
+								<button type="button" class="btn btn-primary" (click)="evtBtnSaveClick(code.SPLIT_GUBUN)">확인</button> 
+							</span>
+							
+						</div>
+					</div>
+				</div>
+			</ng-container>
+	</div>
+
+</div>

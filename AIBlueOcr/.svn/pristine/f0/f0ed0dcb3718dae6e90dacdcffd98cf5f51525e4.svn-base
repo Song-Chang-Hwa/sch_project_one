@@ -1,0 +1,147 @@
+<h2 class="tit-level1">통계기반 추천</h2>
+<div class="subConView">
+	<div class="">
+		<div class="chartBtnArea">
+			<div class="chartBtn">
+				<a href="javascript:void(0)" (click)="showTree()" class="btn btn-w-m btn-default" title="트리 {{hidden ? '보이기' : '숨기기'}}"><i class="ti-list"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnNewClick()" class="btn btn-default" title="새로만들기"><i class="ti-plus"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnSaveClick()" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnSaveAsClick()" class="btn btn-default" title="다른이름으로 저장"><i class="ti-files"></i></a>
+				<a href="javascript:void(0)" (click)="evtBtnDeleteClick()" class="btn btn-default" title="삭제"><i class="ti-trash"></i></a>
+				<!-- <a href="javascript:void(0)" (click)="evtBtnStatsExecClick()" class="btn btn-info" title="Stats 재처리">Stats 재처리</a> -->
+			</div>														
+		</div>
+		<div class="segmentType colRow">
+			<div class="packList02 col20" [hidden]="hidden">
+				<div class="treeCon mCustomScrollbar">
+					<!--div id="modelSelectTree"></div-->
+					<app-tree-typestats #typestatsTree (selected)="onTypeStatsSelected($event)"></app-tree-typestats>
+				</div>
+			</div>
+
+
+			<div class="packInfo {{hidden ? 'col100' : 'col80'}}">
+				<div class="writeTypeCon">
+					<div class="sectionCon">
+						<h2 class="tit-level2">Statistics 정보</h2>
+						<div class="writeType01 viewTable01">
+							<div class="requiredInfor">					
+								<div class="form-Area">
+									<div class="form-group">
+										<label class="control-label"><span class="star01">세그먼트</span></label>
+										<div class="formInput">
+											<div class="input-group">
+												<input type="text" class="form-control" [(ngModel)]="detailinfo.SEG_NM" readonly>
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-default" (click)="openSegmentModal()"><i class="ti-search"></i></button>
+												</span>
+											</div>
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">Statistics유형</span></label>
+										<div class="formInput">
+											<div class="input-group">
+												<input type="text" class="form-control" [(ngModel)]="detailinfo.FLD_NM" readonly>
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-default" (click)="openTypeStatsModal()"><i class="ti-search"></i></button>
+												</span>
+											</div>
+										</div>																			
+									</div>								
+									<div class="form-group">
+										<label class="control-label"><span class="star01">Statistics명</span></label>
+										<div class="formInput">
+											<input type="text" class="form-control" [(ngModel)]="detailinfo.STATS_NM">
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">Statistics구분</span></label>
+										<div class="formInput">
+											<div class="selects">
+												<select class="form-control" name="" [(ngModel)]="detailinfo.STATS_TYPE">
+													<option *ngFor="let data of statsTypeList" value="{{data.CODE_ID}}">{{data.CODE_NM}}</option>
+												</select>
+											</div>
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">반환아이템수</span></label>
+										<div class="formInput">
+											<div class="input-group">
+												<input class="touchspin01" type="text" [(ngModel)]="detailinfo.RTN_CNT" #inputRtnCnt>
+												<span class="input-group-btn">
+													<button type="button" [class]="detailinfo.STATS_SQL ? 'btn btn-primary' : 'btn btn-default'" (click)="evtBtnSqlClick()">SQL</button>
+												</span>
+											</div>
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">설명</span></label>
+										<div class="formInput">
+											<input type="text" class="form-control" [(ngModel)]="detailinfo.STATS_DESC">
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">순서</span></label>
+										<div class="formInput">
+											
+												<input class="touchspin" type="text" [(ngModel)]="detailinfo.ORDINAL" #inputOrdinal>
+										</div>																			
+									</div>
+									<div class="form-group">
+										<label class="control-label"><span class="star01">상태</span></label>
+										<div class="formInput">
+											<div class="selects">
+												<select class="form-control" name="" [(ngModel)]="detailinfo.STATS_STATUS" disabled *ngIf="viewMode==1">
+													<option *ngFor="let data of statsStatusList" value="{{data.CODE_ID}}">{{data.CODE_NM}}</option>
+												</select>
+												<select class="form-control" name="" disabled *ngIf="viewMode==0">
+													<option value="40">작성중</option>
+												</select>
+											</div>
+										</div>																				
+									</div>															
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="sectionCon">
+						<app-grid-stats #statsGrid (selected)="onStatsSelected($event)"></app-grid-stats>
+						
+						<!--ag-grid-angular
+							id="myGrid"
+							style="width: 100%; height: 385px;"
+							class="ag-theme-alpine"
+							[rowData]="myGridData"
+							[columnDefs]="myGridColumnDefs"
+							[pagination]="myGridPagination"
+							[rowSelection]="myGridtRowSelection"
+											[debug]="true"
+											paginationAutoPageSize="true"
+							(gridReady)="onGridReady($event)"
+											(rowClicked)="onRowClick($event)"
+											(gridSizeChanged)="onGridColumnsSizeChange($event)"
+											(rowDataChanged)="onGridColumnsSizeChange($event)"
+							(selectionChanged)="gridOnSelectionChanged($event)"
+							
+						>
+						</ag-grid-angular-->
+
+						<!--div class="grid-wrap">
+							<div class="panel-field grid margin-reset">
+								<div class="data-table">
+									<div id="gridContainerB11" class="dataGrid"></div>
+								</div>
+							</div>
+						</div-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-modal-segment #segmentModal></app-modal-segment>
+<app-modal-typestats #typeStatsModal></app-modal-typestats>
+<app-modal-segment-sql sqlBuilderTitle="통계기반 추천 정의" #sqlModal></app-modal-segment-sql>
+<!-- <app-modal-sql sqlBuilderTitle="통계기반 추천 정의" #sqlModal></app-modal-sql> -->

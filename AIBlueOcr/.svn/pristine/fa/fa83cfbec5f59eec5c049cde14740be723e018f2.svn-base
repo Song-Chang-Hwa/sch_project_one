@@ -1,0 +1,17 @@
+<ag-grid-angular #grid
+	style="width: 100%; height: 385px;"
+	class="ag-theme-alpine"
+	[rowData]="myGridData"
+	[columnDefs]="myGridColumnDefs"
+	[pagination]="myGridPagination"
+	[defaultColDef]="myDefaultColDef"
+	[rowSelection]="myGridtRowSelection"
+					[debug]="true"
+					paginationAutoPageSize="true"
+	(gridReady)="onGridReady($event)"
+					(rowClicked)="onRowClick($event)"
+					(gridSizeChanged)="onGridColumnsSizeChange($event)"
+					(rowDataChanged)="onGridColumnsSizeChange($event)"
+	(selectionChanged)="gridOnSelectionChanged($event)"
+>
+</ag-grid-angular>

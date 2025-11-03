@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PrefMstrDAO">
+
+	<select id="selectListForPrefGrid" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* PrefMstrDAO.selectListForPrefGrid */
+		SELECT
+			A.PREF_ID
+			,A.PREF_NM
+			,A.FLD_ID
+			,A.PREF_VALUE
+			,A.DESIGN_KEY_VALUE
+			,A.PREF_DESC
+			,A.PREF_SQL_TYPE
+			,A.DEL_YN
+			,A.ORDINAL
+			,A.PREF_STATUS
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,dbo.F_CODE_NM('SEG_STATUS', A.PREF_STATUS) AS PREF_STATUS_NM
+			,dbo.F_DECRYPT(A.PREF_XML) AS PREF_XML
+			,dbo.F_DECRYPT(A.PREF_SQL) AS PREF_SQL
+			,dbo.F_DECRYPT(A.PREF_FULL_XML) AS PREF_FULL_XML
+			,dbo.F_DECRYPT(A.PREF_FULL_SQL) AS PREF_FULL_SQL
+  		FROM WP2_PREF_MSTR A
+  			JOIN WP2_TYPE_PREF_MSTR B ON A.FLD_ID = B.FLD_ID
+  		WHERE 1=1
+			AND A.FLD_ID = #FLD_ID#
+			AND A.DEL_YN = 'N' 
+		ORDER BY A.ORDINAL
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_PREF_MSTR
+		SET
+			PREF_NM = #PREF_NM#
+			,FLD_ID = #FLD_ID#
+			,PREF_VALUE = #PREF_VALUE#
+			,DESIGN_KEY_VALUE = #DESIGN_KEY_VALUE#
+			,PREF_DESC = #PREF_DESC#
+			,PREF_SQL_TYPE = #PREF_SQL_TYPE#
+			,PREF_XML = dbo.F_ENCRYPT(#PREF_XML#)
+			,PREF_SQL = dbo.F_ENCRYPT(#PREF_SQL#)
+			,PREF_FULL_XML = dbo.F_ENCRYPT(#PREF_FULL_XML#)
+			,PREF_FULL_SQL = dbo.F_ENCRYPT(#PREF_FULL_SQL#)
+			,DEL_YN = #DEL_YN#
+			,ORDINAL = #ORDINAL#
+			,PREF_STATUS = #PREF_STATUS#
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = GETDATE()
+		WHERE
+			PREF_ID = #PREF_ID#
+	</update>
+	
+	<!-- 삭제 -->
+	<update id="delete" parameterClass="java.util.HashMap">
+		UPDATE
+			WP2_PREF_MSTR
+		SET
+			DEL_YN = 'Y'
+			,UPD_USER_NO = #USER_NO#
+			,UPD_DT = GETDATE()
+		WHERE
+			PREF_ID = #PREF_ID#
+	</update>
+	
+	<insert id="insert" parameterClass="java.util.Map">
+		INSERT INTO WP2_PREF_MSTR (
+			PREF_NM
+			,FLD_ID
+			,PREF_VALUE
+			,DESIGN_KEY_VALUE
+			,PREF_DESC
+			,PREF_SQL_TYPE
+			,PREF_XML
+			,PREF_SQL
+			,PREF_FULL_XML
+			,PREF_FULL_SQL
+			,DEL_YN
+			,ORDINAL
+			,PREF_STATUS
+			,REG_USER_NO
+			,REG_DT
+		) VALUES (
+			#PREF_NM#
+			,#FLD_ID#
+			,#PREF_VALUE#
+			,#DESIGN_KEY_VALUE#
+			,#PREF_DESC#
+			,#PREF_SQL_TYPE#
+			,dbo.F_ENCRYPT(#PREF_XML#)
+			,dbo.F_ENCRYPT(#PREF_SQL#)
+			,dbo.F_ENCRYPT(#PREF_FULL_XML#)
+			,dbo.F_ENCRYPT(#PREF_FULL_SQL#)
+			,#DEL_YN#
+			,#ORDINAL#
+			,#PREF_STATUS#
+			,#USER_NO#
+			,GETDATE()
+		)
+		<selectKey keyProperty="PREF_ID" resultClass="Integer">
+			SELECT ident_current('WP2_PREF_MSTR')
+		</selectKey>
+	</insert>
+
+ 	<select id="selectListByPrefNm" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* PrefMstrDAO.selectListByPrefNm */
+		SELECT
+			A.PREF_ID
+			,A.PREF_NM
+			,A.FLD_ID
+			,A.PREF_VALUE
+			,A.DESIGN_KEY_VALUE
+			,A.PREF_DESC
+			,A.PREF_SQL_TYPE
+			,A.DEL_YN
+			,A.ORDINAL
+			,A.PREF_STATUS
+			,A.REG_USER_NO
+			,A.REG_DT
+			,A.UPD_USER_NO
+			,A.UPD_DT
+			,B.FLD_NM
+			,dbo.F_CODE_NM('SEG_STATUS', A.PREF_STATUS) AS PREF_STATUS_NM
+			,dbo.F_DECRYPT(A.PREF_XML) AS PREF_XML
+			,dbo.F_DECRYPT(A.PREF_SQL) AS PREF_SQL
+			,dbo.F_DECRYPT(A.PREF_FULL_XML) AS PREF_FULL_XML
+			,dbo.F_DECRYPT(A.PREF_FULL_SQL) AS PREF_FULL_SQL
+  		FROM WP2_PREF_MSTR A
+  			JOIN WP2_TYPE_PREF_MSTR B ON A.FLD_ID = B.FLD_ID
+  			JOIN WP2_CODE_MSTR E ON E.PARENT_ID = 'SEG_STATUS' AND E.CODE_ID = A.PREF_STATUS
+  		WHERE 1=1
+		  AND A.PREF_NM = #PREF_NM#
+		  <isEqual property="case" compareValue="update">
+			  AND A.PREF_ID <![CDATA[<>]]> #PREF_ID#
+		  </isEqual>
+		  <isEqual property="case" compareValue="insert">
+		  </isEqual>
+		  AND A.DEL_YN = 'N'
+	</select>
+
+	<select id="selectListForPrefTree" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT
+			id
+			, text
+			, children
+			, type
+			, ord1
+			, ord2
+			, PREF_ID
+			, PREF_NM
+			, FLD_ID
+			, PREF_VALUE
+			, DESIGN_KEY_VALUE
+			, PREF_DESC
+			, PREF_SQL_TYPE
+			, DEL_YN
+			, ORDINAL
+			, PREF_STATUS
+			, REG_USER_NO
+			, REG_DT
+			, UPD_USER_NO
+			, UPD_DT
+			, FLD_NM
+			, PREF_STATUS_NM
+			, PREF_XML
+			, PREF_SQL
+			, PREF_FULL_XML
+			, PREF_FULL_SQL
+		FROM (
+			SELECT
+				'T' + CAST(FLD_ID AS VARCHAR(50)) AS id
+				, FLD_NM AS text
+				, CONVERT(
+					BIT
+					, (SELECT COUNT(*) FROM WP2_TYPE_PREF_MSTR WHERE FLD_PARENT_ID = A.FLD_ID)
+						+ (SELECT COUNT(*) FROM WP2_PREF_MSTR WHERE FLD_ID = A.FLD_ID AND DEL_YN = 'N')
+					) AS children
+				, 'typePref' AS type
+				, 1 AS ord1
+				, FLD_ORDINAL as ord2
+				, NULL AS PREF_ID
+				, NULL AS PREF_NM
+				, NULL AS FLD_ID
+				, NULL AS PREF_VALUE
+				, NULL AS DESIGN_KEY_VALUE
+				, NULL AS PREF_DESC
+				, NULL AS PREF_SQL_TYPE
+				, NULL AS DEL_YN
+				, NULL AS ORDINAL
+				, NULL AS PREF_STATUS
+				, NULL AS REG_USER_NO
+				, NULL AS REG_DT
+				, NULL AS UPD_USER_NO
+				, NULL AS UPD_DT
+				, NULL AS FLD_NM
+				, NULL AS PREF_STATUS_NM
+				, NULL AS PREF_XML
+				, NULL AS PREF_SQL
+				, NULL AS PREF_FULL_XML
+				, NULL AS PREF_FULL_SQL
+			FROM WP2_TYPE_PREF_MSTR A
+			WHERE FLD_PARENT_ID = #FLD_PARENT_ID#
+			UNION ALL
+			SELECT
+				CAST(B.PREF_ID AS VARCHAR(50)) AS id
+				, B.PREF_NM AS text
+				, CONVERT(BIT, 0) AS children
+				, 'pref' AS type
+				, 2 AS ord1
+				, B.ORDINAL as ord2
+				,B.PREF_ID
+				,B.PREF_NM
+				,B.FLD_ID
+				,B.PREF_VALUE
+				,B.DESIGN_KEY_VALUE
+				,B.PREF_DESC
+				,B.PREF_SQL_TYPE
+				,B.DEL_YN
+				,B.ORDINAL
+				,B.PREF_STATUS
+				,B.REG_USER_NO
+				,B.REG_DT
+				,B.UPD_USER_NO
+				,B.UPD_DT
+				,C.FLD_NM
+				,dbo.F_CODE_NM('SEG_STATUS', B.PREF_STATUS) AS PREF_STATUS_NM
+				,dbo.F_DECRYPT(B.PREF_XML) AS PREF_XML
+				,dbo.F_DECRYPT(B.PREF_SQL) AS PREF_SQL
+				,dbo.F_DECRYPT(B.PREF_FULL_XML) AS PREF_FULL_XML
+				,dbo.F_DECRYPT(B.PREF_FULL_SQL) AS PREF_FULL_SQL
+	  		FROM WP2_PREF_MSTR B
+	  			JOIN WP2_TYPE_PREF_MSTR C ON B.FLD_ID = C.FLD_ID
+			WHERE B.FLD_ID = #FLD_PARENT_ID#
+				AND B.DEL_YN = 'N'
+		) AS C
+		ORDER BY ord1, ord2		
+	</select>
+
+</sqlMap>

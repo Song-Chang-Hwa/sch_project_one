@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="EventDAO">
+
+	<!-- 이벤트 조회 -->
+	<select id="selectEventList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* EventDAO.selectEventList */
+		SELECT
+			    HSPT_ID AS hsptId
+			  , F_GET_HSPT_NM_FR_HSPT_ID(#hsptId#) AS hsptNm
+			  , USER_ID AS userId
+			  , HTML_SNO AS htmlSno
+			  , HTML_NM AS htmlNm
+			  , HTML_DESC AS htmlDesc
+			  , HTML_FILE_PATH AS htmlFilePath
+			  , HTML_FILE_NM AS htmlFileNm
+			  , HTML_URL AS htmlUrl
+			  , HTML_SIZE AS htmlSize
+			  , EXTRA_LINK_URL as extraLinkUrl
+			  , EXTRA_LINK_URL_YN as extraLinkUrlYn
+			  , WEB_ACC_KEY as webAccKey
+			  , APPLY_YN AS applyYn
+			  , IFNULL(DATE_FORMAT(APPLY_ST_DAY, '%Y-%m-%d'), '') AS applyStDay
+			  , CASE WHEN IFNULL(APPLY_ST_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ST_TIME, 1, 2),':',SUBSTRING(APPLY_ST_TIME, 3, 2)) END AS applyStTime
+			  , IFNULL(DATE_FORMAT(APPLY_ED_DAY, '%Y-%m-%d'), '') AS applyEdDay
+			  , CASE WHEN IFNULL(APPLY_ED_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ED_TIME, 1, 2),':',SUBSTRING(APPLY_ED_TIME, 3, 2)) END AS applyEdTime
+			  , DEL_YN AS delYn
+			  , CASE WHEN IFNULL(CONCAT(HTML_URL,HTML_FILE_NM),'') != '' THEN CONCAT(HTML_URL,'/',HTML_FILE_NM)
+          		ELSE '' END AS htmlFullUrl
+			  , REGI_ID AS regId
+			  , IFNULL(DATE_FORMAT(REGI_DTTM, '%Y-%m-%d'), '') AS regDttm
+			  , UPDT_ID AS updId
+			  , UPDT_DTTM AS updDttm
+		FROM TB_USER_HTML
+		WHERE 	1=1
+		 AND HSPT_ID = #hsptId#
+		 AND DEL_YN	= 'N'
+		ORDER BY  REGI_DTTM DESC, UPDT_DTTM DESC
+
+	</select>
+
+	<select id="loadhtml" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* EventDAO.loadhtml */
+		SELECT
+			    HSPT_ID AS hsptId
+		      , F_GET_HSPT_NM_FR_HSPT_ID(#hsptId#) AS hsptNm
+			  , USER_ID AS userId
+			  , HTML_SNO AS htmlSno
+			  , HTML_NM AS htmlNm
+			  , HTML_DESC AS htmlDesc
+			  , HTML_FILE_PATH AS htmlFilePath
+			  , HTML_FILE_NM AS htmlFileNm
+			  , HTML_URL AS htmlUrl
+			  , HTML_SIZE AS htmlSize
+			  , EXTRA_LINK_URL as extraLinkUrl
+			  , EXTRA_LINK_URL_YN as extraLinkUrlYn
+			  , WEB_ACC_KEY as webAccKey
+			  , APPLY_YN AS applyYn
+			  , IFNULL(DATE_FORMAT(APPLY_ST_DAY, '%Y-%m-%d'), '') AS applyStDay
+			  , CASE WHEN IFNULL(APPLY_ST_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ST_TIME, 1, 2),':',SUBSTRING(APPLY_ST_TIME, 3, 2)) END AS applyStTime
+			  , IFNULL(DATE_FORMAT(APPLY_ED_DAY, '%Y-%m-%d'), '') AS applyEdDay
+			  , CASE WHEN IFNULL(APPLY_ED_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ED_TIME, 1, 2),':',SUBSTRING(APPLY_ED_TIME, 3, 2)) END AS applyEdTime
+			  , DEL_YN AS delYn
+			  , REGI_ID AS regId
+			  , IFNULL(DATE_FORMAT(REGI_DTTM, '%Y-%m-%d'), '') AS regDttm
+			  , UPDT_ID AS updId
+			  , UPDT_DTTM AS updDttm
+		FROM TB_USER_HTML
+		WHERE 	1=1
+		 AND HSPT_ID = #hsptId#
+		 AND HTML_SNO = #htmlSno#
+		 AND DEL_YN	= 'N'
+	</select>
+	
+    <!--  키 채번은 100000 번 부터 시작  -->
+	<insert id="insertTbUserHtml" parameterClass="java.util.HashMap">
+		/* EventDAO.insertTbUserHtml */
+		INSERT INTO TB_USER_HTML 
+		(
+			  HSPT_ID
+			, USER_ID
+			, HTML_SNO
+			, HTML_NM	
+			, HTML_FILE_PATH	
+			, HTML_FILE_NM	
+			, HTML_URL	
+			, HTML_SIZE
+			, EXTRA_LINK_URL
+			, EXTRA_LINK_URL_YN
+			, WEB_ACC_KEY
+			, APPLY_YN
+<!-- 			, APPLY_ST_DAY -->
+<!-- 			, APPLY_ST_TIME -->
+<!-- 			, APPLY_ED_DAY -->
+<!-- 			, APPLY_ED_TIME -->
+			, DEL_YN	
+			, REGI_ID	
+			, REGI_DTTM	
+		) SELECT
+		      #hsptId#
+			, #userId#
+			, (
+					SELECT  ifnull(max(HTML_SNO),#htmlSno#) +1
+					FROM    TB_USER_HTML
+					WHERE   USER_ID		= #userId#
+			  )
+			, #htmlNm#
+			, #htmlFilePath#	
+			, #htmlFileNm#
+			, #htmlUrl#	
+			, #htmlSize#
+			, #extraLinkUrl#
+			, #extraLinkUrlYn#
+			, #webAccKey#
+			, 'N'
+<!-- 			, #applyStDay# -->
+<!-- 			, #applyStTime# -->
+<!-- 			, #applyEdDay# -->
+<!-- 			, #applyEdTime# -->
+			, 'N'	
+			, #userId#
+			, SYSDATE()
+
+	</insert>
+	
+	<select id="selectHtmlContents" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		/* EventDAO.selectHtmlContents */
+		SELECT
+			    HSPT_ID AS hsptId
+			  , F_GET_HSPT_NM_FR_HSPT_ID(#hsptId#) AS hsptNm
+			  , USER_ID AS userId
+			  , HTML_SNO AS htmlSno
+			  , HTML_NM AS htmlNm
+			  , HTML_DESC AS htmlDesc
+			  , HTML_FILE_PATH AS htmlFilePath
+			  , HTML_FILE_NM AS htmlFileNm
+			  , HTML_URL AS htmlUrl
+			  , HTML_SIZE AS htmlSize
+			  , EXTRA_LINK_URL as extraLinkUrl
+			  , EXTRA_LINK_URL_YN as extraLinkUrlYn
+			  , WEB_ACC_KEY as webAccKey
+			  , APPLY_YN AS applyYn
+			  , IFNULL(DATE_FORMAT(APPLY_ST_DAY, '%Y-%m-%d'), '') AS applyStDay
+			  , CASE WHEN IFNULL(APPLY_ST_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ST_TIME, 1, 2),':',SUBSTRING(APPLY_ST_TIME, 3, 2)) END AS applyStTime
+			  , IFNULL(DATE_FORMAT(APPLY_ED_DAY, '%Y-%m-%d'), '') AS applyEdDay
+			  , CASE WHEN IFNULL(APPLY_ED_TIME,'') = '' THEN '' ELSE CONCAT(SUBSTRING(APPLY_ED_TIME, 1, 2),':',SUBSTRING(APPLY_ED_TIME, 3, 2)) END AS applyEdTime
+			  , DEL_YN AS delYn
+			  , REGI_ID AS regId
+			  , IFNULL(DATE_FORMAT(REGI_DTTM, '%Y-%m-%d'), '') AS regDttm
+			  , UPDT_ID AS updId
+			  , UPDT_DTTM AS updDttm
+		FROM TB_USER_HTML
+		WHERE 	1=1
+		 AND HSPT_ID = #hsptId#
+		 AND HTML_SNO = #htmlSno#
+		 AND DEL_YN	= 'N'
+	</select>
+	
+	<update id="updateTbUserHtml" parameterClass="java.util.HashMap">
+		/* EventDAO.updateTbUserHtml */
+		UPDATE TB_USER_HTML 
+		   SET HTML_NM = #htmlNm#
+		     , HTML_FILE_PATH = #htmlFilePath#
+			 , HTML_FILE_NM = #htmlFileNm#
+			 , HTML_URL = #htmlUrl#
+			 , HTML_SIZE = #htmlSize#
+			 , EXTRA_LINK_URL = #extraLinkUrl#
+			 , EXTRA_LINK_URL_YN = #extraLinkUrlYn#
+			 , UPDT_ID =  #userId#
+			 , UPDT_DTTM = SYSDATE()
+	     WHERE HSPT_ID = #hsptId#
+		   AND HTML_SNO = #htmlSno#
+		   AND DEL_YN = 'N'
+
+	</update>
+	
+	<update id="deleteWithFileTbUserHtml" parameterClass="java.util.HashMap">
+		/* EventDAO.deleteWithFileTbUserHtml */
+		UPDATE TB_USER_HTML 
+		   SET DEL_YN = 'Y'	
+		     , UPDT_ID =  #userId#
+			 , UPDT_DTTM = SYSDATE()
+	     WHERE HSPT_ID = #hsptId#
+		   AND HTML_SNO = #htmlSno#
+		   AND DEL_YN = 'N'
+	</update>
+		
+	<update id="updateSchedule" parameterClass="java.util.HashMap">
+		/* EventDAO.deleteWithFileTbUserHtml */
+		UPDATE TB_USER_HTML 
+		   SET APPLY_YN = IFNULL(#applyYn#,'N')
+			 , APPLY_ST_DAY = #applyStDay#
+			 , APPLY_ST_TIME = #applyStTime#
+			 , APPLY_ED_DAY = #applyEdDay#
+			 , APPLY_ED_TIME = #applyEdTime#
+		     , UPDT_ID =  #userId#
+			 , UPDT_DTTM = SYSDATE()
+	     WHERE HSPT_ID = #hsptId#
+		   AND HTML_SNO = #htmlSno#
+		   AND DEL_YN = 'N'
+	</update>
+
+</sqlMap>

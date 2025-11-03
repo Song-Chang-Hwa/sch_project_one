@@ -1,0 +1,71 @@
+package com.sht.security.handler;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.management.ManagementFactory;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sht.common.RequestUtil;
+import com.sht.eduai.comm.service.CommService;
+import com.sht.eduai.user.service.UserService;
+import com.sht.common.EDUAIConstant;
+import com.sht.security.RestResultData;
+import com.sht.util.CommUtils;
+
+@Component
+public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+	@Autowired
+	private CommService commService;
+	
+	@Autowired
+	private UserService userService;
+	@Override
+	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+		Map<String, Object> logMap=  new HashMap<String, Object>();
+		if(  RequestUtil.isJson(request) ) {
+			String message = exception.getMessage();
+
+			response.setHeader("Content-Type", "application/json; charset=UTF-8");
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			
+			response.setHeader("Accept", "application/json");
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+			response.setHeader("Access-Control-Max-Age", "3600");
+			response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			String json = objectMapper.writeValueAsString(new RestResultData(message, EDUAIConstant.HTTP_STATUS_AUTHENTICATIONFAILURE));
+			PrintWriter out = response.getWriter();
+			out.print(json);
+			out.flush();
+			out.close();
+			
+			String username = request.getParameter("username");
+			String IP = CommUtils.getClientIP(request);
+			logMap.put("userId", username);
+			logMap.put("PID", ManagementFactory.getRuntimeMXBean().getName());
+			logMap.put("IP", IP);
+			try {
+				userService.insertFailLoginLog(username);
+				userService.insertFailLoginLogDetail(logMap);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else{
+        	super.onAuthenticationFailure(request, response, exception);        	
+       }
+	}
+}

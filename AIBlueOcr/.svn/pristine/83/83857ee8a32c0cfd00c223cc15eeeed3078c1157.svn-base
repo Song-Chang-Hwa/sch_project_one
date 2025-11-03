@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AiDO-RECO</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="title" content="AiDO-RECO" />
+<meta name="Author" content="AiDO-RECO" />
+<meta name="description" content="AiDO-RECO" />
+<meta name="keywords" content="AiDO-RECO" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+<meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,width=device-width'>
+
+<link rel="apple-touch-icon" sizes="57x57" href="../resources/img_app/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../resources/img_app/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../resources/img_app/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../resources/img_app/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../resources/img_app/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../resources/img_app/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../resources/img_app/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../resources/img_app/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../resources/img_app/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../resources/img_app/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../resources/img_app/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../resources/img_app/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../resources/img_app/favicon/favicon-16x16.png">
+<link rel="manifest" href="../resources/img_app/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../resources/img_app/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+<!-- layout css -->
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
+
+
+
+<script type="text/javascript" language="javascript" src="../resources/js/html5.js"></script>
+<!-- Main scripts -->
+<script type="text/javascript" language="javascript" src="../resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/bootstrap.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="../resources/js/modernizr.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/platform.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/mobile-detect.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/mobile-detect-modernizr.js"></script>
+
+<!-- Data picker -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/jquery.metisMenu.js"></script>
+
+<script type="text/javascript" language="javascript" src="../resources/js/ui.js"></script>
+
+
+
+
+<!-- rangeslider resources -->
+<script src="../resources/js/lib/rangeslider.min.js"></script>
+<script src="../resources/js/lib/rangeSliderCustom.js"></script>
+
+<!-- dataGrid resources -->
+<script src="../resources/js/lib/dx.all.js"></script>
+<!-- demo develpoer data -->
+<script src="../resources/js/lib/dataGridDemoData.js"></script>
+<script src="../resources/js/lib/dataGridCustom.js"></script>
+
+
+<!-- chartJS resources -->
+<script src="../resources/js/lib/chartjs.js"></script>
+<script src="../resources/js/lib/Chart.bundle.js"></script>
+<script src="../resources/js/lib/chartPlugin.js"></script>
+
+<!-- demo develpoer data -->
+<script src="../resources/js/lib/chartJsDemoData.js"></script>
+<script src="../resources/js/lib/chartCustom.js"></script>
+
+<!-- datepiker -->
+<script src="../resources/js/lib/moment.min.js"></script>
+<script src="../resources/js/lib/daterangepicker.js"></script>
+
+
+<!-- publishing resources -->
+<script src="../resources/js/scripts.js"></script>
+
+<!-- Clock picker -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/clockpicker/clockpicker.js"></script>
+
+<!-- confirm -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<!-- jsTree -->
+<script src="../resources/js/plugins/jsTree/jstree.min.js"></script>
+
+</head>
+
+<script>
+$('a[data-scroll="true"]').click(function(e){         
+    var scroll_target = $(this).data('id');
+    var scroll_trigger = $(this).data('scroll');
+    
+    if(scroll_trigger == true && scroll_target !== undefined){
+        e.preventDefault();
+        
+        $('html, body').animate({
+             scrollTop: $(scroll_target).offset().top
+        }, 1000);
+    }
+                
+});
+
+
+</script>
+<style>
+
+body{padding:20px; background:#fff}
+.guide {
+	border: 1px solid #e1e1e1;
+	padding: 20px 20px 40px 20px;
+	clear: both;
+	display:block;
+	margin-bottom: 20px;
+	overflow:hidden;
+}
+
+.guide h2.tit {
+	border: 1px dashed #000000;
+	padding: 20px;
+	clear: both;
+	margin-bottom: 20px;
+	color: #5398d3;
+	background: #f9f9f9;
+	font-size:22px;
+}
+
+.buttonArea {
+	padding: 5px;
+	margin: 0;
+}
+
+p.tit02{color:red; clear:both; font-size:16px; padding:10px 0 5px;}
+a {margin:5px 0;}
+
+.guideLeft{position:fixed; top:20px; left:20px; width:200px; border:1px solid #e1e1e1; padding:10px 20px; background:#ffffff;}
+.guideLeft li{padding:5px 10px; overflow:hidden;}
+.guideLeft li a{font-size:14px; color:#000; }
+.guideRight{padding-left:220px;}
+
+</style>
+
+
+<body>
+
+<div class="guideLeft">
+	<ul>
+		<li><a href="#link1" data-scroll="true" data-id="#link1">Button Type</a></li>
+		<li><a href="#link3" data-scroll="true" data-id="#link3">FORM Type</a></li>
+		<li><a href="#link4" data-scroll="true" data-id="#link4">아이콘</a></li>
+		<li><a href="#link5" data-scroll="true" data-id="#link5">Typography</a></li>
+		<li><a href="#link6" data-scroll="true" data-id="#link6">Notifications</a></li>
+		<li><a href="#link7" data-scroll="true" data-id="#link7">Tab Guide</a></li>
+		<li><a href="#link8" data-scroll="true" data-id="#link8">Table Type</a></li>
+		<li><a href="#link9" data-scroll="true" data-id="#link9">Paging</a></li>
+		<li><a href="#link15" data-scroll="true" data-id="#link15">스크롤</a></li>
+		<li><a href="#link10" data-scroll="true" data-id="#link10">Modal</a></li>
+		<li><a href="#link12" data-scroll="true" data-id="#link12">API URL</a></li>
+		<li><a href="#link13" data-scroll="true" data-id="#link13">alert 창</a></li>
+		<li><a href="#link14" data-scroll="true" data-id="#link14">주요 class</a></li>
+	</ul>
+</div>
+<div class="guideRight">
+
+<div class="guide" id="link1">
+	<h2 class="tit">Button Type</h2>
+
+	<p class="tit02">버튼 오른쪽 정렬</p>
+	
+	<!-- 버튼 -->
+	<div class="buttonGroup">
+		<div class="BtnGroupR">										
+			<a href="#" class="btn btn-primary" title="추가"><i class="fa fa-plus-square-o"></i> 추가</a>
+			<a href="#" class="btn btn-primary" title="저장"><i class="fa fa-floppy-o"></i> 저장</a>
+		</div>
+	</div>
+	<!-- 버튼 끝 -->
+
+	<p class="tit02">버튼 왼쪽 정렬</p>
+	<!-- 버튼 -->
+	<div class="buttonGroup">
+		<div class="BtnGroupL">										
+			<a href="#" class="btn btn-primary" title="추가"><i class="fa fa-plus-square-o"></i> 추가</a>
+			<a href="#" class="btn btn-primary" title="저장"><i class="fa fa-floppy-o"></i> 저장</a>
+		</div>
+	</div>
+	<!-- 버튼 끝 -->
+	
+
+	<p class="tit02">버튼 왼쪽과 오른쪽 동시 정렬</p>
+	<div class="buttonGroup">
+		<div class="BtnGroupL">										
+			<a href="#" class="btn btn-primary" title="추가"><i class="fa fa-plus-square-o"></i> 추가</a>
+			<a href="#" class="btn btn-primary" title="저장"><i class="fa fa-floppy-o"></i> 저장</a>
+		</div>
+		<div class="BtnGroupR">										
+			<a href="#" class="btn btn-primary" title="추가"><i class="fa fa-plus-square-o"></i> 추가</a>
+			<a href="#" class="btn btn-primary" title="저장"><i class="fa fa-floppy-o"></i> 저장</a>
+		</div>
+	</div>
+
+	<p class="tit02">버튼 타입들</p>
+
+	<a href="#" class="btn btn-w-m btn-default">Default</a>
+	<a href="#" class="btn btn-w-m btn-primary">Primary</a>
+	<a href="#" class="btn btn-w-m btn-success">Success</a>
+	<a href="#" class="btn btn-w-m btn-info">Info</a>
+	<a href="#" class="btn btn-w-m btn-warning">Warning</a>
+	<a href="#" class="btn btn-w-m btn-danger">Danger</a>
+	<a href="#" class="btn btn-w-m btn-link">Link</a>
+	
+
+	<p class="tit02">Button Sizes</p>
+
+	<a href="#" class="btn btn-primary btn-lg">Large button</a>
+	<a href="#" class="btn btn-default btn-lg">Large button</a>
+	<br/>
+	<a href="#" class="btn btn-primary">Default button</a>
+	<a href="#" class="btn btn-default">Default button</a>
+	<br/>
+	<a href="#" class="btn btn-primary btn-sm">Small button</a>
+	<a href="#" class="btn btn-default btn-sm">Small button</a>
+	<br/>
+	<a href="#" class="btn btn-primary btn-xs">Mini button</a>
+	<a href="#" class="btn btn-default btn-xs">Mini button</a>
+	
+	
+	<p class="tit02">Outline buttons</p>
+	
+		<a href="#" class="btn btn-outline btn-default">Default</a>
+		<a href="#" class="btn btn-outline btn-primary">Primary</a>
+		<a href="#" class="btn btn-outline btn-success">Success</a>
+		<a href="#" class="btn btn-outline btn-info">Info</a>
+		<a href="#" class="btn btn-outline btn-warning">Warning</a>
+		<a href="#" class="btn btn-outline btn-danger">Danger</a>
+		<a href="#" class="btn btn-outline btn-link">Link</a>
+	
+	<p class="tit02">Block buttons</p>	
+		<a href="#" class="btn btn-block btn-outline btn-primary">Primary</a>
+	
+
+	<p class="tit02">버튼들</p>
+
+	<!-- 버튼 -->
+	<div class="buttonGroup">
+		<div class="BtnGroupR">										
+			<a href="#" class="btn btn-primary" title="조회"><i class="fa fa-search"></i> 조회</a>
+			<a href="#" class="btn btn-primary" title="추가"><i class="fa fa-plus-square-o"></i> 추가</a>
+			<a href="#" class="btn btn-primary" title="저장"><i class="fa fa-floppy-o"></i> 저장</a>
+			<a href="#" class="btn btn-primary" title="수정"><i class="fa fa-edit"></i> 수정</a>
+			<a href="#" class="btn btn-primary" title="삭제"><i class="fa fa-trash-o"></i> 삭제</a>
+			<a href="#" class="btn btn-primary" title="상세보기"><i class="fa fa-ellipsis-h"></i> 상세보기</a>
+			<a href="#" class="btn btn-primary" title="엑셀 다운로드"><i class="fa fa-download"></i> 엑셀 다운로드</a>
+			<a href="#" class="btn btn-primary" title="엑셀 다운로드"><i class="fa fa-upload"></i> 엑셀 올리기</a>
+			<a href="#" class="btn btn-primary" title="PDF 저장"><i class="fa fa-download"></i> PDF 저장</a>
+			<a href="#" class="btn btn-primary" title="출력"><i class="fa fa-print"></i> 출력</a>
+			<a href="#" class="btn btn-primary" title="보고수정"><i class="fa fa-edit"></i> 보고수정</a>
+			<a href="#" class="btn btn-primary" title="이력보기"><i class="fa ti-layers-alt"></i> 이력보기</a>
+			<a href="#" class="btn btn-primary" title="접수"><i class="fa fa-inbox"></i> 접수</a>
+			<a href="#" class="btn btn-primary" title="유사보고조회"><i class="fa fa-search"></i> 유사보고조회</a>			
+			<a href="#" class="btn btn-primary" title="저장"><i class="ti-save"></i> 저장</a>
+			<a href="#" class="btn btn-primary" title="제출"><i class="ti-check"></i> 제출</a>
+			<a href="#" class="btn btn-primary" title="확인"><i class="ti-check"></i> 확인</a>
+			<a href="#" class="btn btn-primary" title="사용자 중복체크"><i class="ti-check"></i> 사용자 중복체크</a>	
+			<a href="#" class="btn btn-default btn-outline" type="submit"><i class="ti-trash"></i></a>
+		</div>
+	</div>
+	<!-- 버튼 끝 -->
+
+	<div class="buttonGroup">
+		<div class="BtnGroupR">										
+			<a href="#" class="btn btn-primary" title="초도보고서 작성"><i class="fa fa-file-text-o"></i> 초도보고서 작성</a>
+			<a href="#" class="btn btn-primary" title="중간보고서 작성"><i class="fa fa-file-text-o"></i> 중간보고서 작성</a>
+			<a href="#" class="btn btn-primary" title="최종보고서 작성"><i class="fa fa-file-text-o"></i> 최종보고서 작성</a>
+			<a href="#" class="btn btn-primary" title="S.P 피드백"><i class="ti-back-left"></i> S.P 피드백</a>
+			<a href="#" class="btn btn-primary" title="반송처리"><i class="ti-loop"></i> 반송처리</a>
+			<a href="#" class="btn btn-primary" title="행복사"><i class="ti-view-list"></i> 행복사</a>
+		</div>
+	</div>
+
+	
+
+	
+</div>
+
+
+<script>
+$(document).ready(function() {
+	$('#dateStart .input-group.date').datepicker({
+		todayBtn: "linked"
+	});
+	$('#dateEnd .input-group.date').datepicker({
+		todayBtn: "linked"
+	});		
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+						<div class="guide" id="link3">
+
+							<h2 class="tit">FORM Type</h2>
+
+								
+								<form method="" class="form-horizontal" role="form" id="form">
+									<p class="tit02">input박스</p>
+										<input type="text" class="form-control">
+										<span class="help-block m-b-none">간단한 설명과 함께</span>
+										<input type="text" class="form-control"  disabled="disabled">
+									<p class="tit02">input박스 색깔</p>
+										<div class="has-success"><input type="text" class="form-control"></div>
+										<div class="has-warning"><input type="text" class="form-control"></div>
+										<div class="has-error"><input type="text" class="form-control"></div>
+									<p class="tit02">Column sizing</p>
+										<div class="row">
+											<div class="col-sm-2"><input type="text" placeholder=".col-sm-2" class="form-control"></div>
+											<div class="col-sm-2"><input type="text" placeholder=".col-sm-2" class="form-control"></div>
+											<div class="col-sm-8"><input type="text" placeholder=".col-sm-8" class="form-control"></div>
+										</div>
+
+									<p class="tit02">체크박스</p>										
+
+										<div class="checkbox-out">
+											<input  type="checkbox" id="check1" checked="checked" /><label for="check1" class="checkbox">타이틀</label> 
+											<input  type="checkbox" id="check2" /><label  for="check2" class="checkbox">타이틀</label>
+											<input  type="checkbox" id="check3" /><label  for="check3" class="checkbox">타이틀</label>
+										</div>
+
+										<div class="checkbox-out">
+											<input  type="checkbox" id="check3" checked="checked" disabled="disabled" /><label for="check3" class="checkbox">Parent</label> 
+											<input  type="checkbox" id="check4" disabled="disabled" /><label  for="check4" class="checkbox">Guardian</label>
+										</div>
+
+									<p class="tit02">라디오박스</p>
+										<div class="radios">
+											<input type="radio" name="Residence" value="1" id="r1" checked="checked" /><label class="radio" for="r1">타이틀</label>
+											<input type="radio" name="Residence" value="2" id="r2" /><label class="radio" for="r2">타이틀</label>
+											<input type="radio" name="Residence" value="3" id="r3" /><label class="radio" for="r3">타이틀</label>
+										</div>
+									
+									<p class="tit02">셀렉트박스</p>
+										<div class="selects">
+											<select class="form-control" name="">
+												<option value="" selected>타이틀</option>
+												<option value="">타이틀</option>
+												<option value="">타이틀</option>
+											</select>
+										</div>
+										<div class="selects">
+											<select class="form-control" name=""  disabled="disabled">
+												<option value="" selected>타이틀</option>
+												<option value="">타이틀</option>
+												<option value="">타이틀</option>
+											</select>
+										</div>
+									<p class="tit02">파일첨부</p>
+										<div class="input-group">
+											<input type="text" class="form-control" disabled="disabled">
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default"><i class="ti-plus"></i></button>
+											</span>
+										</div>
+									<p class="tit02">input과 함께</p>
+										<div class="input-group">
+											<input type="text" class="form-control">
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" data-toggle="modal" data-target="#airportListReg"><i class="ti-search"></i></button>
+											</span>
+										</div>
+										<div class="input-group">
+											<input type="text" class="form-control">
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-default" data-toggle="modal" data-target="#airportListReg">텍스트와 함께</button>
+											</span>
+										</div>
+										<div class="input-group m-b"><span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary">Go!</button> </span> <input type="text" class="form-control">
+                                        </div>
+                                        <div class="input-group"><input type="text" class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-primary">Go!
+                                        </button> </span></div>
+
+										<div class="input-group"><input type="text" class="form-control">
+                                            <div class="input-group-btn">
+                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">Action <span class="caret"></span></button>
+                                                <ul class="dropdown-menu text-right">
+                                                    <li><a href="#">샘플1</a></li>
+                                                    <li><a href="#">샘플2</a></li>                                                    
+                                                </ul>
+                                            </div>
+										</div>
+
+									<p class="tit02">날짜/시간 선택 <a href="http://weareoutman.github.io/clockpicker/" target="_blank">http://weareoutman.github.io/clockpicker/ </a></p>
+										<div id="dateStart">
+											<div class="input-group date">
+												<span class="input-group-addon"><i class="ti-calendar"></i></span><input type="text" class="form-control" value="2016-03-04">
+											</div>
+										</div>
+
+										<div class="input-group clockpicker" data-autoclose="true">														
+											<span class="input-group-addon">
+												<span class="ti-alarm-clock"></span>
+											</span>
+											<input type="text" class="form-control" value="09:30">
+										</div>
+
+									<p class="tit02">textarea</p>
+										<textarea class="form-control" placeholder="내용을 입력해 주세요" rows="3"></textarea>
+<script>
+$(document).ready(function() {
+	$('.clockpicker').clockpicker();
+});
+</script>
+								</form>
+
+								
+						
+
+						</div>
+
+						<div class="guide" id="link4">
+
+							<h2 class="tit">아이콘 (아이콘은 2개 타입으로 해당 사이트에 가시면 class를 확인할 수 있습니다.)</h2>						
+
+								<p class="tit02">Font Awesome 4.3.0</p>
+								<a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>
+								<button type="button" class="btn btn-default"><i class="fa fa-asterisk fa-spin"></i></button>
+								<button type="button" class="btn btn-default"><i class="fa fa-asterisk"> 아이콘</i></button>								
+
+								<p class="tit02">themify</p>
+								<a href="https://themify.me/themify-icons" target="_blank">https://themify.me/themify-icons</a>
+								<button type="button" class="btn btn-default"><i class="ti-back-left"></i></button>
+
+
+								<p><a href="http://themes-pixeden.com/font-demos/the-icons-set/books-text/" target="_blank">아이콘3 : http://themes-pixeden.com/font-demos/the-icons-set/books-text/</a></p>
+								<p><a href="http://themes-pixeden.com/font-demos/media-icons/" target="_blank">아이콘4 : http://themes-pixeden.com/font-demos/media-icons/</a></p>
+								
+
+						</div>
+
+
+						<div class="guide" id="link5">
+
+							<h2 class="tit">Typography</h2>
+							<p class="tit02">Title Type</p>
+
+								<div class="soTitle">제출자 정보<span class="discriptEn">Submitter Information</span></div>
+								<div class="txt_title01">제목입니다.</div>
+								<div class="txt_title02">제목입니다.</div>
+
+							<p class="tit02">Title Type2</p>
+
+								<h1>Heading 1
+									<small>Sub-heading</small>
+								</h1>
+								<h2>Heading 2
+									<small>Sub-heading</small>
+								</h2>
+								<h3>Heading 3
+									<small>Sub-heading</small>
+								</h3>
+								<h4>Heading 4
+									<small>Sub-heading</small>
+								</h4>
+								<h5>Heading 5
+									<small>Sub-heading</small>
+								</h5>
+								<h6>Heading 6
+									<small>Sub-heading</small>
+								</h6>
+							
+							<p class="tit02">text color</p>
+								<span class="text-muted">This is an example of muted text.</span>
+                                <span class="text-primary">This is an example of primary text.</span>
+                                <span class="text-success">This is an example of success text.</span>
+                                <span class="text-info">This is an example of info text.</span>
+                                <span class="text-warning">This is an example of warning text.</span>
+                                <span class="text-danger">This is an example of danger text.</span>
+							
+							<p class="tit02">정렬</p>
+								<p class="text-left">Left aligned text.</p>
+								<p class="text-center">Center aligned text.</p>
+								<p class="text-right">Right aligned text.</p>
+							
+							<p class="tit02">group list</p>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<span class="badge badge-primary">16</span>
+										But I must explain to
+									</li>
+									<li class="list-group-item ">
+										<span class="badge badge-info">12</span>
+										How all this mistaken
+									</li>
+									<li class="list-group-item">
+										<span class="badge badge-danger">10</span>
+										But because occasionally
+									</li>
+									<li class="list-group-item">
+										<span class="badge badge-success">10</span>
+										But who has any right
+									</li>
+									<li class="list-group-item">
+										<span class="badge badge-warning">7</span>
+										On the other hand
+									</li>
+								</ul>
+								
+
+							<p class="tit02">group list</p>
+								<div class="list-group">
+									<a class="list-group-item active" href="#">
+										<h3 class="list-group-item-heading">A wonderful serenity has taken</h3>
+
+										<p class="list-group-item-text">I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. </p>
+									</a>
+
+									<a class="list-group-item" href="#">
+										<h3 class="list-group-item-heading">Why painful the sixteen how minuter</h3>
+
+										<p class="list-group-item-text">I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+									</a>
+
+									<a class="list-group-item" href="#">
+										<h3 class="list-group-item-heading">Barton waited twenty always repair</h3>
+
+										<p class="list-group-item-text">I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary</p>
+									</a>
+								</div>
+
+							<p class="tit02">well</p>
+								<div class="well">
+									<h3>
+										The quick, brown fox jumps over a lazy dog.
+									</h3>
+									I feel the presence of the Almighty, who formed us in his own image, and the breath
+								</div>
+								<div class="well well-lg">
+									<h3>
+										Quick zephyrs blow, vexing daft Jim.
+									</h3>
+									I feel that I never was a greater artist than now. When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees
+								</div>
+								<div class="well well-sm">
+									<h3>
+										Joaquin Phoenix was gazed by MTV for luck
+									</h3>
+									A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
+								</div>
+
+						</div>
+						
+						<div class="guide" id="link6">
+
+							<h2 class="tit">Notifications</h2>
+
+							<p class="tit02">alert 스타일</p>
+								<div class="alert alert-success">
+									How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>
+								</div>
+								<div class="alert alert-info">
+									How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>
+								</div>
+								<div class="alert alert-warning">
+									How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>
+								</div>
+								<div class="alert alert-danger">
+									How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>								
+								</div>						
+
+							<p class="tit02">Dismissable Alerts</p>
+								<div class="alert alert-success alert-dismissable">
+									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+									A wonderful serenity has taken possession. <a class="alert-link" href="#">Alert Link</a>.
+								</div>
+								<div class="alert alert-info alert-dismissable">
+									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+									A wonderful serenity has taken possession. <a class="alert-link" href="#">Alert Link</a>.
+								</div>
+								<div class="alert alert-warning alert-dismissable">
+									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+									A wonderful serenity has taken possession. <a class="alert-link" href="#">Alert Link</a>.
+								</div>
+								<div class="alert alert-danger alert-dismissable">
+									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+									A wonderful serenity has taken possession. <a class="alert-link" href="#">Alert Link</a>.
+								</div>
+
+								<p class="tit02">Tooltip Demo <small>Background color more gentle.</small></p>
+								<div class="tooltip-demo">
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+									<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
+								</div>
+							
+								<p class="tit02">Clickable Popover Demo</p>
+								<div class="tooltip-demo">
+									<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+										Popover on left
+									</button>
+									<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+										Popover on top
+									</button>
+									<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+										Popover on bottom
+									</button>
+									<button type="button" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+										Popover on right
+									</button>
+								</div>
+								
+						</div>
+
+						<div class="guide" id="link7">
+
+							<h2 class="tit">Tab Guide</h2>
+
+							<div class="tabs-container">
+								<ul class="nav nav-tabs">
+									<li class="active"><a data-toggle="tab" href="#tab-1">tab 1</a></li>
+									<li class=""><a data-toggle="tab" href="#tab-2">tab 2</a></li>
+								</ul>
+								<div class="tab-content">
+									<div id="tab-1" class="tab-pane active">
+										<div class="panel-body">
+											<strong>탭 1내용입니다.</strong>
+											<p>탭 1내용입니다.탭 1내용입니다.탭 1내용입니다.탭 1내용입니다.탭 1내용입니다.탭 1내용입니다.</p>
+										</div>
+									</div>
+									<div id="tab-2" class="tab-pane">
+										<div class="panel-body">
+											<strong>탭 2내용입니다.</strong>
+											<p>탭 2내용입니다.탭 2내용입니다.탭 2내용입니다.탭 2내용입니다.탭 2내용입니다.탭 2내용입니다.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+						</div>
+
+
+
+						<div class="guide" id="link8">
+
+							<h2 class="tit">Table Type</h2>
+
+							<p class="tit02">게시물 테이블</p>
+							<!-- 게시판 영역 -->
+								<div class="table_type1">
+									<div class="sampleGridArea">그리드 영역입니다.</div>
+									<table summary="" class="">
+										<caption></caption>
+										<!-- <colgroup>											
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col>
+										</colgroup> -->
+
+										<thead>
+											<tr>
+												<th scope="col">제목1212</th>
+												<th scope="col">제목1212</th>
+												<th scope="col">제목2121</th>
+												<th scope="col">제목</th>
+												<th scope="col">제목2121</th>
+												<th scope="col">제목2121제목2121제목2121</th>
+												<th scope="col">제목2121</th>
+												<th scope="col">제목</th>
+												<th scope="col">제목</th>
+												<th scope="col">제목</th>
+												<th scope="col">제목</th>
+											</tr>											
+										</thead>
+										<tbody>											
+											<tr>
+												<td>내용</td> 
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+											</tr>
+											<tr>
+												<td>내용</td> 
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+											</tr>
+											<tr>
+												<td>내용</td> 
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+											</tr>
+											<tr>
+												<td>내용</td> 
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+												<td>내용</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- 게시판 영역 끝-->
+							<br /><br /><br />							
+
+							<p class="tit02">입력 테이블 유형1</p>
+
+							<div class="writeType01 viewTable01">
+								<div class="requiredInfor">					
+									<div class="form-Area">
+										<div class="form-group">
+											<label class="control-label"><span class="star01">신청자</span></label>
+											<div class="formInput">
+												<input type="text" class="form-control">
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">소속</span></label>
+											<div class="formInput">
+												<input type="text" class="form-control">
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">비상연락처</span></label>
+											<div class="formInput">
+												<input type="text" class="form-control">
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">조정일</span></label>
+											<div class="formInput">
+												<div id="dateStart">
+													<div class="input-group date">
+														<span class="input-group-addon"><i class="ti-calendar"></i></span><input type="text" class="form-control" value="2020-07-04">
+													</div>
+												</div>
+											</div>																			
+										</div>
+										<div class="form-group">
+											<label class="control-label"><span class="star01">사유</span></label>
+											<div class="formInput">
+												<div class="selects">
+													<select class="form-control" name="">
+														<option value="" selected="">훈련</option>
+														<option value="">타이틀</option>
+														<option value="">타이틀</option>
+													</select>
+												</div>
+											</div>																			
+										</div>
+										<div class="form-group form-group-block">
+											<label class="control-label"><span class="star01">내용</span></label>
+											<div class="formInput">
+												<textarea class="form-control" placeholder="내용을 입력해 주세요" rows="13"></textarea>
+											</div>																			
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<br /><br /><br />							
+
+							<p class="tit02">입력 테이블 유형2</p>
+
+							<form method="" class="form-horizontal" role="form" id="form">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="wrapper wrapper-content animated fadeInRight">					
+										<div class="ibox">
+											<div class="ibox-content01">
+												<div class="row">
+													<div class="col-sm-2">
+														<div class="soTitle">보고서 개요</div>
+													</div>
+													<div class="col-sm-10">
+														<div class="viewTable">
+															<div class="form-group">
+																<label class="col-sm-2 control-label labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-10">
+																	<input type="text" class="form-control" name="name1">
+																</div>																				
+															</div>
+															<div class="hr-line-dashed"></div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-4">
+																	<select class="form-control" name="">
+																		<option value="" selected>선택</option>
+																		<option value="">사고</option>
+																		<option value="">준사고</option>
+																		<option value="">항공안전장애</option>
+																		<option value="">기타</option>
+																	</select>
+																</div>
+																<label class="col-sm-2 control-label labelTitle">제출일시</label>
+																<div class="col-sm-4">
+																	<input type="text" class="form-control">
+																</div>												
+															</div>							
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="ibox">
+											<div class="ibox-content01">
+
+												<div class="row">
+													<div class="col-sm-2">
+														<div class="soTitle">발생일시</div>
+													</div>
+													<div class="col-sm-10">								
+														<div class="viewTable">						
+															<div class="form-group">
+																<label class="col-sm-2 control-label labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-4">
+																	<div id="dateStart">
+																		<div class="input-group date">
+																			<span class="input-group-addon"><i class="ti-calendar"></i></span><input type="text" class="form-control" value="2016-03-04">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-sm-6">
+																	<div class="input-group clockpicker" data-autoclose="true">														
+																		<span class="input-group-addon">
+																			<span class="ti-alarm-clock"></span>
+																		</span>
+																		<input type="text" class="form-control" value="09:30">
+																	</div>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-2 control-label"></label>												
+																<div class="col-sm-4">
+																	<select class="form-control">
+																		<option value="" selected>선택</option>
+																		<option value="">Local</option>
+																		<option value="">UTC</option>
+																	</select>
+																</div>
+																<div class="col-sm-6">
+																	<input type="text" class="form-control">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							</form>
+
+							<br />
+							<p class="tit02">입력 테이블 유형3</p>
+
+							<form method="" class="form-horizontal" role="form" id="form">
+							<div class="row">								
+								<div class="col-lg-12">
+									<div class="wrapper wrapper-content animated fadeInRight">					
+										<div class="ibox">
+											<div class="ibox-content01 danger">
+												<div class="row">									
+													<div class="col-sm-12">
+														<div class="soTitle">항공기 충돌 부위<span class="discriptEn">Part(s) of Aircraft</span></div>
+													</div>
+													<div class="col-sm-12">
+														<div class="viewTable">
+															<div class="form-group">
+																<label class="col-sm-6 control-label text-left labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-6">
+																	
+																</div>																				
+															</div>
+															<div class="hr-line-dashed"></div>
+															<div class="form-group">
+																<label class="col-sm-6 control-label text-left labelTitle"><span class="star01">타이틀</span> <span class="discriptEn">Send to</span></label>
+																<div class="col-sm-6">
+																	<input type="text" class="form-control" name="name1">
+																</div>																				
+															</div>
+															<div class="hr-line-dashed"></div>
+															<div class="form-group">
+																<label class="col-sm-6 control-label text-left labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-6">
+																	<select class="form-control" name="">
+																		<option value="" selected>선택</option>
+																		<option value="">준사고</option>
+																		<option value="">항공안전장애</option>
+																	</select>
+																</div>																								
+															</div>
+															<div class="hr-line-dashed"></div>
+															<div class="form-group">		
+																<label class="col-sm-6 control-label text-left labelTitle"><span class="star01">타이틀</span></label>
+																<div class="col-sm-6">
+																	<select class="form-control" name="">
+																		<option value="" selected>선택</option>
+																		<option value="">국내</option>
+																		<option value="">해외</option>
+																		<option value="">Unknown</option>
+																	</select>
+																</div>												
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							</form>
+
+							
+							
+							<br />
+
+							
+							
+							<br />
+
+
+
+							<p class="tit02">검색 또는 등록된 정보가 없을 경우</p>
+							<div class="search_result">
+								<h4>등록된 정보가 없습니다.</h4>							
+							</div>
+
+
+
+
+						</div>
+						
+						
+						<div class="guide" id="link9">
+
+							<h2 class="tit">Paging</h2>
+						
+							<div class="board_bottom">
+								<div class="paging" id="pager">
+									<a class="go first" href="#11"><i class="ti-angle-double-left"></i></a>
+									<a class="go prev" href="#49"><i class="ti-angle-left"></i></a>
+									<a class="num" href="#1">1</a>
+									<a class="num" href="#2">2</a>
+									<a class="num" href="#3">3</a>
+									<a class="num" href="#4">4</a>
+									<a class="num" href="#5">5</a>
+									<a class="num" href="#6">6</a>
+									<a class="num" href="#7">7</a>
+									<a class="num" href="#8">8</a>
+									<a class="num" href="#9">9</a>
+									<a class="numActive" href="#10">10</a>
+									
+									<!-- 마지막 번호 -->
+									<a class="lastNum" href="#10">10</a>
+									<!-- 마지막 번호 -->
+
+									<a class="go next" href="#11"><i class="ti-angle-right"></i></a>
+									<a class="go last" href="#49"><i class="ti-angle-double-right"></i></a>
+								</div>
+							</div>
+
+						</div> 
+
+						<div class="guide" id="link15">
+
+							<h2 class="tit">스크롤 - mCustomScrollbar 클래스를 사용한다</h2>
+						
+							<div class="scrollArea mCustomScrollbar" style="height:300px; border:1px solid #000; padding:30px;">
+								내용입니다. <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+							</div>
+
+						</div>
+
+
+						<div class="guide" id="link10">
+
+							<h2 class="tit">Modal</h2>
+							
+
+							<p class="tit02">레이어 모달</p>
+							
+							<div class="input-group">
+								<input type="text" class="form-control">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" data-toggle="modal" data-target="#airportListReg"><i class="ti-search"></i></button>
+								</span>
+							</div>
+
+							<!-- 레이어 팝업-->
+							<div class="modal inmodal fade" id="airportListReg" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+											<h4 class="modal-title">제목입니다.</h4>
+										</div>										
+										<div class="modal-body">											
+											내용입니다. 
+											
+										</div>
+
+										<div class="modal-footer">
+											<a href="#" class="btn btn-primary" data-dismiss="modal">창닫기</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+						</div>
+
+
+
+
+						<div class="guide" id="link12">
+
+							<h2 class="tit">API URL 개발하실때 참고하십시요.</h2>
+						
+
+								<p class="tit02">1. checkBox / radioBox</p>
+								<a href="http://icheck.fronteed.com/" target="_blank">http://icheck.fronteed.com/</a>
+
+								<p class="tit02">2. 시간 설정</p>
+								<a href="http://weareoutman.github.io/clockpicker/" target="_blank">http://weareoutman.github.io/clockpicker/ </a>
+
+								<p class="tit02">3. Tree 구조</p>
+								<a href="http://www.jstree.com/" target="_blank">http://www.jstree.com/</a>
+
+								<p class="tit02">4. sweet alert</p>
+								<a href="http://t4t5.github.io/sweetalert/" target="_blank">http://t4t5.github.io/sweetalert/ </a>
+
+								<p class="tit02">5. validate</p>
+								<a href="https://jqueryvalidation.org/" target="_blank">https://jqueryvalidation.org/ </a>
+
+								<p class="tit02">6. datatable</p>
+								<a href="https://datatables.net/" target="_blank">https://datatables.net/ </a>
+
+								<p class="tit02">7. datepicker</p>
+								<a href="http://www.eyecon.ro/bootstrap-datepicker/" target="_blank">http://www.eyecon.ro/bootstrap-datepicker/</a>
+
+								<p class="tit02">8. Calendar</p>
+								<a href="http://fullcalendar.io/" target="_blank">http://fullcalendar.io/</a>
+								
+								
+
+						</div>
+
+
+						<div class="guide" id="link13">
+
+							<h2 class="tit">alert 창</h2>
+						
+							<a href="#none" class="btn btn-primary" title="확인 모달버튼" id="conFirmModal">확인 모달버튼</a>
+
+						</div> 
+
+<script>
+$(document).ready(function() {
+
+	$('#conFirmModal').click(function () {
+		swal({
+			title: "저장하시겠습니까?",
+			text: "확인버튼 클릭후 저장됩니다.",
+			type: "info",
+			showCancelButton: true,
+			confirmButtonText: "확인",
+			closeOnConfirm: false
+		}, function () {
+			swal("Suceess", "저장이 완료되었습니다.", "success");
+		});
+	});
+
+});
+</script>
+
+						<div class="guide" id="link13">
+
+							<h2 class="tit">트리 <a href="http://www.jstree.com/" target="_blank">http://www.jstree.com/</a></h2>
+						
+							<div class="scrollArea mCustomScrollbar" style="height:300px; border:1px solid #000; padding:30px;">
+								<div id="packDateTree">
+									<ul>
+										<li class="jstree-open">1depth
+											<ul>
+												<li>1. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>2. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>3. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>4. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>5. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+												<li>6. 내용입니다.
+													<ul>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+														<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div> 
+<script>
+$(document).ready(function(){
+
+	$('#packDateTree').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});        
+
+});
+</script>
+
+
+						
+						<div class="guide" id="link14">
+
+							<h2 class="tit">주요 class</h2>
+
+							<p class="tit02">상하좌우 간격조절 - basic.css 참조</p>
+							<p class="tit02">위 간격조절</p>
+							.mT0 { margin-top: 0px; }<br />
+							.mT1 { margin-top: 1px; }<br />
+							.mT2 { margin-top: 2px; }<br />
+							.mT3 { margin-top: 3px; }<br />
+							.mT4 { margin-top: 4px; }<br />							
+							.... 
+							<br />
+
+							<p class="tit02">아래 간격조절</p>
+							.mB1 { margin-bottom: 1px; }<br />
+							.mB2 { margin-bottom: 2px; }<br />
+							.mB3 { margin-bottom: 3px; }<br />
+							.mB4 { margin-bottom: 4px; }<br />
+							.... 
+							<br />
+
+							<p class="tit02">좌 간격조절</p>
+							.mL2 { margin-left: 2px; }<br />
+							.mL5 { margin-left: 5px; }<br />
+							.mL6 { margin-left: 6px; }<br />
+							.... 
+							<br />
+
+							<p class="tit02">우 간격조절</p>
+							.mR3 { margin-right: 3px; }<br />
+							.mR4 { margin-right: 4px; }<br />
+							.mR5 { margin-right: 5px; }<br />
+							.mR7 { margin-right: 7px; }<br />
+							.... 
+							<br />
+
+							<p class="tit02">스크롤</p>
+							.scroll (가로세로 자동 스크롤)<br />
+							.Yscroll (세로 자동스크롤)<br />
+							.Yscroll01 {세로 기본스크롤}<br />
+
+							<p class="tit02">position</p>
+							.positionRelative {position:relative;} - 해당영역을 차지<br />
+							.positionAbsolute {position:absolute;} - 해당영역을 차지하지 않고 레이어 위에 올릴때<br />
+
+							<p class="tit02">border 디자인</p>
+							.boxRadius {border-radius:5px;} - 레이어 라운드 5px<br />
+							.boxShadow {box-shadow:1px 1px rgba(0, 0, 0, 0.1); -webkit-box-shadow:1px 1px rgba(0, 0, 0, 0.1); -moz-box-shadow:1px 1px rgba(0, 0, 0, 0.1);} - 레이어 그림자 효과<br />
+
+							<p class="tit02">기타</p>
+							.hidden {display:none;}  - 숨기기<br />
+							.b {font-family:nanumBold;} - 글자 굵게<br />
+							.fl {float:left;} - 왼쪽정렬<br />
+							.fr {float:right;} - 오른쪽 정렬<br />
+							.cb {clear:both;} - 아래로 내리기<br />
+							.left {text-align:left;} - 글자 왼쪽 정렬<br />
+							.center {text-align:center;} - 글자 센터 정렬<br />
+							.right {text-align:right;} - 글자 오른쪽 정렬<br />
+							.fcenter {margin: 0 auto;} - 레이어 가운데 정렬<br />
+
+							
+
+
+						</div>
+
+
+						
+
+
+						<div class="guide" id="">
+
+
+							<div class="sk-spinner sk-spinner-wave">
+								<div class="sk-rect1"></div>
+								<div class="sk-rect2"></div>
+								<div class="sk-rect3"></div>
+								<div class="sk-rect4"></div>
+								<div class="sk-rect5"></div>
+							</div>
+							
+
+
+							<div class="sk-spinner sk-spinner-three-bounce">
+								<div class="sk-bounce1"></div>
+								<div class="sk-bounce2"></div>
+								<div class="sk-bounce3"></div>
+							</div>
+
+							<div class="sk-spinner sk-spinner-fading-circle">
+								<div class="sk-circle1 sk-circle"></div>
+								<div class="sk-circle2 sk-circle"></div>
+								<div class="sk-circle3 sk-circle"></div>
+								<div class="sk-circle4 sk-circle"></div>
+								<div class="sk-circle5 sk-circle"></div>
+								<div class="sk-circle6 sk-circle"></div>
+								<div class="sk-circle7 sk-circle"></div>
+								<div class="sk-circle8 sk-circle"></div>
+								<div class="sk-circle9 sk-circle"></div>
+								<div class="sk-circle10 sk-circle"></div>
+								<div class="sk-circle11 sk-circle"></div>
+								<div class="sk-circle12 sk-circle"></div>
+							</div>
+
+							<div class="sk-spinner sk-spinner-rotating-plane"></div>
+
+							<div class="sk-spinner sk-spinner-cube-grid">
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+								<div class="sk-cube"></div>
+							</div>
+
+						
+						</div>
+
+
+
+
+<style>
+.popoverContentArea{background:#fffff; border:2px solid ##017dc3; padding:20px; border-radius:10px; width:500px}
+.popover{max-width:600px;}
+.scroll_content01{overflow-y:scroll; height:200px; border:1px solid #d1d1d1}
+
+</style>
+
+
+<script>
+$(document).ready(function () {	
+    $("[data-toggle=popover]").popover({
+		html: true, 
+		content: function() {
+		  return $('#popover-content').html();
+		}
+	});
+
+});
+
+</script>
+
+
+
+<!-- 규정-->
+<div class="modal inmodal fade" id="lawView" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">타이틀입니다.</h4>
+			</div>
+			
+			<div class="modal-body">											
+				<div class="lawContent">
+				내용입니다. <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+		
+
+</div>
+
+<!-- TouchSpin -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.js"></script>
+<div class="input-group">
+																		<input class="touchspin" type="text" value="1" name="demo">
+																		<span class="input-group-btn">
+																			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#airportListReg">SQL</button>
+																		</span>
+																	</div>
+<script>
+$(document).ready(function(){
+	$(".touchspin").TouchSpin({
+		verticalbuttons: true,
+		buttondown_class: 'btn btn-white',
+		buttonup_class: 'btn btn-white'
+	});
+});
+</script>
+
+</body>
+</html>

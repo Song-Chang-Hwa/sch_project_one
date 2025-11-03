@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AbtestRsltDAO">
+
+<!-- 레이아웃 카드 조회  -->
+	<select id="selectList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	   SELECT A.ABTEST_ID  
+           ,  A.LAYOUT_ID  
+           , B.LAYOUT_NM
+           , A.TRG_IDX 
+           , dbo.F_CODE_NM('TRG_IDX', A.TRG_IDX) as TRG_IDX_NM 
+           , A.TRG_IDX_VALUE 
+           , A.ORDINAL
+           , A.ORDINAL as NEW_ORDINAL
+           , A.BEST_YN
+           , A.RANK
+           , C.FLD_NM
+          FROM WP2_ABTEST_RSLT A LEFT OUTER JOIN WP2_LAYOUT_MSTR B ON  A.LAYOUT_ID = B.LAYOUT_ID 
+                                 LEFT OUTER JOIN WP2_TYPE_LAYOUT_MSTR C ON  B.FLD_ID = C.FLD_ID
+          WHERE A.ABTEST_ID = #ABTEST_ID#
+          ORDER BY A.RANK, A.ORDINAL
+	</select>
+	
+	<!-- 통계검증결과 조회  -->
+	<select id="selectRsltList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT ABTEST_ID
+	       , LAYOUT_ID
+		   <!-- , ROW_NUMBER() OVER (ORDER BY LAYOUT_ID) as RN -->
+		   , TRG_IDX
+		   , TRG_IDX_VALUE
+		   , ABTEST_STAT_RSLT
+	   FROM WP2_ABTEST_RSLT
+	   WHERE ABTEST_ID = #ABTEST_ID#
+	   ORDER BY LAYOUT_ID
+	</select>
+	
+	<update id="insert" parameterClass="java.util.Map">
+		INSERT INTO WP2_ABTEST_RSLT (
+			  ABTEST_ID  
+           ,  LAYOUT_ID  
+           ,  TRG_IDX  
+           ,  ORDINAL
+		) VALUES (
+			  #ABTEST_ID#  
+           ,  #LAYOUT_ID#  
+           ,  #TRG_IDX#  
+           ,  #ORDINAL#
+		)
+	</update>
+ 	
+	<update id="deleteByAbtestId" parameterClass="java.util.HashMap">
+		DELETE 
+		  FROM WP2_ABTEST_RSLT
+		 WHERE ABTEST_ID = #ABTEST_ID#
+	</update>
+	
+</sqlMap>

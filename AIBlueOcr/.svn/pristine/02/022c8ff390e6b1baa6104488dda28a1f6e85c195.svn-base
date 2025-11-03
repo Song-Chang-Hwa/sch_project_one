@@ -1,0 +1,72 @@
+package com.sht.eduai.model.ai.evaluation.controller;
+
+
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.eduai.model.ai.evaluation.service.EvaluationService;
+import com.sht.eduai.vo.ComResultVO;
+
+/**
+ * 모델평가결과 
+ * @author miyoungKim
+ *
+ */
+@RestController
+//@RequestMapping("/entity/aialgmstr")
+public class EvaluationController {
+
+	private static final Logger logger = LoggerFactory.getLogger(EvaluationController.class);
+	
+	@Autowired
+	private EvaluationService service;
+	
+	/**
+	 * 조회.
+	 * @param httpRequest
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/model/evaluation/selectList", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO selectList(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("selectList");
+    	return service.selectList(paramMap);
+    }
+    
+    
+    @RequestMapping(value="/model/evaluation/select", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO select(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("select");
+    	return service.select(paramMap);
+    }
+    
+    
+    /**
+     * 모델확정 
+     * @param request
+     * @param paramMap
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/model/evaluation/update", method=RequestMethod.POST )
+    public ComResultVO update(HttpServletRequest request, @RequestBody List<Map<String, Object>> listParamMap) throws Exception{
+    	logger.debug("update: {}", listParamMap);
+    	
+    	return service.update(listParamMap);
+    	
+    }
+}

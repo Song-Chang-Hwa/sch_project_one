@@ -1,0 +1,57 @@
+package com.sht.security.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+
+import com.sht.abo.user.service.UserService;
+import com.sht.abo.vo.ComResultVO;
+
+
+@Component
+public class UserDetailsServiceImpl implements UserDetailsService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+
+	@Autowired
+	private UserService userService;
+
+	@Override
+	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+		
+		ComResultVO  comResultVO;
+		Map<String, Object> memberInfoMap = null;
+		
+		try {
+			comResultVO = this.userService.selectUserLogin(username);
+			memberInfoMap =  (Map<String, Object>) comResultVO.getData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(memberInfoMap == null || !memberInfoMap.containsKey("PASSWD")){
+			throw new UsernameNotFoundException("인증에 실패하였습니다");
+		}
+		
+		logger.debug("==============> UserDetailsService");
+		logger.debug("username: " + username);
+		logger.debug("password: " + memberInfoMap.get("PASSWD"));
+		
+		List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
+		roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+		User user = new User(username, (String)memberInfoMap.get("PASSWD"), roles);
+		return user;
+	}
+}
