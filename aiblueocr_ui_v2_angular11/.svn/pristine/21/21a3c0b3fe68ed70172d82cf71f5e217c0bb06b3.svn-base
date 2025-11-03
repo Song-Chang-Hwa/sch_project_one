@@ -1,0 +1,50 @@
+<div class="sectionCon">
+	<h2 class="tit-level2">Item 정보</h2>
+	<div class="writeType02">										
+		<div class="row form-horizontal">
+			<div class="col-sm-12">
+				<div class="viewTable">
+					<div class="form-group">
+						<label class="col-sm-2 control-label labelTitle"><span class="">추천방식</span></label>
+						<div class="col-sm-2">
+							<input class="form-control" placeholder="" [(ngModel)]="data.RECO_TYPE" disabled>
+						</div>
+						<div class="col-sm-8">
+							<div class="selects">
+								<select class="form-control" name="" disabled>
+									<option value="" selected="">{{data.RECO_TYPE_NM}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label labelTitle"><span class="">RECO 정보</span></label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" [(ngModel)]="data.RECO_ID" disabled>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" [(ngModel)]="data.RECO_NM" disabled>
+						</div>
+						<div class="col-sm-2">
+							<input class="touchspin01" type="number" [value]="data.ORDINAL" name="demo" #inputOrdinal>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label labelTitle"><span class="">아이템 정보</span></label>
+						<div class="col-sm-2">
+							<input class="form-control" placeholder="" [(ngModel)]="data.ITEM_ID" disabled>
+						</div>
+						<div class="col-sm-6">
+							<input class="form-control" placeholder="" [(ngModel)]="data.ITEM_NM" disabled>
+						</div>	
+						<div class="col-sm-2">
+							<input class="touchspin01" type="number" [value]="data.ITEM_ORDINAL" name="demo" #inputItemOrdinal>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

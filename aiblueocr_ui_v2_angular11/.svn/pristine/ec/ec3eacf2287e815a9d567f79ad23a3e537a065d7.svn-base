@@ -1,0 +1,197 @@
+<h2 class="tit-level1">OCR 인식/추출 관리</h2>
+
+<div class="subConView">			
+	<div class="conWrap">
+
+		<div class="colRow">
+			<div class="col30" style="min-width:540px;">
+				<div class="roundBorder" style="height:850px;">
+					<div class="writeType01">										
+						<div class="requiredInfor">					
+							<div class="form-Area">
+								<div class="form-group">
+									<label class="control-label"><span class="">파일명</span></label>
+									<div class="formInput">
+										<input type="text" class="form-control" [(ngModel)]="searchtxt" (keyup.enter)="onSearchOcrDocMstList('0')">
+									</div>																			
+								</div>
+								<div class="form-group">
+									<label class="control-label"><span class="">상호(명칭)</span></label>
+									<div class="formInput">
+										<input type="text" class="form-control" [(ngModel)]="searchBusinessNm" (keyup.enter)="onSearchOcrDocMstList('0')">
+									</div>																			
+								</div>
+								<div class="form-group">
+									<label class="control-label">처리상태</label>
+									<div class="formInput">
+										<div class="selects">
+											<select class="form-control" [(ngModel)]="searchStatCd" name="">
+												<option value="" selected="">전체</option>
+												<option value="00">업로드</option>
+												<option value="10">처리중</option>
+												<option value="20">완료</option>
+												<option value="30">학습</option>
+												<option value="40">에러</option>
+											</select>
+										</div>
+									</div>																				
+								</div>
+																						
+							</div>
+						</div>
+					</div>							
+
+					<div class="grid-wrap">
+						<div class="board_top">
+							<ul class="board_total">	
+								<li>Total : <span>{{OCRTABLETOTCNT}}</span></li>									
+							</ul>
+							
+							<!-- 버튼 -->
+							<div class="buttonGroup">
+								<div class="BtnGroupR">
+									<a href="javascript:void(0);" class="btn btn-info" (click)="onSearchOcrDocMstList('0')">조회</a>
+									<a href="javascript:void(0);" class="btn btn-primary" (click)="showFileUploadModal()">신규</a>
+								</div>
+							</div>
+							<!-- 버튼 끝 -->
+						</div>
+						<div class="table_type1" >
+							<table id="ocrDocMst" summary="목록" style="width: 100%;">
+							</table>
+						</div>
+						<div class="board_bottom">
+							<app-page #page1></app-page>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col30" style="min-width:400px;">
+				<div class="roundBorder" style="height:850px;">
+					<div class="grid-wrap">
+						<div class="board_top">
+							<ul class="board_total">	
+								<li>Total : <span>{{OCRDETAILTABLETOTCNT}}</span></li>								
+							</ul>
+							<ul class="board_commentr">	
+								<li>※ 문서를 클릭하면 문서가 [확대]됩니다.</li>								
+							</ul>
+						</div>
+						<div class="table_type1" >
+							<table id="ocrDocDetail" summary="목록" style="width: 100%;">
+								<colgroup>
+									<col style="width: 10px;">
+									<col style="width: auto;">
+									<col style="width: auto;">
+									<col style="width: 40px;">
+									<col style="width: 40px;">
+									<col style="width: 30px;">
+									<col style="width: 30px;">
+								</colgroup>
+								<thead>
+									<th>순번</th>
+									<th>파일명</th>
+									<th>상호명</th>
+									<th>평균점수</th>
+									<th>처리상태</th>
+									<th>선택</th>
+									<th>삭제</th>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="board_bottom">
+							<app-page #page2></app-page>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col40" style="min-width:400px;">
+				<div class="roundBorder" style="height:850px;">
+					<div class="writeType01">										
+						<div class="requiredInfor">
+							<div class="form-Area">
+								<div class="form-group" style="width:50%">
+									<label class="control-label"><span class="">검색조건</span></label>
+									<div class="formInput">
+										<div class="selects">
+											<select class="form-control" [(ngModel)]="searchCondCd" (change)="onSelectOcrDocTextPaging('0')" [disabled]="!DOC_SN">
+												<option value="" selected="">전체</option>
+												<option value="100">점수0.8 이하</option>
+												<option value="110">점수0.6 이하</option>
+												<option value="120">점수0.4 이하</option>
+												<option value="130">변경값 존재</option>
+											</select>
+										</div>
+									</div>																			
+								</div>
+								<div class="form-group" style="width:25%">
+									<label class="control-label"><span class="">평균 Score</span></label>		
+									<div class="formInput">
+										<input type="text" class="form-control" [(ngModel)]="averageScore" disabled>
+									</div>																			
+								</div>
+							</div>
+						</div>
+					</div>							
+
+					<div class="grid-wrap">
+						<div class="board_top">
+							<ul class="board_total">	
+								<li>Total : <span>{{OCRTEXTTABLETOTCNT}}</span></li>							
+							</ul>
+							<ul class="board_comment">	
+								<li>※ [인식 이미지]를 클릭하면 이미지가 [확대]됩니다.</li>								
+							</ul>
+							<!-- 버튼 -->
+							<div class="buttonGroup">
+								<div class="BtnGroupR">
+									<a href="javascript:void(0);" class="btn btn-info" (click)="onSelectOcrDocTextPaging('0')" >조회</a>
+									<a href="javascript:void(0);" class="btn btn-primary" (click)="saveOcrDocText()">저장</a>
+								</div>
+							</div>
+							<!-- 버튼 끝 -->
+						</div>
+						<div class="table_type1" >
+							<table id="ocrDocText" summary="목록" style="width: 100%;">
+							</table>
+						</div>
+						<div class="board_bottom">
+							<app-page #page3></app-page>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+	</div>
+</div>
+
+<div class="modal fade" id="fileUploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">신규 파일 업로드</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">            
+                <div class="mb-3">
+				  <label for="formFile" class="form-label">파일</label>                
+                  <input #fileUpload1 class="form-control" type="file" id="fileUpload1" accept=".pdf,image/*" (change)='onFileChange1($event.target.files)'>
+				</div>
+				<div class="mb-3">
+					<label for="formFile" class="form-label">상호(명칭)</label>				
+					<input id="BUSINESS_NM" type="text" class="form-control"  [(ngModel)]="BUSINESS_NM">                  
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"   (click)='onFileUpload()'>등록</button>
+                <button type="button" class="btn btn-secondary" (click)='onCloseModal()'>닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .main-section e -->

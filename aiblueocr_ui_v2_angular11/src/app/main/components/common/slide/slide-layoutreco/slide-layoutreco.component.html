@@ -1,0 +1,3 @@
+<div class="lectureWrap" #slide *ngFor="let item of items">
+	<app-slideitem-layoutreco [item]="item" [selectItem]="selectedItem" (selected)="evtItemSelected($event)"></app-slideitem-layoutreco>
+</div>
