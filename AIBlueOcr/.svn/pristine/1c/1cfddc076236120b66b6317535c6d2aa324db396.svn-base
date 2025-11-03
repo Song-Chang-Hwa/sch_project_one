@@ -1,2 +1,0 @@
-<router-outlet></router-outlet>
-<input (click) = "processEndAppClick();" id = "processEndAppClick" type="hidden" />
