@@ -1,0 +1,48 @@
+package com.sht.abo.entity.controller;
+
+
+
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sht.abo.entity.service.ManualItemService;
+import com.sht.abo.vo.ComResultVO;
+
+/**
+ * 세그먼트 목록 팝업
+ * @author miyoungKim
+ *
+ */
+@RestController
+@RequestMapping("/entity/manualitem")
+public class ManualItemController {
+
+	private static final Logger logger = LoggerFactory.getLogger(ManualItemController.class);
+	
+	@Autowired
+	private ManualItemService service;
+	
+	/**
+	 * 조회.
+	 * @param httpRequest
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    @RequestMapping(value="/selectListForManualTree", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ComResultVO selectListForManualTree(HttpServletRequest request, @RequestParam Map<String, Object> paramMap) throws Exception{
+    	logger.debug("selectListForManualTree");
+    	
+    	return service.selectListForManualTree(paramMap);
+    }
+}

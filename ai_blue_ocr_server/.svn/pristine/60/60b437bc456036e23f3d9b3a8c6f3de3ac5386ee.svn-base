@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ModelRankDAO">
+
+	<select id="selectList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* ModelRankDAO.selectList */
+	SELECT A.MODEL_ID
+		,A.MODEL_NM
+		,B.SEG_ID
+		,D.SEG_NM
+		,B.PREF_ID 
+		,C.PREF_NM
+		,A.ALG_ID
+		,E.ALG_NM
+		,B.FLD_ID
+		,F.FLD_NM
+		,A.AI_ID
+		,B.AI_NM
+		,G.PRECISION
+		,G.NDCG
+		,G.MAP
+		,A.MODEL_TYPE
+		,dbo.F_CODE_NM('MODEL_TYPE', A.MODEL_TYPE) as MODEL_TYPE_NM
+		,A.MODEL_STATUS
+		,dbo.F_CODE_NM('AI_STATUS', A.MODEL_STATUS) as MODEL_STATUS_NM
+		,A.USE_YN as OLD_USE_YN
+		,A.USE_YN 
+		<!-- ,G.MODEL_RANK_DETAIL
+		,A.MODEL_PROGRESS
+		,A.MODEL_RUN_TYPE
+		,A.MODEL_EVAL_TYPE
+		,A.MODEL_EVAL_RESULT
+		,A.DATASET_ID
+		,A.DEL_YN
+		,A.MODEL_FEATURE_TYPE
+		,A.MODEL_PART_OPTION
+		,A.MODEL_ARG_PARAM
+		,A.MODEL_OPTIMIZER_YN
+		,A.REG_USER_NO
+		,A.REG_DT
+		,A.UPD_USER_NO
+		,A.UPD_DT -->
+	  FROM WP2_AI_MODEL_MSTR A LEFT OUTER JOIN WP2_MODEL_RANK G ON A.MODEL_ID =  G.MODEL_ID
+	       JOIN WP2_AI_MSTR B ON A.AI_ID = B.AI_ID
+		   JOIN WP2_PREF_MSTR C ON B.PREF_ID = C.PREF_ID
+		   JOIN WP2_SEG_MSTR D ON B.SEG_ID = D.SEG_ID
+		   JOIN WP2_AI_ALG_MSTR E ON A.ALG_ID = E.ALG_ID
+		   JOIN WP2_TYPE_AI_MSTR F ON B.FLD_ID = F.FLD_ID
+	 WHERE A.AI_ID = #AI_ID#
+	 AND A.DEL_YN = 'N'
+	 ORDER BY A.MODEL_ID
+	</select>	
+
+	<select id="select" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* ModelRankDAO.select */
+	SELECT G.MODEL_ID
+		,A.MODEL_NM
+		,A.ALG_ID
+		,A.AI_ID
+		,G.PRECISION
+		,G.NDCG
+		,G.MAP
+		,G.MODEL_RANK_DETAIL
+		,A.MODEL_TYPE
+		,dbo.F_CODE_NM('MODEL_TYPE', A.MODEL_TYPE) as MODEL_TYPE_NM
+		,A.MODEL_STATUS
+		,dbo.F_CODE_NM('AI_STATUS', A.MODEL_STATUS) as MODEL_STATUS_NM
+	  FROM WP2_AI_MODEL_MSTR A LEFT OUTER JOIN WP2_MODEL_RANK G ON A.MODEL_ID =  G.MODEL_ID
+	 WHERE A.MODEL_ID = #MODEL_ID#
+	</select>
+</sqlMap>

@@ -1,0 +1,82 @@
+package com.sht.abo.model.ai.evaluation.service;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sht.abo.comm.dao.CommonBaseDAO;
+import com.sht.abo.vo.ComResultVO;
+import com.sht.common.ABOConstant;
+import com.sht.util.CommUtils;
+
+
+/**
+ * WP2_ITEM_MSTR
+ * @author miyoungKim
+ *
+ */
+@Service
+public class EvaluationService {
+
+	private Logger logger = LoggerFactory.getLogger(EvaluationService.class);
+	
+	
+	@Autowired
+	private CommonBaseDAO commonBaseDAO;
+	
+	
+	public ComResultVO selectList(Map<String, Object> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+
+		List<Map<String, Object>> list = this.commonBaseDAO.list("ModelRankDAO.selectList", paramMap);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("list", list);
+		
+		comResultVO.setCode(ABOConstant.HTTP_STATUS_OK);
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+	
+	public ComResultVO select(Map<String, Object> paramMap) {
+		ComResultVO comResultVO = new ComResultVO();
+
+		List<Map<String, Object>> list = this.commonBaseDAO.list("ModelRankDAO.select", paramMap);
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		if (null != list && list.size() > 0) {
+			comResultVO.setCode(ABOConstant.HTTP_STATUS_OK);
+			dataMap.put("info", list.get(0));
+		} else {
+			comResultVO.setCode(ABOConstant.HTTP_STATUS_FAIL);
+		}
+		
+		comResultVO.setData(dataMap);
+		return comResultVO;
+	}
+	
+	@Transactional
+	public ComResultVO update(List<Map<String, Object>> listParamMap) {
+		ComResultVO comResultVO = new ComResultVO();
+		final String username = CommUtils.getUser();
+    	
+		int cnt = 0;
+		
+		for(Map<String, Object> map : listParamMap) {
+			map.put("USER_NO", username);
+	    	cnt += (int) this.commonBaseDAO.update("AiModelMstrDAO.update", map);
+		}
+		if (cnt == listParamMap.size()) {
+			comResultVO.setCode(ABOConstant.HTTP_STATUS_CREATE_OK);
+		} else {
+			comResultVO.setCode(ABOConstant.HTTP_STATUS_SERVER_ERROR);
+			comResultVO.setMsg(listParamMap.size() + "건 중 " + cnt + "건을 처리하였습니다. 처리결과를 확인하십시오.");
+		}
+		return comResultVO;
+	}
+}

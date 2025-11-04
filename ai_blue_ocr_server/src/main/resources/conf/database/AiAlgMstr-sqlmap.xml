@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AiAlgMstrDAO">
+
+	<select id="selectList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT ALG_ID
+	      ,MODEL_TYPE
+	      ,dbo.F_CODE_NM('MODEL_TYPE', MODEL_TYPE) AS MODEL_TYPE_NM
+		  ,ALG_NM
+		  ,ALG_FILE_NAME
+	  FROM WP2_AI_ALG_MSTR
+	 WHERE 1=1
+	 <isNotEmpty property="MODEL_TYPE">
+	   AND MODEL_TYPE = #MODEL_TYPE#
+	 </isNotEmpty>
+	 AND DEL_YN = 'N'
+	 ORDER BY MODEL_TYPE, ALG_ID
+	</select>	
+
+	
+
+</sqlMap>

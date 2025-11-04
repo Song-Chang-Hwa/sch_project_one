@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HsptGuideDAO">
+
+
+	<!-- 조회 -->
+	<select id="selectHsptGuide" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* HsptGuideDAO.selectHsptGuide */
+		SELECT
+			HSPT_ID            AS hsptId
+		  , SNO                AS sno
+		  , NM                 AS nm
+		  , DESCRIPTION        AS description
+		  , HTML_FILE_PATH     AS htmlFilePath
+		  , HTML_FILE_NM       AS htmlFileNm
+		  , HTML_URL           AS htmlUrl
+		  , HTML_SIZE          AS htmlSize
+		  , EXTRA_LINK_URL     AS extraLinkUrl
+		  , EXTRA_LINK_URL_YN  AS extraLinkUrlYn
+		  , WEB_ACC_KEY        AS webAccKey
+		  , APPLY_YN           AS applyYn
+		  , DEL_YN             AS delYn
+		  , F_GET_HSPT_NM_FR_HSPT_ID(#hsptId#) AS hsptNm
+		  , IFNULL(UPDT_ID,REGI_ID) AS  regId
+		  , F_GET_DATE(1,IFNULL(UPDT_DTTM,REGI_DTTM)) AS regDttm
+		FROM TB_HSPT_GUIDE
+		WHERE DEL_YN = 'N'
+<!-- 		AND SNO = (SELECT IFNULL(MAX(SNO),1) FROM TB_HSPT_GUIDE WHERE HSPT_ID = #hsptId#) -->
+        AND SNO = #sno#
+		AND HSPT_ID = #hsptId#
+	</select>
+	
+	<!-- 파일 정보 조회 -->
+	<select id="selectHsptGuideFile" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* HsptGuideDAO.selectHsptGuideFile */
+		SELECT
+			HSPT_ID            AS hsptId
+		  , SNO                AS sno
+		  , NM                 AS nm
+		  , DESCRIPTION        AS description
+		  , HTML_FILE_PATH     AS htmlFilePath
+		  , HTML_FILE_NM       AS htmlFileNm
+		  , HTML_URL           AS htmlUrl
+		  , HTML_SIZE          AS htmlSize
+		  , EXTRA_LINK_URL     AS extraLinkUrl
+		  , EXTRA_LINK_URL_YN  AS extraLinkUrlYn
+		  , WEB_ACC_KEY        AS webAccKey
+		  , APPLY_YN           AS applyYn
+		  , DEL_YN             AS delYn
+		  , F_GET_HSPT_NM_FR_HSPT_ID(#hsptId#) AS hsptNm
+		  , IFNULL(UPDT_ID,REGI_ID) AS  regId
+		  , F_GET_DATE(1,IFNULL(UPDT_DTTM,REGI_DTTM)) AS regDttm
+		FROM TB_HSPT_GUIDE
+		WHERE DEL_YN = 'N'
+<!-- 		AND SNO = (SELECT IFNULL(MAX(SNO),1) FROM TB_HSPT_GUIDE WHERE HSPT_ID = #hsptId#) -->
+        AND SNO = #sno#
+		AND HSPT_ID = #hsptId#
+	</select>
+ 
+	<!-- 조회 -->
+	<select id="selectHsptGuidePk" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		/* HsptGuideDAO.selectHsptGuidePk */
+		SELECT
+		  COUNT(*) CNT
+		FROM TB_HSPT_GUIDE
+		WHERE DEL_YN = 'N'
+		AND SNO = #sno#
+		AND HSPT_ID = #hsptId#
+	</select>
+	
+	<!-- 입력 -->
+	<insert id="insertHsptGuide" parameterClass="java.util.HashMap">
+	/* HsptGuideDAO.insertHsptGuide */
+    INSERT INTO TB_HSPT_GUIDE
+	(
+		  HSPT_ID
+		, SNO
+		, NM
+		, HTML_FILE_PATH
+		, HTML_FILE_NM
+		, HTML_URL
+		, HTML_SIZE
+		, EXTRA_LINK_URL
+		, EXTRA_LINK_URL_YN
+		, WEB_ACC_KEY
+		, APPLY_YN
+		, DEL_YN
+		, REGI_ID	
+		, REGI_DTTM	
+	)
+	SELECT 
+		#hsptId# hsptId	
+<!-- 		, (SELECT IFNULL(MAX(SNO),0)+1 FROM TB_HSPT_GUIDE WHERE HSPT_ID = #hsptId#) sno -->
+		, #sno# sno
+		, #nm# nm	
+		, #htmlFilePath# htmlFilePath	
+		, #htmlFileNm# htmlFileNm	
+		, #htmlUrl# htmlUrl	
+		, #htmlSize# htmlSize	
+		, #extraLinkUrl# extraLinkUrl	
+		, #extraLinkUrlYn# extraLinkUrlYn	
+		, #webAccKey#
+		, #applyYn# applyYn	
+		, 'N' DEL_YN	
+		, #userId# regId	
+		, NOW() regDttm	
+	</insert>
+
+ 
+	<!-- 수정 -->
+	<update id="updateHsptGuide" parameterClass="java.util.HashMap">
+	/* HsptGuideDAO.updateHsptGuide */
+     UPDATE TB_HSPT_GUIDE SET 
+		  NM =  #nm#	
+		, HTML_FILE_PATH = #htmlFilePath#
+		, HTML_FILE_NM = #htmlFileNm#
+		, HTML_URL = #htmlUrl#
+		, HTML_SIZE = #htmlSize#
+		, EXTRA_LINK_URL = #extraLinkUrl#
+		, EXTRA_LINK_URL_YN = #extraLinkUrlYn#
+		, WEB_ACC_KEY = #webAccKey#
+		, APPLY_YN = #applyYn#
+		, UPDT_ID = #userId#
+		, UPDT_DTTM = NOW()
+	WHERE DEL_YN = 'N'
+	  AND SNO = #sno#
+	  AND HSPT_ID = #hsptId#
+	</update>
+	
+
+
+</sqlMap>

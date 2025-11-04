@@ -1,0 +1,64 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/* 공통 */
+.mask{display:none;position:absolute;background:#000;opacity:0.5;z-index:50;width:100%;height:100%;top:0px;left: 0px;}
+/* float 해제 */
+.cle:after{*zoom:1;content:"";display:block;clear:both}
+/* 숨기기 */
+.hide,legend,caption{height:0;line-height:0;text-indent:-9999px;overflow:hidden;visibility:hidden}
+/* 디바이스별 폰트 크기 */
+@media (max-width:360px){html{font-size:10px;}}
+@media (min-width:361px) and (max-width:399px){html{font-size:11px;}}
+@media (min-width:400px) and (max-width:439px){html{font-size:12px;}}
+@media (min-width:440px) and (max-width:479px){html{font-size:13px;}}
+@media (min-width:480px) and (max-width:519px){html{font-size:14px;}}
+@media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
+@media (min-width:560px) and (max-width:599px){html{font-size:16px;}}
+@media (min-width:600px) and (max-width:639px){html{font-size:17px;}}
+@media (min-width:640px){html{font-size:18px;}}
+/* 체크박스 이미지 */
+.common_section input[type="checkbox"]{display:none;}
+.common_section input[type="checkbox"] + label:before {content:'';display:inline-block;width:15px;height:15px;
+vertical-align:-2.5px;background:url("../../images/certify/check_box.png") 0 0 no-repeat;
+background-size:15px;}
+.common_section input[type="checkbox"]:checked + label:before {content:'';width:15px;height:15px;
+background:url("../../images/certify/check_box_on.png") top no-repeat;
+background-size:15px;border:none}
+
+/* layout */
+/* header */
+.pi_head{border-bottom:3px solid #d63636}
+.pi_head h1{margin:8px auto;width:82px;height:26px;}
+/* 레이아웃 공통 */
+.common_section{margin:0 3%;}
+.common_section h3{padding:25px 0 20px;font-size:1.4rem;line-height:1.8rem;color:#000000;text-align:center}
+.common_section .start_btn a{display:block;padding:10px 0;font-weight:bold;border-radius:5px;
+font-size:20px;background:#e63535;color:#fff;text-align:center}
+
+/* pi_agreement_a(안드로이드용) */
+/* .android .policy_cont{padding:3%;height:300px;border:1px solid #858585;border-radius:10px;overflow-y:scroll} */
+.android .policy_cont{padding:3%;border:1px solid #858585;border-radius:10px;}
+.android .policy_cont .priv_page{padding:2%;overflow-y:scroll;height:300px;box-sizing:border-box;}
+.android .policy_cont dt{font-weight:bold;font-size:1.3rem;line-height:2.8rem;}
+.android .policy_cont dd{font-size:1.2rem;line-height:1.8rem;}
+.android .chk_box{padding:10px 10px 50px}
+.android .chk_box label{font-size:13px}
+
+/* pi_agreement_i(아이폰용) */
+/* certification */
+.certification input,.certification button{display:block;width:100%;height:38px;font-size:12px;box-sizing:border-box;} 
+.certification input[type="tel"]{padding:5px;border:1px solid #a7d2ff;background:#fff;-webkit-border-radius:0;-webkit-appearance:none;}
+.certification button{margin:10px 0 20px;font-size:12px;background:#f5f5f5;border:1px solid #e1e1e1}
+.certification .chk_box{padding:10px 0 50px;text-align:right}
+.certification .open_btn001{font-size:12px;color: #000;padding:3px 13px 5px;border:1px solid #2c3b2b;background:#f2efee;vertical-align:0px;}
+/* 개인정보팝업 */
+.policy_pop{position:fixed;top:10%;left:50%;z-index:100;margin-left:-45%;width:90%; height: 80%; bottom: 10%;}
+.policy_pop .policy_heading{background:#000000;border:2px solid #000;}
+.policy_pop .policy_heading h5{float:left;padding:8px;width:80%;font-size:15px;color: #fff;box-sizing: border-box;}
+.policy_pop .policy_heading a{display: block;float: right;padding: 5px;width: 20%;font-size: 15px;text-align: center;color: #fff;border-left: 2px solid #000;box-sizing: border-box;}
+/* .policy_pop .policy_cont{padding:5%;height:300px;border:1px solid #858585;border-radius:10px;overflow-y:scroll} */
+.policy_pop .policy_cont{padding-bottom: 15px;background:#404449;height: 90%;}
+.policy_pop .policy_cont dl{padding:15px 15px 0;height:100px;text-align:left;overflow:auto;font-size: 11px;line-height:18px;height: 100%;}
+.policy_pop .policy_cont dt{font-weight:bold;font-size:1.3rem;line-height:2.8rem;color:#fff}
+.policy_pop .policy_cont dd{font-size:1.2rem;line-height:1.8rem;color:#fff}
+
+

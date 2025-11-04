@@ -1,0 +1,47 @@
+	<div class="row ng-scope">
+		<div class="col-lg-12">
+			<h2 class="page-header">사용자별 권한 그룹 관리</h2>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row ng-scope" >
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div ng-controller="UserCtrl">
+						<h3>사용자</h3>
+						<hr>
+						<div class="text-right" >
+							<button class="btn btn-info" ng-click="search()"><i class="fa fa-search fa-fw"></i> 조회</button>
+							<button class="btn btn-info" ng-click="addModal()"><i class="fa fa-plus-circle fa-fw"></i> 추가</button>
+							<button class="btn btn-info" ng-click="removeModal()"><i class="fa fa-minus-circle fa-fw"></i> 삭제</button>
+							<button class="btn btn-info" ng-click="modifyModal()"><i class="fa fa-edit fa-fw"></i> 수정</button>
+						</div>
+						                    
+						<!-- /.row (nested) -->
+						<div class="gridStyle" >
+							<div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+						</div>
+						
+						<msg title="Message Box" visible="showModalMsg"/>
+						<save-modal visible="showSaveModalMsg"/>
+					</div>
+					
+					<div ng-controller="_AuthGroupCtrl">
+						<h3>권한그룹</h3>
+						<hr>
+						<div class=text-right>
+							<button class="btn btn-info " ng-click="save()"><span class="fa fa-save fa-fw"></span> 저장</button>
+						</div>
+						<!-- /.row (nested) -->
+						<div class="gridStyle" >
+							<div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-resize-columns ui-grid-exporter></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>

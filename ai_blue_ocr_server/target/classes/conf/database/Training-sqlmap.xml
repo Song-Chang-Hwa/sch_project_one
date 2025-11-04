@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TrainingDAO">
+ 	<sql id="pagestart">
+ 		<![CDATA[
+		]]>
+ 	</sql>
+ 	
+ 	<sql id="pageend">
+ 		<![CDATA[
+		  LIMIT  #pageNo#, #PAGESIZE#
+		]]>
+ 	</sql>
+ 	
+ 	<sql id="sqlDocText">
+		<isEqual property="COND_CD" compareValue="100">
+ 		<![CDATA[
+			AND SCORE < 0.8
+		]]>				
+		</isEqual>			
+		<isEqual property="COND_CD" compareValue="110">
+ 		<![CDATA[
+			AND SCORE < 0.6
+		]]>				
+		</isEqual>	
+		<isEqual property="COND_CD" compareValue="120">
+ 		<![CDATA[
+			AND SCORE < 0.4
+		]]>				
+		</isEqual>	
+		<isEqual property="COND_CD" compareValue="130">
+			AND TEXT_UPDT_NM IS NOT NULL
+		</isEqual>			
+		<isEqual property="COND_CD" compareValue="140">
+			AND TEXT_TRAINING_YN = 'Y'
+		</isEqual>							
+		<isEqual property="COND_CD" compareValue="150">
+ 		<![CDATA[
+			AND SCORE < TEXT_TRAINING_SCORE
+		]]>				
+		</isEqual>
+		<isEqual property="COND_CD" compareValue="160">
+			AND SCORE = TEXT_TRAINING_SCORE
+		</isEqual>		
+		<isEqual property="COND_CD" compareValue="170">
+ 		<![CDATA[
+			AND SCORE > TEXT_TRAINING_SCORE
+		]]>				
+		</isEqual> 	
+ 	</sql>
+ 	
+ 	<select id="selectOcrDocMstList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TrainingDAO.selectOcrDocMstList */
+		SELECT
+			T1.PRJ_ID,
+			T1.DOC_SN,
+			T1.PAGE_CNT,
+			T1.BUSINESS_NM,
+			T1.STAT_CD,
+			(SELECT Z.DTL_CD_NM
+			   FROM TB_DTL_CD Z
+			  WHERE Z.CATG_CD = 'PROCESS_STATUS'
+			    AND Z.DTL_CD  = T1.STAT_CD) AS STAT_CD_NM,
+			T2.FILE_ORI_NM,
+			(SELECT FORMAT(ROUND(AVG(SCORE), 2), 2)
+				FROM
+					TB_OCR_DOC_TEXT	      
+				WHERE
+					PRJ_ID = T1.PRJ_ID
+					AND DOC_SN = T1.DOC_SN) AVERAGE_SCORE
+		FROM
+			TB_OCR_DOC_MST T1,
+			TB_OCR_FILE T2
+		WHERE
+			T1.DEL_YN = 'N'
+			AND T1.PRJ_ID  = T2.PRJ_ID
+			AND T1.FILE_ID = T2.FILE_ID
+ 		<![CDATA[			
+			AND T1.STAT_CD >= '20'
+		]]>			
+        <isNotEmpty property="STAT_CD">
+			AND T1.STAT_CD = #STAT_CD#
+	    </isNotEmpty> 			
+        <isNotEmpty property="FILE_NM">
+			AND T2.FILE_ORI_NM LIKE CONCAT('%',#FILE_NM#,'%')
+	    </isNotEmpty>
+	    <isNotEmpty property="BUSINESS_NM">
+			AND T1.BUSINESS_NM LIKE CONCAT('%',#BUSINESS_NM#,'%')
+	    </isNotEmpty>
+		ORDER BY T1.PRJ_ID DESC, T1.DOC_SN DESC
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocMstListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* TrainingDAO.selectOcrDocMstListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_MST T1,
+			TB_OCR_FILE T2	      
+		WHERE
+			T1.DEL_YN = 'N'
+			AND T1.PRJ_ID = T2.PRJ_ID
+			AND T1.FILE_ID = T2.FILE_ID
+ 		<![CDATA[			
+			AND T1.STAT_CD >= '20'
+		]]>				
+        <isNotEmpty property="STAT_CD">
+			AND T1.STAT_CD = #STAT_CD#
+	    </isNotEmpty> 
+	    <isNotEmpty property="FILE_NM">
+			AND T2.FILE_ORI_NM LIKE CONCAT('%',#FILE_NM#,'%')
+	    </isNotEmpty>
+	    <isNotEmpty property="BUSINESS_NM">
+			AND T1.BUSINESS_NM LIKE CONCAT('%',#BUSINESS_NM#,'%')
+	    </isNotEmpty>
+	</select>
+	
+	<update id="updateOcrDocMst" parameterClass="java.util.Map">
+		/* TrainingDAO.updateOcrDocMst */
+		UPDATE 	TB_OCR_DOC_MST
+		SET		STAT_CD   = '50'
+			  , UPDT_ID   = #userId#
+			  , UPDT_DTTM = NOW()		
+		WHERE	PRJ_ID    = #PRJ_ID#
+			AND DOC_SN    = #DOC_SN#
+	</update>
+
+	<select id="selectOcrDocDetailList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TrainingDAO.selectOcrDocDetailList */
+		SELECT
+			PRJ_ID,
+			DOC_SN,
+			PAGE_SN,
+			DOC_NM,
+			DOC_TYPE,
+			FILE_NM,
+			FILE_PATH
+		FROM
+			TB_OCR_DOC_DETAIL
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+		ORDER BY PAGE_SN
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocDetailListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* TrainingDAO.selectOcrDocDetailListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_DETAIL	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+	</select>
+	
+	<select id="selectOcrDocTextAverageScore" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TrainingDAO.selectOcrDocTextAverageScore */
+		SELECT FORMAT(ROUND(AVG(SCORE), 5), 5) AVERAGE_SCORE
+		      ,FORMAT(ROUND(AVG(IF(TEXT_TRAINING_SCORE IS NULL, SCORE, TEXT_TRAINING_SCORE)), 5), 5) AS TRAINING_SCORE
+		      ,SUM(IF(TEXT_TRAINING_SCORE IS NOT NULL, 1, 0)) AS TRAINING_TARGET_CNT
+		FROM
+			TB_OCR_DOC_TEXT	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+	</select>
+	
+	<select id="selectOcrDocTextList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		/* TrainingDAO.selectOcrDocTextList */
+		SELECT
+			A.PRJ_ID,
+			A.DOC_SN,
+			A.PAGE_SN,
+			A.TEXT_SN,
+			A.TEXT_X,
+			A.TEXT_Y,
+			A.TEXT_W,
+			A.TEXT_H,
+			A.TEXT_IMAGE_PATH,
+			A.TEXT_NM,
+			FORMAT(ROUND(A.SCORE, 5), 5) SCORE,
+			A.TEXT_UPDT_NM,
+			CASE WHEN A.TEXT_TRAINING_YN = 'Y' THEN 1 ELSE 0 END TEXT_TRAINING_YN,
+			CASE WHEN A.TEXT_TRAINING_YN = 'Y' THEN 1 ELSE 0 END ORG_TEXT_TRAINING_YN,
+			A.TEXT_TRAINING_NM,
+			FORMAT(ROUND(A.TEXT_TRAINING_SCORE, 5), 5) TEXT_TRAINING_SCORE,
+			A.TEXT_TRAINING_CNT,
+			A.TEXT_TRAINING_DTTM,
+			A.REGI_ID,
+			A.REGI_DTTM,
+			A.UPDT_ID,
+			A.UPDT_DTTM,
+			B.STAT_CD
+		FROM
+			TB_OCR_DOC_TEXT A
+		LEFT OUTER JOIN TB_OCR_DOC_MST B
+		             ON B.PRJ_ID = A.PRJ_ID
+		            AND B.DOC_SN = A.DOC_SN   	
+		WHERE
+			A.PRJ_ID = #PRJ_ID#
+			AND A.DOC_SN = #DOC_SN#
+			AND A.PAGE_SN = #PAGE_SN#
+		<dynamic>
+			<include refid="sqlDocText"/>
+		</dynamic>	
+				
+		ORDER BY A.TEXT_SN
+		<dynamic>
+			<include refid="pageend"/>
+		</dynamic>		
+	</select>
+	
+	<select id="selectOcrDocTextListCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+		/* TrainingDAO.selectOcrDocTextListCount */
+		SELECT COUNT(1) CNT
+		FROM
+			TB_OCR_DOC_TEXT	      
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+		<dynamic>
+			<include refid="sqlDocText"/>
+		</dynamic>				
+	</select>
+	
+	<update id="updateOcrDocText" parameterClass="java.util.Map">
+		/* TrainingDAO.updateOcrDocText */
+		UPDATE 	TB_OCR_DOC_TEXT
+		SET		TEXT_TRAINING_NM    = NULL,
+				TEXT_TRAINING_SCORE = NULL,
+		        TEXT_TRAINING_YN    = CASE WHEN #TEXT_TRAINING_YN# = 1 THEN 'Y' ELSE 'N' END,
+				UPDT_ID             = #userId#,
+				UPDT_DTTM           = NOW()
+		WHERE
+			PRJ_ID = #PRJ_ID#
+			AND DOC_SN = #DOC_SN#
+			AND PAGE_SN = #PAGE_SN#
+			AND TEXT_SN = #TEXT_SN#
+	</update>	
+
+</sqlMap>

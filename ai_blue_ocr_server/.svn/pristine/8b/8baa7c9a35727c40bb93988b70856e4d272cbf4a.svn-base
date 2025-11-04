@@ -1,0 +1,150 @@
+				<div ng-controller="MenuCtrl">
+					<div >
+						<div class="text-right" >
+							<button class="btn btn-info" ng-click="search()"><i class="fa fa-search fa-fw"></i> 조회</button>
+							<button class="btn btn-info" ng-click="addRow()"><i class="fa fa-plus-circle fa-fw"></i> 추가</button>
+							<button class="btn btn-info" ng-click="removeRow()" ng-disabled="!selectedRow"><i class="fa fa-minus-circle fa-fw"></i> 삭제</button>
+							<button class="btn btn-info" ng-click="saveModal()" ng-disabled="myForm.$invalid"><i class="fa fa-edit fa-fw"></i> 저장</button>
+						</div>
+						
+						<!-- /.row (nested) -->
+						<div class="gridStyle" >
+							<div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-tree-view></div>
+						</div>
+						
+						<msg title="Message Box" visible="showModalMsg"/>
+						
+						<modal visible="showModalImage">
+	                        
+	                        <div class="modal-header">
+				            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				            	<h4 class="modal-title">프로그램이미지 선택</h4>
+				            </div>
+	                        	                        
+	                        <div class="modal-body">
+	                        	
+	                        	<table class="table table-bordered" >
+									<tbody>
+										<tr>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-bar-chart-o')"><p class="fa fa-bar-chart-o" > fa-bar-chart-o </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-gear')"><p class="fa fa-gear" > fa-gear </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-user')"><p class="fa fa-user" > fa-user </p></td>
+										</tr>
+										<tr>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-th-list')"><p class="fa fa-th-list" > fa-th-list </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-tasks')"><p class="fa fa-tasks" > fa-tasks </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-folder')"><p class="fa fa-folder" > fa-folder </p></td>
+										</tr>
+										<tr>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-child')"><p class="fa fa-child" > fa-child </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-database')"><p class="fa fa-database" > fa-database </p></td>
+											<td style="cursor: pointer;" onMouseover="this.bgColor='#EEEEEE'"onMouseout="this.bgColor='#FFFFFF'" ng-click="selectImg('fa-share-alt')"><p class="fa fa-share-alt" > fa-share-alt </p></td>
+										</tr>
+									</tbody>
+								</table>
+	                        	
+							</div>
+							
+							<div class="modal-footer" >
+	                        	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	                        </div>
+	                        
+						</modal>
+					</div>
+					<br>
+					
+					<div ng-form="myForm">
+						<table class="table table-bordered" >
+							<tbody>
+								<tr>
+									<th class=alert-info scope=row>메뉴ID</th>
+									<td><input id="PRG_ID" type="text" class="form-control" ng-model="dtl.PRG_ID" ng-disabled="id_disabled == true || !selectedRow" ng-required="true"></td>
+									<th class=alert-info scope=row>메뉴명</th>
+									<td><input type="text" class="form-control" ng-model="dtl.PRG_NM" ng-required="true" ng-disabled="!selectedRow"></td>
+									<th class=alert-info scope=row>상위메뉴</th>
+									<td><input type="text" class="form-control" ng-model="dtl.UP_PRG_ID" ng-disabled="!selectedRow"></td>
+								</tr>
+								<tr>
+									<th class=alert-info scope=row>유형</th>
+									<td>
+										<select class="form-control" ng-model="dtl.PRG_TYPE_CD" ng-disabled="!selectedRow"> 
+		                                    <option value="{{item.DTL_CD}}" ng-repeat="item in list">{{item.DTL_CD_NM}}</option>
+		                                </select>
+		                                <input type="text" ng-show="dtl.PRG_TYPE_CD == '20' || dtl.PRG_TYPE_CD == '30'" class="form-control" ng-model="dtl.SCRN_NM" placeholder="화면명">
+									</td>
+									<th class=alert-info scope=row>레벨</th>
+									<td><input type="number" min="0" max="3" class="form-control" ng-model="dtl.PRG_LVL" ng-required="true" ng-disabled="!selectedRow"></td>
+									<th class=alert-info scope=row>순위</th>
+									<td><input type="number" min="0" max="99" class="form-control" ng-model="dtl.PRG_ORD" ng-disabled="!selectedRow"></td>
+								</tr>
+								<tr>
+									<th class=alert-info scope=row>프로그램경로</th>
+									<td colspan=3><input type="text" class="form-control" ng-model="dtl.PRG_PATH" ng-required="dtl.PRG_TYPE_CD == '20'" ng-disabled="!selectedRow"></td>
+									<th class=alert-info scope=row>프로그램파일명</th>
+									<td><input type="text" class="form-control" ng-model="dtl.PRG_FILE_NM" ng-required="dtl.PRG_TYPE_CD == '20'" ng-disabled="!selectedRow"></td>
+								</tr>
+								<tr>
+									<th class=alert-info scope=row>프로그램이미지명</th>
+									<td class="form-inline"><input id="PRG_ID" type="text" class="form-control" ng-model="dtl.PRG_IMG_NM" ng-disabled="!selectedRow" readonly="readonly"><button class="btn btn-default" type="button" ng-click="selectImage()" ng-disabled="!selectedRow"><i class="fa fa-search"></i></button></td>
+									<th class=alert-info scope=row>사용여부</th>
+									<td>
+									
+										<label class="radio-inline" ng-repeat="item in use_yn_list">
+		                                    <input type="radio" ng-model="dtl.USE_YN" ng-disabled="!selectedRow" value="{{item.DTL_CD}}">{{item.DTL_CD_NM}}
+		                                </label>
+									
+										<!-- <select class="form-control" ng-model="dtl.USE_YN" ng-required="true" ng-disabled="!selectedRow"> 
+		                                    <option value="{{item.DTL_CD}}" ng-repeat="item in use_yn_list">{{item.DTL_CD_NM}}</option>
+		                                </select> -->
+									</td>
+									<th class=alert-info scope=row>차트자동생성여부</th>
+									<td>
+										<label class="radio-inline" ng-repeat="item in chart_atmc_setup_yn">
+		                                    <input type="radio" ng-model="dtl.CHART_ATMC_SETUP_YN" ng-disabled="!selectedRow" value="{{item.DTL_CD}}">{{item.DTL_CD_NM}}
+		                                </label>
+									
+										<!-- <select class="form-control" ng-model="dtl.CHART_ATMC_SETUP_YN" ng-required="true" ng-disabled="!selectedRow"> 
+		                                    <option value="{{item.DTL_CD}}" ng-repeat="item in chart_atmc_setup_yn">{{item.DTL_CD_NM}}</option>
+		                                </select> -->
+									</td>
+								</tr>
+								<tr>
+									<th class=alert-info scope=row>차트구성(라인번호/차트수)</th>
+									<td colspan=5>
+										<!-- <input type="text"  style="width: 30px; text-align: right;" value="1" readonly="readonly"> / <input type="text"  style="width: 30px; text-align: right;"><b>,</b> 
+										<input type="text"  style="width: 30px; text-align: right;" value="2" readonly="readonly"> / <input type="text"  style="width: 30px; text-align: right;"><b>,</b>
+										<input type="text"  style="width: 30px; text-align: right;" value="3" readonly="readonly"> / <input type="text"  style="width: 30px; text-align: right;"><b>,</b>
+										<input type="text"  style="width: 30px; text-align: right;" value="4" readonly="readonly"> / <input type="text"  style="width: 30px; text-align: right;"><b>,</b>
+										<input type="text"  style="width: 30px; text-align: right;" value="5" readonly="readonly"> / <input type="text"  style="width: 30px; text-align: right;"> -->
+										<div class="text-right" >
+											<label class="radio-inline" ng-repeat="item in line_column_se_cd">
+			                                    <input type="radio" ng-model="dtl.LINE_COLUMN_SE_CD" ng-disabled="!selectedRow" value="{{item.DTL_CD}}">{{item.DTL_CD_NM}}
+			                                </label>
+										
+											<button class="btn btn-info btn-xs" ng-click="addCmpstList()"><i class="fa fa-plus-circle fa-fw"></i> </button>
+											<button class="btn btn-info btn-xs" ng-click="removeCmpstList()"><i class="fa fa-minus-circle fa-fw"></i> </button>
+										</div>
+										<div class="gridStyle" >
+											<div style="height:150px" ui-grid="gridOptions2" ui-grid-selection ui-grid-resize-columns ui-grid-edit></div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="alert alert-danger" ng-show="myForm.$invalid && selectedRow">
+							<span>Message: 
+							{{
+								dtl.PRG_ID == null ? "메뉴ID는 필수입니다." : 
+								dtl.PRG_NM == null ? "메뉴명은 필수입니다." :
+								dtl.PRG_TYPE_CD == null ? "유형은 필수입니다." : 
+								dtl.PRG_LVL == null ? "레벨은 필수입니다." :
+								dtl.PRG_PATH == null ? "프로그램경로는 필수입니다." : 
+								dtl.PRG_FILE_NM == null ? "프로그램파일명은 필수입니다." :
+								dtl.USE_YN == null ? "사용여부는 필수입니다." : 
+								dtl.LINE_COLUMN_SE_CD == null ? "라인컬럼구분은 필수입니다." : ""
+							}}
+							</span>
+						</div>
+					</div>
+					
+				</div>

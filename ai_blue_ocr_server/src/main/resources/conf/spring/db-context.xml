@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd	
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd" default-autowire="byName">
+
+<!-- DATASOURCE 1 START -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="${database.driverClassName}"/>
+	    <property name="url" value="${database.url}"/>
+	    <property name="username" value="${database.username}"/>
+	    <property name="password" value="${database.password}"/>
+	    <property name="validationQuery" value="select 1"/>
+  	</bean>
+  	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+    	<property name="configLocation" value="classpath:conf/database/ibatis-config.xml"/>
+    	<property name="dataSource" ref="dataSource"/>
+    	<!-- property name="mappingLocations">
+    		<list>
+    			<value>classpath:**/sql/*-sqlmap.xml</value>
+    		</list>
+    	</property-->
+  	</bean>
+  	
+  	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+	  	<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<bean id="mainService" class="com.sht.springmvc.main.service.MainService">
+	  <property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<bean id="userService" class="com.sht.springmvc.user.service.UserService">
+	  <property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<bean id="commMessageService" class="com.sht.springmvc.comm.service.CommMessageService">
+	  <property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	
+	<bean id="adminService" class="com.sht.springmvc.admin.service.AdminService">
+	  <property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+  	
+  	<!-- bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+  		<property name="sqlMapClient" ref="sqlMapClient"/>
+  	</bean>
+  	
+	<bean id="stcreativeIBatisDao" class="kr.co.stc.core.jdbc.ibatis.STCreativeiBatisDao">
+		<property name="sqlMapClientTemplate" ref="sqlMapClientTemplate"/>
+	</bean-->
+  	
+  	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+  	</bean>
+  	
+  	
+<!-- DATASOURCE 1 END -->
+  	
+  	<!-- tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/-->
+</beans>

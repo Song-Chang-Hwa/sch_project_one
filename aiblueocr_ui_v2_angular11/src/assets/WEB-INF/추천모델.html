@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Aiblueocr</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="title" content="Aiblueocr" />
+<meta name="Author" content="Aiblueocr" />
+<meta name="keywords" content="Aiblueocr" />
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aiblueocr">
+<meta property="og:url" content="http://www.url.co.kr/">
+<!-- <meta property="og:image" content=""> -->
+<meta property="og:description" content="Aiblueocr을 기반으로 예측정비, 부당청구 탐지, 개인화 추천 솔루션을 제공합니다."/>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+<meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,width=device-width'>
+
+<link rel="apple-touch-icon" sizes="57x57" href="../resources/img_app/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../resources/img_app/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../resources/img_app/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../resources/img_app/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../resources/img_app/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../resources/img_app/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../resources/img_app/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../resources/img_app/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../resources/img_app/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../resources/img_app/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../resources/img_app/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../resources/img_app/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../resources/img_app/favicon/favicon-16x16.png">
+<link rel="manifest" href="../resources/img_app/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../resources/img_app/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<script type="text/javascript" language="javascript" src="../resources/js/html5.js"></script>
+<!-- Main scripts -->
+<script type="text/javascript" language="javascript" src="../resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/bootstrap.js"></script>
+
+<script type="text/javascript" charset="utf-8" src="../resources/js/modernizr.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/platform.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/mobile-detect.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/js/mobile-detect-modernizr.js"></script>
+
+<!-- Data picker -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/js/jquery.metisMenu.js"></script>
+
+<script type="text/javascript" language="javascript" src="../resources/js/ui.js"></script>
+
+<!-- jsTree -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/jsTree/jstree.min.js"></script>
+
+<!-- TouchSpin -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/touchspin/jquery.bootstrap-touchspin.js"></script>
+
+<!-- confirm -->
+<script type="text/javascript" language="javascript" src="../resources/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+
+
+<!-- rangeslider resources -->
+<script src="../resources/js/lib/rangeslider.min.js"></script>
+<script src="../resources/js/lib/rangeSliderCustom.js"></script>
+
+<!-- dataGrid resources -->
+<script src="../resources/js/lib/dx.all.js"></script>
+<!-- demo develpoer data -->
+<script src="../resources/js/lib/dataGridDemoData.js"></script>
+<script src="../resources/js/lib/dataGridCustom.js"></script>
+
+
+<!-- chartJS resources -->
+<script src="../resources/js/lib/chartjs.js"></script>
+<script src="../resources/js/lib/Chart.bundle.js"></script>
+<script src="../resources/js/lib/chartPlugin.js"></script>
+
+<!-- demo develpoer data -->
+<script src="../resources/js/lib/chartJsDemoData.js"></script>
+<script src="../resources/js/lib/chartCustom.js"></script>
+
+<!-- datepiker -->
+<script src="../resources/js/lib/moment.min.js"></script>
+<script src="../resources/js/lib/daterangepicker.js"></script>
+
+
+<!-- publishing resources -->
+<script src="../resources/js/scripts.js"></script>
+<script src="../resources/js/swiper.js"></script>
+
+
+
+
+<!-- layout css -->
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
+
+</head>
+
+<body>
+
+
+<!-- wrap start -->
+<div id="WRAP">
+	<header id="header" class="opaque fixed sub_header">
+		<div class="header-anim">
+			<div class="header-container">				
+				<div class="header-inner">
+					<div class="util-cont">
+						<a href="#" class="hamburger navbar-minimalize">
+							<div class="hamburger-detail">
+								<span>line</span>
+								<span>line</span>
+								<span>line</span>
+							</div>
+						</a>
+					</div>
+					<h1 class="brand"><a href="#"><span>Aiblueocr</span></a></h1>
+					<div class="utils">
+						<ul class="menu">							
+							<li class="toggle-menu"><a href="#" class="btn-toggle-menu"><span></span></a></li>
+						</ul>
+					</div>
+				</div>				
+			</div>
+			<div class="logoutArea">
+				<div class="user-name">abc@naver.com</div>
+				<ul>						
+					<li>
+						<a href="#" title="language">
+							<p class="language">언어선택</p>
+						</a>
+						<div class="language-inner">
+	                        <ul>
+	
+	                            <li>
+	                                <a href="#">KOREAN</a>
+	                            </li>
+	                            <li class="on">
+	                                <a href="#">ENGLISH</a>
+	                            </li>
+	                        </ul>
+	                    </div>
+					</li>
+					<li>
+						<a href="#" title="비밀번호변경">
+							<p class="pwModify">비밀번호변경</p>
+						</a>
+					</li>
+					<li>
+						<a href="#" title="로그아웃">
+							<p class="topLogout">로그아웃</p>
+						</a>
+					</li>
+				</ul>					
+			</div>
+
+		</div>
+		
+
+	</header>
+
+	<aside id="mobileNav">
+		<div class="mobile-nav">
+			<div class="mobile-nav-header">
+				<h2 class="brand"><a href="#"></a></h2>
+				<a href="#" class="btn-toggle-menu active" title="">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+					<path fill-rule="evenodd"  fill="#1c90fb" d="M22.008,20.949 L20.960,21.996 L11.004,12.050 L1.048,21.996 L0.082,21.031 L10.038,11.085 L-0.000,1.058 L1.048,0.011 L11.086,10.038 L21.042,0.093 L22.008,1.058 L12.052,11.003 L22.008,20.949 Z"/>
+				</svg>
+				</a>
+				<a href="#" class="mlogoutIco"></a>
+			</div>
+			<div class="mobile-nav-body">
+
+				<div class="mobileInfo">
+					<div class="mobileUser">
+						<a href="#">abc@naver.com</a>
+					</div>
+					<div class="mobileLang">
+						<ul>
+							<li class="on"><a href="#">KOR</a></li>
+							<li><a href="#">ENG</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<ul class="gnb">
+					<li>
+						<div class="first-menu " >
+							<a href="javascript:;"><span>추천정의</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="first-menu">
+							<a href="javascript:;"><span>추천모델</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="first-menu">
+							<a href="javascript:;"><span>모델평가</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="first-menu">
+							<a href="javascript:;"><span>레이아웃</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="first-menu">
+							<a href="javascript:;"><span>시뮬레이션</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+					<li>
+						<div class="first-menu">
+							<a href="javascript:;"><span>모니터링</span></a>
+						</div>
+						<ul class="sub-menu">
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+							<li><a href="#"><span>컨텐츠관리1</span></a></li>
+						</ul>
+					</li>
+				</ul>
+
+			</div>
+		</div>		
+	</aside>
+
+	<!--//search_rm-->
+	<!-- HEADER END -->
+
+
+	<!-- global loading -->
+	<div class="data-load">
+		<img class="load-out" src="../resources/img_app/load_img_out.png" alt="">
+		<img class="load-in" src="../resources/img_app/load_img_inner.png" alt="">
+	</div>
+
+
+	<!-- contentWrap start -->
+    <div id="wrapper">
+		<nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+		          <li class="active">
+                        <a href="#"><i class="mnImg01"></i> <span class="nav-label">추천정의</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="mnImg02"></i> <span class="nav-label">추천모델</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="mnImg03"></i> <span class="nav-label">모델평가</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#"><i class="mnImg04"></i> <span class="nav-label">레이아웃</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#"><i class="mnImg05"></i> <span class="nav-label">시뮬레이션</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="#"><i class="mnImg06"></i> <span class="nav-label">모니터링</span> <span class="arrow01"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+                            <li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+							<li><a href="#">2Depth</a></li>
+                        </ul>
+                    </li>           
+                </ul>
+
+            </div>
+        </nav>
+		<!-- #gnb e -->
+		
+		<div id="page-wrapper">
+			<h2 class="tit-level1">모델 평가</h2>
+
+			<div class="definitionProcess recommModelProcess">
+				<div class="step-container step1">
+					<span class="progress"></span>
+					<ul class="panel-indicators">
+						<li id="step1" class="on">
+							<a href="#">
+								<span>세그먼트 선택</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step2">
+							<a href="#">
+								<span>데이터 탐색</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step3">
+							<a href="#">
+								<span>선호도 정의</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step4">
+							<a href="#">
+								<span>추천 모델 선택</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step5">
+							<a href="#">
+								<span>데이터 분할</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step6">
+							<a href="#">
+								<span>알고리즘 선택</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+						<li id="step7">
+							<a href="#">
+								<span>모델 학습</span>
+							</a>
+							<div class="step-guide">
+								<p >step guide description....</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="subConView">
+				<div class="stepConWrap">
+					<div class="swiper-container" id="stepContent">						
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<!-- 세그먼트 선택 -->
+								<div class="grid-wrap">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerC1" class="dataGrid"></div>
+										</div>
+									</div>									
+								</div>
+								<!-- 세그먼트 선택 -->								
+							</div>
+
+							<div class="swiper-slide">
+								<!-- 데이터 탐색 -->
+								
+								<div class="board_top mT10">
+									<div class="listSearch listSearchType01">
+										<div class="formInput">
+											<div class="selects">
+												<select class="form-control" name="">
+													<option value="" selected>selected</option>
+													<option value="">타이틀</option>
+													<option value="">타이틀</option>
+												</select>
+											</div>
+										</div>
+										<div class="formInput">
+											<div class="input-group">
+												<input type="text" class="form-control">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-default"><i class="ti-search"></i></button>
+												</span>
+											</div>
+										</div>								
+									</div>
+									<div class="dataSetInfo">
+										<ul>
+											<li>
+												<dl>
+													<dt>결측값<dt>
+													<dd>0</dd>
+												<dl>
+											</li>
+											<li>
+												<dl>
+													<dt>중복값<dt>
+													<dd>0</dd>
+												<dl>
+											</li>
+											<li>
+												<dl>
+													<dt>컬럼수<dt>
+													<dd>13</dd>
+												<dl>
+											</li>
+											<li>
+												<dl>
+													<dt>데이터 갯수<dt>
+													<dd>2346</dd>
+												<dl>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="grid-wrap mT0">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerB2" class="dataGrid"></div>
+										</div>
+									</div>
+									<div class="btnArea text-right">
+										<a href="#" class="btn btn-info btn-outline">데이타 초기화</a>
+										<a href="#" class="btn btn-primary">확인</a>
+									</div>
+								</div>
+								<!-- 데이터 탐색 -->								
+							</div>
+
+							<div class="swiper-slide">
+								<!-- 선호도 정의 -->
+								<div class="chartBtnArea">
+									<div class="chartBtn">
+										<a href="#" class="btn btn-default" title="폴더추가"><i class="ti-folder"></i></a>
+										<a href="#" class="btn btn-default" title="폴더삭제"><i class="ti-trash"></i></a>
+										<a href="#" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+										<a href="#" class="btn btn-default" title="복사"><i class="ti-files"></i></a>
+										<a href="#" class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+										<a href="#" class="btn btn-primary" title="Pref 재처리">Pref 재처리</a>
+									</div>														
+								</div>
+								<div class="segmentType colRow">
+									<div class="packList col20">
+										<div class="treeCon mCustomScrollbar">
+											<div id="segmentTypeTree">
+												<ul>
+													<li class="jstree-open">1depth
+														<ul>
+															<li>1. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>2. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>3. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>4. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>5. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+															<li>6. 내용입니다.
+																<ul>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																	<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																</ul>
+															</li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+									<div class="packInfo col80">
+										<div class="writeTypeCon">
+											<div class="writeType01 viewTable01">
+												<div class="requiredInfor">					
+													<div class="form-Area">
+														<div class="form-group">
+															<label class="control-label"><span class="star01">선호명</span></label>
+															<div class="formInput">
+																<input type="text" class="form-control">
+															</div>																			
+														</div>
+														<div class="form-group">
+															<label class="control-label"><span class="star01">선호유형</span></label>
+															<div class="formInput">
+																<div class="input-group">
+																	<input type="text" class="form-control">
+																	<span class="input-group-btn">
+																		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#typePop"><i class="ti-search"></i></button>
+																	</span>
+																</div>
+															</div>																			
+														</div>
+														<div class="form-group">
+															<label class="control-label"><span class="star01">선호타입</span></label>
+															<div class="formInput">
+																<a href="#" class="btn btn-info btn-outline">Manual</a>
+																<a href="#" class="btn btn-primary btn-outline" data-toggle="modal" data-target="#weightSetupPop">가중치 자동설정</a>
+															</div>																			
+														</div>
+														<div class="form-group">
+															<label class="control-label"><span class="star01">선호설명</span></label>
+															<div class="formInput">
+																<input type="text" class="form-control">
+															</div>																			
+														</div>
+														<div class="form-group">
+															<label class="control-label"><span class="star01">상태</span></label>
+															<div class="formInput">
+																<div class="selects">
+																	<select class="form-control" name="">
+																		<option value="" selected="">학습대기중</option>
+																		<option value="">타이틀</option>
+																		<option value="">타이틀</option>
+																	</select>
+																</div>
+															</div>																				
+														</div>
+														<div class="form-group">
+															<label class="control-label"><span class="star01">순서</span></label>
+															<div class="formInput">
+																<input class="touchspin01" type="text" value="1" name="demo">
+															</div>																			
+														</div>															
+													</div>
+												</div>
+											</div>
+
+											<div class="grid-wrap">
+												<div class="panel-field grid margin-reset">
+													<div class="data-table">
+														<div id="gridContainerB9" class="dataGrid"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 선호도 정의 -->	
+							</div>
+							<div class="swiper-slide">
+								<!-- 추천 모델 선택 -->
+								<div class="modelSelectTabWrap">
+									<div class="modelSelectTab">
+										<div class="modelSelectTabList">
+											<div class="modelSelectIco modelSelectTabCon01">
+												<a href="#">통계 기반 추천</a>
+											</div>
+										</div>
+										<div class="modelSelectTabList">
+											<div class="modelSelectIco modelSelectTabCon02">
+												<a href="#">편성 기반 추천</a>
+											</div>										
+										</div>
+										<div class="modelSelectTabList">
+											<div class="modelSelectIco modelSelectTabCon03">
+												<a href="#">AI 기반 추천</a>
+											</div>									
+										</div>
+									</div>
+									<!-- 추천 모델 선택 -->
+
+									<div class="modelSelectWrap">
+										<div class="modelSelectCon">
+											<div class="chartBtnArea">
+												<div class="chartBtn">
+													<a href="#" class="btn btn-default" title="폴더추가"><i class="ti-folder"></i></a>
+													<a href="#" class="btn btn-default" title="폴더삭제"><i class="ti-trash"></i></a>
+													<a href="#" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+													<a href="#" class="btn btn-default" title="복사"><i class="ti-files"></i></a>
+													<a href="#" class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+													<a href="#" class="btn btn-primary" title="Stats 재처리">Stats 재처리</a>
+												</div>														
+											</div>
+											<div class="segmentType colRow">
+												<div class="packList02 col20">
+													<div class="treeCon mCustomScrollbar">
+														<div id="modelSelectTree">
+															<ul>
+																<li class="jstree-open">1depth
+																	<ul>
+																		<li>1. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>2. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>3. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>4. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>5. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
+
+												<div class="packInfo col80">
+													<div class="writeTypeCon">
+														<div class="writeType01 viewTable01">
+															<div class="requiredInfor">					
+																<div class="form-Area">
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">Pack명</span></label>
+																		<div class="formInput">
+																			<div class="input-group">
+																				<input type="text" class="form-control">
+																				<span class="input-group-btn">
+																					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#typePop"><i class="ti-search"></i></button>
+																				</span>
+																			</div>
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">Statistics명</span></label>
+																		<div class="formInput">
+																			<input type="text" class="form-control">
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">Statistics유형</span></label>
+																		<div class="formInput">
+																			<div class="input-group">
+																				<input type="text" class="form-control">
+																				<span class="input-group-btn">
+																					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#typePop"><i class="ti-search"></i></button>
+																				</span>
+																			</div>
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">Statistics구분</span></label>
+																		<div class="formInput">
+																			<div class="selects">
+																				<select class="form-control" name="">
+																					<option value="" selected="">인기순</option>
+																					<option value="">타이틀</option>
+																					<option value="">타이틀</option>
+																				</select>
+																			</div>
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">반환아이템수</span></label>
+																		<div class="formInput">
+																			<input class="touchspin01" type="text" value="1" name="demo">
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">설명</span></label>
+																		<div class="formInput">
+																			<input type="text" class="form-control">
+																		</div>																			
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">상태</span></label>
+																		<div class="formInput">
+																			<div class="selects">
+																				<select class="form-control" name="">
+																					<option value="" selected="">학습대기중</option>
+																					<option value="">타이틀</option>
+																					<option value="">타이틀</option>
+																				</select>
+																			</div>
+																		</div>																				
+																	</div>
+																	<div class="form-group">
+																		<label class="control-label"><span class="star01">순서</span></label>
+																		<div class="formInput">
+																			<div class="input-group">
+																				<input class="touchspin" type="text" value="1" name="demo">
+																				<span class="input-group-btn">
+																					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#packQueryPop">SQL</button>
+																				</span>
+																			</div>
+																		</div>																			
+																	</div>															
+																</div>
+															</div>
+														</div>
+
+														<div class="grid-wrap">
+															<div class="panel-field grid margin-reset">
+																<div class="data-table">
+																	<div id="gridContainerB11" class="dataGrid"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="modelSelectCon">
+											<div class="chartBtnArea">
+												<div class="chartBtn">
+													<a href="#" class="btn btn-default" title="폴더추가"><i class="ti-folder"></i></a>
+													<a href="#" class="btn btn-default" title="폴더삭제"><i class="ti-trash"></i></a>
+													<a href="#" class="btn btn-default" title="저장"><i class="ti-save"></i></a>
+													<a href="#" class="btn btn-default" title="복사"><i class="ti-files"></i></a>
+													<a href="#" class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+												</div>														
+											</div>
+											<div class="segmentType colRow">
+												<div class="packList03 col20">
+													<div class="treeCon mCustomScrollbar">
+														<div id="manualTree">
+															<ul>
+																<li class="jstree-open">1depth
+																	<ul>
+																		<li>1. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>2. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>3. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>4. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>5. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																		<li>6. 내용입니다.
+																			<ul>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																				<li data-jstree='"type":"content01"}'>내용입니다.</li>
+																			</ul>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+
+												<div class="packInfo col80">
+													<div class="writeTypeCon">
+														<div class="sectionCon">
+															<h2 class="tit-level2">Manual 정보</h2>
+															<div class="writeType01 viewTable01">										
+																<div class="requiredInfor">					
+																	<div class="form-Area">
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">Pack명</span></label>
+																			<div class="formInput">
+																				<div class="input-group">
+																					<input type="text" class="form-control">
+																					<span class="input-group-btn">
+																						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#typePop"><i class="ti-search"></i></button>
+																					</span>
+																				</div>
+																			</div>																			
+																		</div>
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">Manual명</span></label>
+																			<div class="formInput">
+																				<input type="text" class="form-control">
+																			</div>																			
+																		</div>
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">Manual유형</span></label>
+																			<div class="formInput">
+																				<div class="input-group">
+																					<input type="text" class="form-control">
+																					<span class="input-group-btn">
+																						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#typePop"><i class="ti-search"></i></button>
+																					</span>
+																				</div>
+																			</div>																			
+																		</div>																	
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">반환아이템수</span></label>
+																			<div class="formInput">
+																				<input class="touchspin01" type="text" value="1" name="demo">
+																			</div>																			
+																		</div>
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">순서</span></label>
+																			<div class="formInput">
+																				<input class="touchspin01" type="text" value="1" name="demo">
+																			</div>																			
+																		</div>
+																		<div class="form-group">
+																			<label class="control-label"><span class="star01">설명</span></label>
+																			<div class="formInput">
+																				<input type="text" class="form-control">
+																			</div>																			
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<div class="sectionCon">
+															<h2 class="tit-level2">Manual 구성</h2>
+															<div class="remarkLayoutWrap">
+																<div class="chartBtn">
+																	<a href="#" class="btn btn-info btn-outline" title="아이템 선택" data-toggle="modal" data-target="#itemSelectPop">아이템 선택</a>
+																	<a href="#" class="btn btn-default" title="삭제"><i class="ti-trash"></i></a>
+																</div>	
+																<div class="remarkLayout">
+																	<ul>
+																		<li class="remarkLayout01">통계기반</li>
+																		<li class="remarkLayout02">CF기반</li>
+																		<li class="remarkLayout03">편성기반</li>
+																	</ul>
+																</div>
+															</div>
+
+															<div class="layoutListWrap">
+																<div class="layoutListCon mCustomScrollbar">
+																	<div class="lectureWrap" id="lectureSlide">
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor01"><p>통계<span>기반</span></p></div>
+																				<div class="lectureThumbnail">															
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor02"><p>CF<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="item">
+																			<div class="itemDetail">
+																				<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+																				<div class="lectureThumbnail">
+																					<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+																				</div>
+																				<div class="description">
+																					<em class="txt_info">[수학/수학 나] 정승제</em>
+																					<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															
+														</div>
+
+														<div class="sectionCon">
+															<h2 class="tit-level2">Item 정보</h2>
+															<div class="writeType02">										
+																<div class="row form-horizontal">
+																	<div class="col-sm-12">
+																		<div class="viewTable">
+																			<div class="form-group">
+																				<label class="col-sm-2 control-label labelTitle"><span class="">아이템유형</span></label>
+																				<div class="col-sm-4">
+																					<input type="text" class="form-control">
+																				</div>
+																				<div class="col-sm-4">
+																					<input type="text" class="form-control">
+																				</div>
+																				<div class="col-sm-2">
+																					<input class="touchspin01" type="text" value="1" name="demo">
+																				</div>
+																			</div>
+																			<div class="hr-line-dashed"></div>
+																			<div class="form-group">
+																				<label class="col-sm-2 control-label labelTitle"><span class="">아이템 정보</span></label>
+																				<div class="col-sm-10">
+																					<textarea class="form-control" placeholder="" rows="2"></textarea>
+																				</div>
+																			</div>
+																			<div class="form-group">
+																				<label class="col-sm-2 control-label labelTitle"></label>
+																				<div class="col-sm-10">
+																					<textarea class="form-control" placeholder="" rows="2"></textarea>
+																				</div>														
+																			</div>																		
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="modelSelectCon">
+											AI 기반 추천 내용
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="swiper-slide">
+								<!-- 데이타 분할 -->
+								<div class="data-filter text-right">
+									<div class="column">
+										<div class="tab-title-radio">
+											<ul>
+												<li rel="tabRadioB-1" class="on">
+													<a href="#">학습-평가 데이터 분할</a>
+												</li>
+												<li rel="tabRadioB-2">
+													<a href="#">교차검증</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+								<div class="cont-box panel-field">
+									<div id="tabRadioB" class="tab-component">
+										<div class="tabRadioB-1 tab-content01">
+											<h4 class="tit-level3">평가 데이터 분할 비율</h4>
+											<p>평가 데이터의 비율은 2~98% 사이여야 합니다.</p>
+
+											<div class="range-box">
+												<input class="range-rate percentage" type="range" title="range">
+												<div class="range-text">
+													<input type="text" class="form-control">
+													<span>%</span>
+												</div>
+											</div>
+										</div>
+										<div class="tabRadioB-2 tab-content01">
+											<h4 class="tit-level3">Number of cross-validation ( CV ) folds</h4>
+											<p>
+												Tje mi,ber pf CV folds defined between 2 - 50
+											</p>
+
+											<div class="range-box">
+												<input class="range-rate number" type="range" title="range">
+												<div class="range-text">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<!-- 데이타 분할 -->
+							</div>
+
+							<div class="swiper-slide">
+								<!-- 알고리즘 선택 -->
+								<div class="algorithmWrap colRow">
+									<div class="algorithm01 col60">
+										<div class="algorithmSelect">
+											<div class="algorithmSelectList algorithmCon01">
+												<h3>유사도 기반</h3>
+												<ul class="algorithmSelectCon mCustomScrollbar">
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck1" /><label for="algorithmCheck1" class="checkbox">사용자기반 CF</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck2" /><label for="algorithmCheck2" class="checkbox">아이템기반 CF</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck3" /><label for="algorithmCheck3" class="checkbox">Matrix Factorization</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck4" /><label for="algorithmCheck4" class="checkbox">BPR</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck4" /><label for="algorithmCheck4" class="checkbox">BPR</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck4" /><label for="algorithmCheck4" class="checkbox">BPR</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck4" /><label for="algorithmCheck4" class="checkbox">BPR</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+
+												</ul>
+											</div>
+											<div class="algorithmSelectList algorithmCon02">
+												<h3>딥러닝 기반</h3>
+												<ul class="algorithmSelectCon mCustomScrollbar">
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck5" /><label for="algorithmCheck5" class="checkbox">Deep CF</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck6" /><label for="algorithmCheck6" class="checkbox">Deep FM</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck7" /><label for="algorithmCheck7" class="checkbox">RNN</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>													
+												</ul>
+											</div>
+											<div class="algorithmSelectList algorithmCon03">
+												<h3>컨텐츠 기반</h3>
+												<ul class="algorithmSelectCon mCustomScrollbar">
+													<li>
+														<dl>
+															<dt>
+																<div class="checkbox-out">
+																	<input  type="checkbox" id="algorithmCheck8" /><label for="algorithmCheck8" class="checkbox">Item2vec</label> 
+																</div>
+															</dt>
+															<dd><a href="#" class="algorithmSearch"><i class="ti-search"></i></a></dd>
+														</dl>
+													</li>													
+												</ul>
+											</div>
+										</div>
+										
+									</div>
+									<div class="algorithm02 col40">
+										<div class="algorithmList">
+											<h2 class="tit-level2">모델선택 목록</h2>
+											<div class="grid-wrap mT0">
+												<div class="panel-field grid margin-reset">
+													<div class="data-table">
+														<div id="gridContainerB10" class="dataGrid"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 알고리즘 선택 -->
+							</div>						
+
+							<div class="swiper-slide">
+								<!-- 모델 학습 -->
+								<div class="complete-box">
+									<div class="complete-box-inner">
+										<a href="#" class="btn btn-primary btn-lg">Data Input Restart</a>
+										<a href="#" class="btn btn-info btn-lg">Model Mangement</a>
+										<p>
+											Complete Model deployment.<br>
+											Please check the model management menu.
+										</p>
+									</div>
+								</div>
+								<!-- 모델 학습 -->
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+			
+		
+
+
+			
+		</div>
+		<!-- .container-inner e -->
+
+
+    </div>
+
+</div>
+
+
+<!-- toTop start -->
+<div id="gototop">go to top</div>
+<!--// toTop end -->
+
+
+<script src="../resources/js/lib/loadAnimation.js"></script>
+
+
+
+<div class="modal inmodal fade" id="previewPop" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">Preview</h4>
+			</div>
+			
+			<div class="modal-body">
+				
+				Preview 팝업입니다.
+				
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary">확인</a>
+				<a href="#" class="btn btn-info btn-outline" data-dismiss="modal">취소</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal inmodal fade" id="typePop" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">유형선택</h4>
+			</div>
+			
+			<div class="modal-body">
+			
+				<div class="typePopTreeWrap">
+					<div class="treeCon mCustomScrollbar">
+						<div id="typePopTree">
+							<ul>
+								<li class="jstree-open">1depth-7
+									<ul>
+										<li>1. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>2. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>3. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>4. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>5. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+										<li>6. 내용입니다.
+											<ul>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												<li data-jstree='"type":"content01"}'>내용입니다.</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary">확인</a>
+				<a href="#" class="btn btn-info btn-outline" data-dismiss="modal">취소</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal inmodal fade" id="weightSetupPop" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">선호값 선택</h4>
+			</div>
+			
+			<div class="modal-body">
+				<div class="chartBtn text-right mB10">
+					<a href="#" class="btn btn-default">SQL</a>
+				</div>
+
+				<div class="modelChart">
+					<div class="data-chart">
+						<canvas id="mainBarChart" class="mainBarChart"></canvas>
+					</div>
+				</div>
+
+				<div class="grid-wrap">
+					<div class="panel-field grid margin-reset">
+						<div class="data-table">
+							<div id="gridContainerB12" class="dataGrid"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary">저장</a>
+				<a href="#" class="btn btn-info btn-outline" data-dismiss="modal">취소</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal inmodal fade" id="packQueryPop" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">유형선택</h4>
+			</div>
+			
+			<div class="modal-body">
+				<div class="chartBtnArea">
+					<div class="chartBtn">
+						<a href="#" class="btn btn-default" title="폴더추가"><i class="ti-folder"></i></a>
+						<a href="#" class="btn btn-primary" title="적용">적용</a>
+					</div>														
+				</div>
+			
+				<div class="segmentType colRow">
+					<div class="packTree01 col30">
+						<div class="treeCon mCustomScrollbar">
+							<div id="packDateTree">
+								<ul>
+									<li class="jstree-open">1depth
+										<ul>
+											<li>1. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>2. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>3. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>4. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>5. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+											<li>6. 내용입니다.
+												<ul>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+													<li data-jstree='"type":"content01"}'>내용입니다.</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="packInfo col70">
+						<div class="writeTypeCon">
+							<div class="chartBtnArea">
+								<div class="chartBtn">
+									<a href="#" class="btn btn-primary btn-outline" title="SQL">SQL</a>
+									<a href="#" class="btn btn-primary btn-outline" title="">???</a>
+								</div>														
+							</div>
+
+							<div class="sectionCon mT20">
+								<h2 class="tit-level2">표시항목</h2>
+
+								<div class="board_top mT10">
+									<div class="listSearch listSearchType01">
+										<div class="formInput"> 
+											<label class="control-label labelTitle mR10">표시항목 반환요건 설정</label>
+										</div>
+										<div class="formInput">
+											<div class="selects">
+												<select class="form-control" name="">
+													<option value="" selected>selected</option>
+													<option value="">타이틀</option>
+													<option value="">타이틀</option>
+												</select>
+											</div>
+										</div>										
+										<div class="formInput">
+											<input class="touchspin" type="text" value="1" name="demo" style="width:80px;">
+										</div>									
+									</div>
+								</div>
+
+
+								<div class="grid-wrap mT0">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerB5-1" class="dataGrid"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="sectionCon">
+								<h2 class="tit-level2">조건항목</h2>
+
+								<div class="board_top mT10">
+									<div class="listSearch listSearchType01" style="width:100%;">
+										<div class="">
+											<label class="control-label labelTitle">조건식변경</label>
+										</div>
+										<div class="mT10">
+											<div class="checkBodyDetail">
+												<div class="checkBodyWrite wrongAnswerWrite">
+													<textarea class="form-control" placeholder="내용을 입력해 주세요" maxlength="200"></textarea>
+													<p class="txtArea" id="counter">0/200</p>
+												</div>
+												<div class="checkAttch">
+													<ul>
+														<li><a href="#" class="refreshIco"></a></li>
+													</ul>
+													<div class="checkReg"><a href="#" class="checkRegBtn">조건식 점검</a></div>
+												</div>
+											</div>										
+											
+										</div>								
+									</div>
+								</div>
+
+
+								<div class="grid-wrap mT0">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerB5-2" class="dataGrid"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="sectionCon">
+								<h2 class="tit-level2">연결정보 & 정렬</h2>	
+								<div class="grid-wrap mT0">
+									<div class="panel-field grid margin-reset">
+										<div class="data-table">
+											<div id="gridContainerB6" class="dataGrid"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary" id="conFirmModal">확인</a>
+				<a href="#" class="btn btn-info btn-outline" data-dismiss="modal">취소</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal inmodal fade" id="itemSelectPop" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">아이템 선택</h4>
+			</div>
+			
+			<div class="modal-body">
+			
+				<div class="tabWrap">
+					<div class="chartBtnArea">
+						<div class="chartBtn text-right mB10">
+							<a href="#" class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+						</div>														
+					</div>
+					<div class="tabs-container">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#itemSelectnTab01">통계기반</a></li>
+							<li class=""><a data-toggle="tab" href="#itemSelectnTab02">CF기반</a></li>
+							<li class=""><a data-toggle="tab" href="#itemSelectnTab03">편성기반</a></li>
+						</ul>
+						<div class="tab-content">
+							<div id="itemSelectnTab01" class="tab-pane active">
+								<div class="panel-body">
+									<!-- tab 컨텐츠 -->
+									<div class="layoutListWrap">
+										<div class="layoutListConPop mCustomScrollbar">
+											<div class="lectureWrap" id="lectureSlide">
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor01"><p>통계<span>기반</span></p></div>
+														<div class="lectureThumbnail">															
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor02"><p>CF<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상현t_l63201_2021_고23 [화학 1]  중화반응 뽀개기_ver1(2).jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- tab 컨텐츠 -->
+								</div>
+							</div>
+
+							<div id="itemSelectnTab02" class="tab-pane">
+								<div class="panel-body">
+									<!-- tab 컨텐츠 -->
+									<div class="layoutListWrap">
+										<div class="layoutListConPop mCustomScrollbar">
+											<div class="lectureWrap" id="lectureSlide">
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor01"><p>통계<span>기반</span></p></div>
+														<div class="lectureThumbnail">															
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor02"><p>CF<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_박상희t_l64070_new 2022 전략적 사고 [독해로직]_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- tab 컨텐츠 -->
+								</div>
+							</div>
+
+							<div id="itemSelectnTab03" class="tab-pane">
+								<div class="panel-body">
+									<!-- tab 컨텐츠 -->
+									<div class="layoutListWrap">
+										<div class="layoutListConPop mCustomScrollbar">
+											<div class="lectureWrap" id="lectureSlide">
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor01"><p>통계<span>기반</span></p></div>
+														<div class="lectureThumbnail">															
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor02"><p>CF<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+												<div class="item">
+													<div class="checkbox-out">
+														<input  type="checkbox" id="check1" /><label for="check1" class="checkbox"></label>
+													</div>
+													<div class="itemDetail">
+														<div class="lectureColorWrap lectureColor03"><p>편성<span>기반</span></p></div>
+														<div class="lectureThumbnail">
+															<img class="lazy-img loaded" data-src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg" alt="강의 썸네일" src="https://file.etoos.com/lecture/lecturethumbnail/resize_남궁율t_l64450_1학기 중간대비 [수학1] 기출리모델링_ver1.jpg">
+														</div>
+														<div class="description">
+															<em class="txt_info">[수학/수학 나] 정승제</em>
+															<strong class="tit_cont">수능에 꼭 필요한 수학 </strong>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- tab 컨텐츠 -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary">확인</a>
+				<a href="#" class="btn btn-info btn-outline" data-dismiss="modal">취소</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<script>
+$(document).ready(function(){
+
+	$('#definitionTree01').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});
+
+	$('#definitionTree02').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	}); 
+
+	$('#definitionTree03').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});
+
+	$('#definitionTree04').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	}); 
+
+	$('#definitionTree05').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	}); 
+
+	$('#definitionTree06').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});
+
+	$('#definitionTree07').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+	$('#modelSelectTree').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});        
+
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+
+	$('#typePopTree').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});        
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+	$('#packDateTree').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});        
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+	$('#segmentTypeTree').jstree({
+		'core' : {
+		'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+		'default' : {
+			'icon' : 'ti-file'
+		}
+	}
+});        
+
+});
+</script>
+
+<script>
+$(document).ready(function(){
+
+	$('#manualTree').jstree({
+		'core' : {
+			'check_callback' : true
+		},
+		'plugins' : [ 'types', 'dnd' ],
+		'types' : {
+			'default' : {
+				'icon' : 'ti-file'
+			}
+		}
+	});        
+
+});
+</script>
+
+<script>
+$(document).ready(function() {
+
+	$('#conFirmModal').click(function () {
+		swal({
+			title: "추천 세그먼트 분석을 실행 하시겠습니까?",
+			//text: "추천 세그먼트 분석을 실행 하시겠습니까?",
+			type: "info",
+			showCancelButton: true,
+			confirmButtonText: "확인",
+			closeOnConfirm: false
+		}, function () {
+			swal("Suceess", "실행이 완료되었습니다.", "success");
+		});
+	});
+
+});
+</script>
+
+
+
+</body>
+</html>

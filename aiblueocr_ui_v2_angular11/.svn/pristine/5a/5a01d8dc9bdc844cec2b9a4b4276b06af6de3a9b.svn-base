@@ -1,0 +1,42 @@
+<div class="chartBtnArea mT15">
+	<div class="chartBtn">
+		<a href="javascript:void(0);" (click)="search()"  class="btn btn-default" title="새로고침"><i class="ti-loop"></i></a>
+		<a href="javascript:void(0)" (click)="evtBtnSaveClick()" class="btn btn-primary" title="모델확정">모델확정</a>
+	</div>
+</div>
+<div class="conWrap mT10">
+	<div class="conSection">
+		<div class="modelChart">
+			<div class="data-chart">
+				<chart [type]="myChartCallType"
+				[data]="myChartCallData"
+				[options]="myChartCallOptions" id="myChartJs" #myChartJs style="height:360px;"></chart>
+			</div> 
+		</div>
+	</div>
+	
+	<div class="grid-wrap">					
+		<ag-grid-angular
+			id="myGrid"
+			style="width: 100%; height: 190px;"
+			class="ag-theme-alpine"
+			[rowData]="myGridData"
+			[columnDefs]="myGridColumnDefs"
+			[pagination]="myGridPagination"
+			[rowSelection]="myGridtRowSelection"
+			[debug]="true"
+			[rowHeight]="35"
+			[defaultColDef]="myDefaultColDef"
+			paginationAutoPageSize=true
+			(gridReady)="onGridReady($event)"
+			(rowClicked)="onRowClick($event)"
+			(gridSizeChanged)="onGridColumnsSizeChange($event)"
+			(rowDataChanged)="onRowDataChanged($event)"
+			(selectionChanged)="gridOnSelectionChanged($event)"
+		>
+		</ag-grid-angular>
+	</div>
+</div>
+
+		
+
